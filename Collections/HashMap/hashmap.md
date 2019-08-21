@@ -225,7 +225,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      */
     final Node<K,V> getNode(int hash, Object key) {
         /**
-         * 准备好元素
+         * 准备元素
          * tab  : 哈希桶数组
          * n    : 数组长度
          * first: 头节点
@@ -242,18 +242,18 @@ public class HashMap<K, V> extends AbstractMap<K, V>
          */
         if ((tab = table) != null && (n = tab.length) > 0 &&
             (first = tab[(n - 1) & hash]) != null) {
-            /* 总是先检查头节点，匹配则直接返回头节点 */
+            /* 总是先检查头节点，键匹配成功则直接返回头节点 */
             if (first.hash == hash &&
                 ((k = first.key) == key || (key != null && key.equals(k)))) {
                 return first;
             }
             /* 哈希冲突（头节点后继节点有值）*/
             if ((e = first.next) != null) {
-                /* 如果头节点是[红黑树]节点：使用红黑树方法查找目标节点 */
+                /* 节点链为[红黑树]：使用红黑树方法查找目标节点 */
                 if (first instanceof TreeNode) {
                     return ((TreeNode<K,V>)first).getTreeNode(hash, key);
                 }
-                /* 头节点是[链表]节点：遍历链表查找目标节点 */
+                /* 节点链为[链表]：遍历链表查找目标节点 */
                 do {
                     if (e.hash == hash &&
                         ((k = e.key) == key || (key != null && key.equals(k)))) {
@@ -262,11 +262,13 @@ public class HashMap<K, V> extends AbstractMap<K, V>
                 } while ((e = e.next) != null);
             }
         }
+        /* 没找到：该键值对不存在，返回 null */
         return null;
     }
 ...
 ```
 > 代码清单：`get()`方法实现
+
 
 
 ```java
