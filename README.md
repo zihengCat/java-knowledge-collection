@@ -1,4 +1,4 @@
-# Java Knowledge Points Collection
+# Java Knowledge Collection
 
 Java 核心知识点收集整理。
 
