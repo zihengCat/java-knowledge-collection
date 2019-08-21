@@ -1,8 +1,12 @@
 # Java Knowledge Points Collection
 
-Java 核心知识点收集与整理。
+Java 核心知识点收集整理。
 
 # 目录（TOC）
+
+## 基础
+
+...
 
 ## JVM
 
@@ -12,8 +16,17 @@ Java 核心知识点收集与整理。
 
 3. [JVM 内存区域](./JVM/03.JVM-Memory-Areas/jvm_memory_areas.md)
 
+## 集合
+
+...
+
+## 并发
+
+...
+
+
 # 许可协议（LICENSE）
 
-[MIT](./LICENSE)
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 <!-- EOF -->
