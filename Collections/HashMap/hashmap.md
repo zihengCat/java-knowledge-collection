@@ -10,11 +10,11 @@
 
 在 Java 8 之前，HashMap 底层数据结构为：「数组」+「链表」。
 
+而 Java 8 之后，HashMap 底层数据结构变成了：「数组」+「链表」+「红黑树」。
+
 ![Collections-HashMap-2][Collections-HashMap-2]
 
 > 图：Java 7 HashMap 数据结构
-
-而 Java 8 之后，HashMap 底层数据结构变成了：「数组」+「链表」+「红黑树」。
 
 ![Collections-HashMap-3][Collections-HashMap-3]
 
