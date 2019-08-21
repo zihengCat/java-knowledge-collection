@@ -292,7 +292,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                    boolean evict) {
         /**
-         * 准备好元素
+         * 准备元素
          * tab: 哈希桶数组
          * n  : 数组长度
          * i  : 数组索引
