@@ -16,14 +16,13 @@ Java 核心知识点收集整理。
 
 3. [JVM 内存区域](./JVM/03.JVM-Memory-Areas/jvm_memory_areas.md)
 
+## 并发
+
+1. [Java 并发编程概览](./Concurrency/01.Overview/overview.md)
+
 ## 集合
 
 ...
-
-## 并发
-
-...
-
 
 # 许可协议（LICENSE）
 
