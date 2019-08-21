@@ -261,13 +261,11 @@ public class HashMap<K, V> extends AbstractMap<K, V>
 > 代码清单：`get()`方法实现
 
 
-
-```
+```java
 ...
     /**
      * 将键值对插入哈希表中
      */
-    public V get(Object key) {
     public V put(K key, V value) {
         return putVal(hash(key), key, value, false, true);
     }
@@ -278,7 +276,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      * @param key 目标键
      * @param value 目标值
      * @param onlyIfAbsent 如果设为true，则不改变已存在的值
-     * @param evict 如果设为false，哈希表为 creation mode
+     * @param evict 如果设为false，哈希表为creation mode
      * @return 先前的值，如果无先前键值对则返回 null
      */
     final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
