@@ -24,7 +24,7 @@ Java 核心知识点收集整理。
 
 ## 集合
 
-...
+- [Java HashMap 分析](./Collections/HashMap/hashmap.md)
 
 # 许可协议（LICENSE）
 
