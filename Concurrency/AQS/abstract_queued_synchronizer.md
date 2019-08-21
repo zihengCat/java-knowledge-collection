@@ -34,7 +34,7 @@ AQS 内部维护了一个`volatile int state`（代表共享资源）整数和�
 
 - Share（共享资源）：资源可以由多个线程持有，如：`Semaphore`、`CountDownLatch`。
 
-# AQS 工作原理
+## AQS 工作原理
 
 AQS 只是一个同步框架，AQS 只定义了一个接口，具体资源的获取交由自定义同步器去实现（通过`state`变量）。之所以没有定义成`abstract`，是因为独占模式下只需要实现`tryAcquire()`与`tryRelease()`，而共享模式下只用实现`tryAcquireShared()与`tryReleaseShared()`，独占与共享模式不需要额外去实现另一模式下的接口。
 
