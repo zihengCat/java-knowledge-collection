@@ -68,8 +68,8 @@ Java HashMap 允许 4 种形式的构造函数：
 再来看一看 HashMap 中的类字段。
 
 ```java
-public class HashMap<K, V> extends AbstractMap<K, V>
-    implements Map<K, V>, Cloneable, Serializable {
+public class HashMap<K,V> extends AbstractMap<K,V>
+    implements Map<K,V>, Cloneable, Serializable {
 ...
     /* 序列化号 */
     private static final long serialVersionUID = 362498820763181265L;
