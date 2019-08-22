@@ -26,11 +26,83 @@ Java 中的线程池是用`ThreadPoolExecutor`类来实现的，本文结合 JDK
 
 ![Concurrency-ThreadPool-1][Concurrency-ThreadPool-1]
 
-> 图：`ThreadPoolExecutor`类图
+> 图：Java 线程池类图
 
-# Executor 接口
+# Executor 框架
 
-...
+Executor 框架是根据一组执行策略调用、调度、执行、控制线程的异步任务执行框架，目的是提供一种将「任务提交」与「任务运行」分离的机制。
+
+J.U.C 提供了三个 Executor 接口：
+
+- `Executor`：一个运行新任务的简单接口。
+
+- `ExecutorService`：扩展了`Executor`接口，添加了一些用来管理执行器生命周期和任务生命周期的方法。
+
+- `ScheduledExecutorService`：扩展了`ExecutorService`接口，支持`Future`和定时任务。
+
+## Executor 接口
+
+Executor 接口只有一个`execute()`方法，用来替代通常创建或启动线程的方法。如：使用`Thread`来创建并启动线程。
+
+Executor 接口`execute()`方法的工作模式取决于其具体实现，可能是创建一个新线程并立即启动，也有可能是使用已有的工作线程来运行传入的任务，也可能是根据设置线程池的容量或者阻塞队列的容量来决定是否要将传入的线程放入阻塞队列中或者拒绝接收传入的线程。
+
+```java
+public interface Executor {
+    void execute(Runnable command);
+}
+```
+> 代码清单：`Executor`接口源码
+
+## ExecutorService 接口
+
+ExecutorService 接口继承自 Executor 接口，提供了线程池管理与终止的方法，以及可为跟踪一个或多个异步任务执行状况而生成`Future`的方法。如果需要支持即时关闭，则任务需要正确处理中断。
+
+```java
+public interface ExecutorService extends Executor {
+    void shutdown();
+    List<Runnable> shutdownNow();
+    boolean isShutdown();
+    boolean isTerminated();
+    boolean awaitTermination(long timeout, TimeUnit unit)
+        throws InterruptedException;
+    <T> Future<T> submit(Callable<T> task);
+    <T> Future<T> submit(Runnable task, T result);
+    Future<?> submit(Runnable task);
+    <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
+        throws InterruptedException;
+    <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks,
+                                  long timeout, TimeUnit unit)
+        throws InterruptedException;
+    <T> T invokeAny(Collection<? extends Callable<T>> tasks)
+        throws InterruptedException, ExecutionException;
+    <T> T invokeAny(Collection<? extends Callable<T>> tasks,
+                    long timeout, TimeUnit unit)
+        throws InterruptedException, ExecutionException, TimeoutException;
+}
+```
+> 代码清单：`ExecutorService`接口源码
+
+## ScheduledExecutorService 接口
+
+ScheduledExecutorService 接口扩展了 ExecutorService 接口，增加了 Schedule 调度方法。调用`schedule()`方法可以在指定的延时后执行一个`Runnable`或者`Callable`任务。接口还定义了按照指定时间间隔定期执行任务的`scheduleAtFixedRate()`方法与`scheduleWithFixedDelay()`方法。
+
+```java
+public interface ScheduledExecutorService extends ExecutorService {
+    public ScheduledFuture<?> schedule(Runnable command,
+                                       long delay, TimeUnit unit);
+    public <V> ScheduledFuture<V> schedule(Callable<V> callable,
+                                           long delay, TimeUnit unit);
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command,
+                                                  long initialDelay,
+                                                  long period,
+                                                  TimeUnit unit);
+    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command,
+                                                     long initialDelay,
+                                                     long delay,
+                                                     TimeUnit unit);
+}
+```
+> 代码清单：`ScheduledExecutorService`接口源码
 
 
 [Concurrency-ThreadPool-1]: ../../images/Concurrency-ThreadPool-1.jpg
