@@ -303,7 +303,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         if ((tab = table) == null || (n = tab.length) == 0) {
             n = (tab = resize()).length;
         }
-        /* 哈希不冲突 */
+        /* 哈希未冲突 */
         if ((p = tab[i = (n - 1) & hash]) == null) {
             /* 新建节点直接插入 */
             tab[i] = newNode(hash, key, value, null);
@@ -328,7 +328,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                     /* 使用尾插法将新节点插入到链表尾部 */
                     if ((e = p.next) == null) {
                         p.next = newNode(hash, key, value, null);
-                        /* 加入新节点后链表长度大于等于树化阈值：树化 */
+                        /* 加入新节点后链表长度大于等于阈值：树化 */
                         if (binCount >= TREEIFY_THRESHOLD - 1) { // -1 for 1st
                             treeifyBin(tab, hash);
                         }
@@ -365,12 +365,13 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         }
         /* 操作计数器 + 1 */
         ++modCount;
-        /* 哈希表存放元素个数 + 1
-           节点插入后哈希表元素个数大于临界值：扩容 */
+        /* 哈希表存放元素个数 + 1 */
+        /* 节点插入后哈希表元素个数大于临界值：扩容 */
         if (++size > threshold) {
             resize();
         }
-        /* 节点插入后操作 */
+        /* 节点插入后操作
+           为 LinkedHashMap 准备的后续回调 */
         afterNodeInsertion(evict);
         return null;
     }
@@ -379,6 +380,117 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 > 代码清单：`put()`方法实现
 
 
+```java
+...
+    /**
+     * 初始化或双倍扩容哈希表
+     *
+     * @return 扩容后哈希桶数组
+     */
+    final Node<K,V>[] resize() {
+        /**
+         * 准备元素
+         *
+         * oldTab: 旧数组
+         * oldCap: 旧数组长度
+         * oldThr: 旧临界值
+         * newCap: 新容量
+         * newThr: 新临界值
+         */
+        Node<K,V>[] oldTab = table;
+        int oldCap = (oldTab == null) ? 0 : oldTab.length;
+        int oldThr = threshold;
+        int newCap, newThr = 0;
+        if (oldCap > 0) {
+            /* 容量达到最大值: 不扩容直接返回 */
+            if (oldCap >= MAXIMUM_CAPACITY) {
+                threshold = Integer.MAX_VALUE;
+                return oldTab;
+            }
+            /* 扩容2倍 */
+            else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
+                     oldCap >= DEFAULT_INITIAL_CAPACITY) {
+                newThr = oldThr << 1; // double threshold
+            }
+        }
+        else if (oldThr > 0) { // initial capacity was placed in threshold
+            newCap = oldThr;
+        }
+        else {               // zero initial threshold signifies using defaults
+            newCap = DEFAULT_INITIAL_CAPACITY;
+            newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
+        }
+        if (newThr == 0) {
+            float ft = (float)newCap * loadFactor;
+            newThr = (newCap < MAXIMUM_CAPACITY && ft < (float)MAXIMUM_CAPACITY ?
+                      (int)ft : Integer.MAX_VALUE);
+        }
+        threshold = newThr;
+        /* 创建并设置新哈希桶数组 */
+        @SuppressWarnings({"rawtypes","unchecked"})
+            Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
+        table = newTab;
+        /* 旧数组不为空：移动节点至新数组 */
+        if (oldTab != null) {
+            /* 遍历旧数组 */
+            for (int j = 0; j < oldCap; ++j) {
+                Node<K,V> e;
+                if ((e = oldTab[j]) != null) {
+                    oldTab[j] = null;
+                    /* 单节点：直接放入新数组 */
+                    if (e.next == null) {
+                        newTab[e.hash & (newCap - 1)] = e;
+                    }
+                    /* 节点链为[红黑树] */
+                    else if (e instanceof TreeNode) {
+                        /* 调用红黑树方法拆分为高低子树 */
+                        ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
+                    }
+                    /* 节点链为[链表] */
+                    else { // preserve order
+                        Node<K,V> loHead = null, loTail = null;
+                        Node<K,V> hiHead = null, hiTail = null;
+                        Node<K,V> next;
+                        /**
+                         * 将原链表拆分为两条链表
+                         * 拆分条件：e.hash & oldCap
+                         */
+                        do {
+                            next = e.next;
+                            if ((e.hash & oldCap) == 0) {
+                                if (loTail == null)
+                                    loHead = e;
+                                else
+                                    loTail.next = e;
+                                loTail = e;
+                            }
+                            else {
+                                if (hiTail == null)
+                                    hiHead = e;
+                                else
+                                    hiTail.next = e;
+                                hiTail = e;
+                            }
+                        } while ((e = next) != null);
+                        /* 低位链表：原位置
+                           高位链表：原位置 + 数组容量 */
+                        if (loTail != null) {
+                            loTail.next = null;
+                            newTab[j] = loHead;
+                        }
+                        if (hiTail != null) {
+                            hiTail.next = null;
+                            newTab[j + oldCap] = hiHead;
+                        }
+                    }
+                }
+            }
+        }
+        return newTab;
+    }
+...
+```
+> 代码清单：`resize()`方法实现
 
 
 [Collections-HashMap-1]: ../../images/Collections-HashMap-1.png
