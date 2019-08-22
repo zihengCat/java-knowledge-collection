@@ -104,7 +104,64 @@ public interface ScheduledExecutorService extends ExecutorService {
 ```
 > 代码清单：`ScheduledExecutorService`接口源码
 
+# ThreadPoolExecutor 源码分析
+
+`ThreadPoolExecutor`是最常用的线程池实现类。`ThreadPoolExecutor`继承自抽象父类`AbstractExecutorService`，实现了`ExecutorService`接口。
+
+## 重要字段
+
+`ctl`是对线程池的运行状态和线程池中有效线程的数量进行控制的一个字段，它包含两部分信息：线程池的运行状态`runState`与线程池内有效线程的数量`workerCount`。可以看到，使用了一枚`Integer`整型来保存，高3位保存`runState`，低29位保存`workerCount`。`COUNT_BITS`为29，`CAPACITY`为`2^29`，表示`workerCount`上限值，大约是5亿+。
+
+```java
+public class ThreadPoolExecutor extends AbstractExecutorService {
+...
+    private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
+    private static final int COUNT_BITS = Integer.SIZE - 3;
+    private static final int CAPACITY   = (1 << COUNT_BITS) - 1;
+
+    private static final int RUNNING    = -1 << COUNT_BITS;
+    private static final int SHUTDOWN   =  0 << COUNT_BITS;
+    private static final int STOP       =  1 << COUNT_BITS;
+    private static final int TIDYING    =  2 << COUNT_BITS;
+    private static final int TERMINATED =  3 << COUNT_BITS;
+...
+}
+```
+> 代码清单：`ThreadPoolExecutor`重要字段
+
+线程池一共有五种状态, 分别是:
+
+- `RUNNING`：能接受新提交的任务，并且也能处理阻塞队列中的任务；
+
+- `SHUTDOWN`：关闭状态，不再接受新提交的任务，但却可以继续处理阻塞队列中已保存的任务。在线程池处于`RUNNING`状态时，调用`shutdown()`方法会使线程池进入到该状态。
+
+- `STOP`：不能接受新任务，也不处理队列中的任务，会中断正在处理任务的线程。在线程池处于`RUNNING`或`SHUTDOWN`状态时，调用`shutdownNow()`方法会使线程池进入到该状态；
+- `TIDYING`：如果所有的任务都已终止，`workerCount`（有效线程数）为0，线程池进入该状态后会调用`terminated()`方法进入`TERMINATED`状态。
+
+- `TERMINATED`：在`terminated()`方法执行完后进入该状态，默认`terminated()`方法中不做任何事情。进入`TERMINATED`条件如下：
+    - 线程池不处于`RUNNING`状态；
+    - 线程池不处于`TIDYING`状态或`TERMINATED`状态；
+    - 如果线程池状态处于`SHUTDOWN`并且`workerQueue`为空；
+    - `workerCount`为0；
+    - 设置`TIDYING`状态成功。
+
+线程池的状态转换过程如图所示：
+
+![Concurrency-ThreadPool-2][Concurrency-ThreadPool-2]
+
+> 图：线程池状态转换
+
+## `ctl`相关方法
+
+...
+
+
+
+
+
 
 [Concurrency-ThreadPool-1]: ../../images/Concurrency-ThreadPool-1.jpg
+
+[Concurrency-ThreadPool-2]: ../../images/Concurrency-ThreadPool-2.png
 
 <!-- EOF -->
