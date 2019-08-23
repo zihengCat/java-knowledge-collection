@@ -11,10 +11,10 @@ public class InsertionSort {
         System.out.println(Arrays.toString(arr));
     }
     public static void insertionSort(int[] arr, int left, int right) {
-        for(int i = left; i <= right; ++i) {
+        for (int i = left; i <= right; ++i) {
             int val = arr[i];
             int j;
-            for(j = i - 1; j >= 0 && arr[j] > val; --j) {
+            for (j = i - 1; j >= 0 && arr[j] > val; --j) {
                 arr[j + 1] = arr[j];
             }
             arr[j + 1] = val;
