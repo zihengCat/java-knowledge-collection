@@ -231,7 +231,21 @@ private static int ctlOf(int rs, int wc) { return rs | wc; }
 
 ## `execute()`方法
 
-线程池的`execute()`方法用来提交任务，其代码如下：
+线程池的`execute()`方法用来提交任务。在执行`execute()`方法时如果线程池状态为`RUNNING`时，执行过程如下：
+
+1. 如果`workerCount < corePoolSize`，则创建并启动一个线程来执行新提交的任务；
+
+2. 如果`workerCount >= corePoolSize`，且线程池内的阻塞队列未满，则将新任务添加到该阻塞队列中；
+
+3. 如果`workerCount >= corePoolSize && workerCount < maximumPoolSize`，且线程池内的阻塞队列已满，则创建并启动一个线程来执行新提交的任务；
+
+4. 如果`workerCount >= maximumPoolSize`，并且线程池内的阻塞队列已满, 则根据拒绝策略来处理该任务, 默认处理方式是直接抛出异常。
+
+执行流程图如下：
+
+![Concurrency-ThreadPool-3][Concurrency-ThreadPool-3]
+
+> 图：线程池`execute()`方法流程图
 
 ```java
 public void execute(Runnable command) {
@@ -308,15 +322,15 @@ public void execute(Runnable command) {
 > 代码清单：线程池`execute()`源码
 
 
+## `addWorker()`方法
 
-
-
-
-
+...
 
 
 [Concurrency-ThreadPool-1]: ../../images/Concurrency-ThreadPool-1.jpg
 
 [Concurrency-ThreadPool-2]: ../../images/Concurrency-ThreadPool-2.png
+
+[Concurrency-ThreadPool-3]: ../../images/Concurrency-ThreadPool-3.png
 
 <!-- EOF -->
