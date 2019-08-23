@@ -451,7 +451,79 @@ private boolean addWorker(Runnable firstTask, boolean core) {
 
 ## Worker 内部类
 
-...
+```java
+private final class Worker
+	extends AbstractQueuedSynchronizer
+	implements Runnable
+{
+    /**
+     * 该内部类永远不会被序列化，
+     * 但是为了消除 Java 编译警告，
+     * 还是提供了一个 serialVersionUID 序列号
+     */
+	private static final long serialVersionUID = 6138294804551838833L;
+
+    /* 任务运行线程，null 则说明工厂生成失败 */
+	final Thread thread;
+    /* 任务体，可能为 null */
+	Runnable firstTask;
+	/* 前置线程任务计数器 */
+	volatile long completedTasks;
+
+    /* 构造函数 */
+	Worker(Runnable firstTask) {
+        /* 抑制中断 */
+		setState(-1);
+		this.firstTask = firstTask;
+		this.thread = getThreadFactory().newThread(this);
+	}
+
+	/* 委托 runWorker() 运行任务 */
+	public void run() {
+		runWorker(this);
+	}
+
+    /**
+     * 锁方法
+     * 0 -> 解锁状态
+     * 1 -> 加锁状态
+     */
+	protected boolean isHeldExclusively() {
+		return getState() != 0;
+	}
+
+	protected boolean tryAcquire(int unused) {
+		if (compareAndSetState(0, 1)) {
+			setExclusiveOwnerThread(Thread.currentThread());
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean tryRelease(int unused) {
+		setExclusiveOwnerThread(null);
+		setState(0);
+		return true;
+	}
+
+	public void lock()        { acquire(1); }
+	public boolean tryLock()  { return tryAcquire(1); }
+	public void unlock()      { release(1); }
+	public boolean isLocked() { return isHeldExclusively(); }
+
+	void interruptIfStarted() {
+		Thread t;
+		if (getState() >= 0 && (t = thread) != null && !t.isInterrupted()) {
+			try {
+				t.interrupt();
+			} catch (SecurityException ignore) {
+                /* 忽略安全异常 */
+			}
+		}
+	}
+}
+```
+> 代码清单：`Worker`内部类源码
 
 
 
