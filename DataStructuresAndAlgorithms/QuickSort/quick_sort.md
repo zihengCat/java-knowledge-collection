@@ -3,6 +3,11 @@
 ```java
 import java.util.Arrays;
 public class QuickSort {
+    public static void main(String[] args) {
+        int[] arr = new int[]{2, 3, 1, 6, 8, 9, 5, 0, 4, 7};
+        quickSort(arr, 0, arr.length - 1);
+        System.out.println(Arrays.toString(arr));
+    }
     public static void quickSort(int[] arr, int left, int right) {
         if (left >= right || arr == null) {
             return;
@@ -10,11 +15,6 @@ public class QuickSort {
         int i = partition(arr, left, right);
         quickSort(arr, left, i - 1);
         quickSort(arr, i + 1, right);
-    }
-    public static void main(String[] args) {
-        int[] arr = new int[]{2, 3, 1, 6, 8, 9, 5, 0, 4, 7};
-        quickSort(arr, 0, arr.length - 1);
-        System.out.println(Arrays.toString(arr));
     }
     private static int partition(int[] arr, int left, int right) {
         int i = left;
@@ -44,4 +44,4 @@ public class QuickSort {
 ```
 > 代码清单：快速排序`Java`实现
 
-
+<!-- EOF -->
