@@ -114,7 +114,7 @@ public interface ScheduledExecutorService extends ExecutorService {
 
 ```java
 public class ThreadPoolExecutor extends AbstractExecutorService {
-...
+
     private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
     private static final int COUNT_BITS = Integer.SIZE - 3;
     private static final int CAPACITY   = (1 << COUNT_BITS) - 1;
@@ -124,7 +124,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     private static final int STOP       =  1 << COUNT_BITS;
     private static final int TIDYING    =  2 << COUNT_BITS;
     private static final int TERMINATED =  3 << COUNT_BITS;
-...
+
 }
 ```
 > 代码清单：`ThreadPoolExecutor`重要字段
@@ -156,11 +156,9 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 几个`ctl`状态计算与获取的方法：
 
 ```java
-...
 private static int runStateOf(int c)     { return c & ~CAPACITY; }
 private static int workerCountOf(int c)  { return c & CAPACITY; }
 private static int ctlOf(int rs, int wc) { return rs | wc; }
-...
 ```
 > 代码清单：`ctl`相关方法
 
@@ -174,7 +172,6 @@ private static int ctlOf(int rs, int wc) { return rs | wc; }
 
 
 ```java
-...
     public ThreadPoolExecutor(int corePoolSize,
                               int maximumPoolSize,
                               long keepAliveTime,
@@ -201,7 +198,6 @@ private static int ctlOf(int rs, int wc) { return rs | wc; }
         this.threadFactory = threadFactory;
         this.handler = handler;
     }
-...
 ```
 > 代码清单：`ThreadPoolExecutor`构造函数
 
@@ -232,6 +228,85 @@ private static int ctlOf(int rs, int wc) { return rs | wc; }
     - `CallerRunsPolicy`：用调用者所在的线程来执行任务；
     - `DiscardOldestPolicy`：丢弃阻塞队列中靠最前的任务，并执行当前任务；
     - `DiscardPolicy`：直接丢弃任务；
+
+## `execute()`方法
+
+线程池的`execute()`方法用来提交任务，其代码如下：
+
+```java
+public void execute(Runnable command) {
+    /* 如果任务为 null，抛出空指针异常 */
+    if (command == null) {
+        throw new NullPointerException();
+    }
+    /* clt 记录着 runState 与 workerCount */
+    int c = ctl.get();
+    /**
+     * workerCountOf 方法：取出低29位的值，表示当前活动的线程数；
+     * 如果当前活动线程数小于 corePoolSize，
+     * 则新建一个线程放入线程池中，
+     * 并把任务添加到该线程中。
+     */
+    if (workerCountOf(c) < corePoolSize) {
+        /**
+         * 调用 addWorker() 添加任务
+         * 第2个参数表示限制添加线程数量的判断方式
+         * true：根据 corePoolSize 判断；
+         * false：根据 maximumPoolSize 判断
+         */
+        if (addWorker(command, true)) {
+            return;
+        }
+        /* 任务添加失败：需重新获取 ctl 值 */
+        c = ctl.get();
+    }
+    /**
+     * 当前线程池处于运行状态
+     * 并且任务添加到队列成功
+     */
+    if (isRunning(c) && workQueue.offer(command)) {
+        /* 重新获取 ctl 值 */
+        int recheck = ctl.get();
+        /**
+         * 再次判断线程池状态，
+         * 如果不处于运行状态，
+         * 由于之前已经把任务添加到 workQueue 中了，这时需要移除任务，
+         * 再使用拒绝策略对该任务进行处理
+         */
+        if (!isRunning(recheck) && remove(command)) {
+            reject(command);
+        }
+        /**
+         * 获取线程池中的有效线程数：如果数量是0，执行 addWorker() 方法
+         */
+        else if (workerCountOf(recheck) == 0) {
+            /**
+             * 传入参数：
+             * 第1个参数：null，表示在线程池中创建一个线程，但不启动。
+             * 第2个参数：false，将线程池线程数量上限设置为 maximumPoolSize，
+             *                   添加线程时根据 maximumPoolSize 判断。
+             * 如果判断 workerCount 大于0，则直接返回，
+             * 在 workQueue 中新增的任务在将来的某个时刻会被执行。
+             */
+            addWorker(null, false);
+        }
+    }
+    /**
+     * 如果执行到这里，有两种情况：
+     * 1. 线程池不处于 RUNNING 状态。
+     * 2. 线程池处于 RUNNING 状态，
+     *    但 workerCount >= corePoolSize 且 workQueue 满。
+     * 这时，再次调用 addWorker() 方法，
+     * 但第2个参数传入为false，将线程池线程数量上限设为 maximumPoolSize，
+     * 失败则调用拒绝策略
+     */
+    else if (!addWorker(command, false)) {
+        reject(command);
+    }
+}
+```
+> 代码清单：线程池`execute()`源码
+
 
 
 
