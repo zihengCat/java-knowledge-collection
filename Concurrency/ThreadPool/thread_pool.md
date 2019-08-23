@@ -170,34 +170,35 @@ private static int ctlOf(int rs, int wc) { return rs | wc; }
 
 ## 构造函数
 
+看一下线程池`ThreadPoolExecutor`的构造函数。
 
 ```java
-    public ThreadPoolExecutor(int corePoolSize,
-                              int maximumPoolSize,
-                              long keepAliveTime,
-                              TimeUnit unit,
-                              BlockingQueue<Runnable> workQueue,
-                              ThreadFactory threadFactory,
-                              RejectedExecutionHandler handler) {
-        if (corePoolSize < 0 ||
-            maximumPoolSize <= 0 ||
-            maximumPoolSize < corePoolSize ||
-            keepAliveTime < 0) {
-            throw new IllegalArgumentException();
-        }
-        if (workQueue == null || threadFactory == null || handler == null) {
-            throw new NullPointerException();
-        }
-        this.acc = System.getSecurityManager() == null ?
-                null :
-                AccessController.getContext();
-        this.corePoolSize = corePoolSize;
-        this.maximumPoolSize = maximumPoolSize;
-        this.workQueue = workQueue;
-        this.keepAliveTime = unit.toNanos(keepAliveTime);
-        this.threadFactory = threadFactory;
-        this.handler = handler;
+public ThreadPoolExecutor(int corePoolSize,
+                          int maximumPoolSize,
+                          long keepAliveTime,
+                          TimeUnit unit,
+                          BlockingQueue<Runnable> workQueue,
+                          ThreadFactory threadFactory,
+                          RejectedExecutionHandler handler) {
+    if (corePoolSize < 0 ||
+        maximumPoolSize <= 0 ||
+        maximumPoolSize < corePoolSize ||
+        keepAliveTime < 0) {
+        throw new IllegalArgumentException();
     }
+    if (workQueue == null || threadFactory == null || handler == null) {
+        throw new NullPointerException();
+    }
+    this.acc = System.getSecurityManager() == null ?
+            null :
+            AccessController.getContext();
+    this.corePoolSize = corePoolSize;
+    this.maximumPoolSize = maximumPoolSize;
+    this.workQueue = workQueue;
+    this.keepAliveTime = unit.toNanos(keepAliveTime);
+    this.threadFactory = threadFactory;
+    this.handler = handler;
+}
 ```
 > 代码清单：`ThreadPoolExecutor`构造函数
 
@@ -321,10 +322,137 @@ public void execute(Runnable command) {
 ```
 > 代码清单：线程池`execute()`源码
 
-
 ## `addWorker()`方法
 
+线程池`addWorker()`私有方法的主要任务是：在线程池中创建一个新的线程并执行。
+
+- **`firstTask`**：指定新增线程执行的第一个任务。
+
+- **`core`**：`true`表示在新增线程时判断当前活动线程数是否少于`corePoolSize`；`false`表示新增线程前需要判断当前活动线程数是否少于`maximumPoolSize`。
+
+```java
+private boolean addWorker(Runnable firstTask, boolean core) {
+    /* 跳转标号 */
+    retry:
+    /* 外层死循环 */
+    for (;;) {
+        /* 获取运行状态 */
+        int c = ctl.get();
+        int rs = runStateOf(c);
+        /**
+         * 判断线程池状态
+         * rs >= SHUTDOWN：线程池不再接收新任务
+         * 接着判断以下3个条件，只要有1个条件不满足，返回 false
+         * 1. rs == SHUTDOWN
+         * 2. firstTask 为空
+         * 3. workQueue 不为空
+         */
+        if (rs >= SHUTDOWN &&
+            !(rs == SHUTDOWN &&
+              firstTask == null &&
+              !workQueue.isEmpty())) {
+            return false;
+        }
+        /* 内层死循环 */
+        for (;;) {
+            /* 获取线程数 */
+            int wc = workerCountOf(c);
+            /**
+             * 线程数大于等于限定容量: 返回 false
+             * 限定容量根据参数 core 布尔值取得
+             */
+            if (wc >= CAPACITY ||
+                wc >= (core ? corePoolSize : maximumPoolSize)) {
+                return false;
+            }
+            /**
+             * CAS 尝试增加 workerCount
+             * 成功则跳出最外层死循环
+             */
+            if (compareAndIncrementWorkerCount(c)) {
+                break retry;
+            }
+            /* 重读 ctl */
+            c = ctl.get();
+            /**
+             * 侦测到线程池当前运行状态不为rs，说明线程池状态已被改变，
+             * 回到外层死循环继续执行
+             */
+            if (runStateOf(c) != rs) {
+                continue retry;
+            }
+            /* CAS 操作失败，重试内层死循环 */
+        }
+    }
+    /* 临时变量 */
+    boolean workerStarted = false;
+    boolean workerAdded = false;
+    Worker w = null;
+    try {
+        /* 封装 firstTask 为 Worker 对象 */
+        w = new Worker(firstTask);
+        /* 每个 Worker 对象都会创建一个线程 */
+        final Thread t = w.thread;
+        /* Worker 对象线程创建成功 */
+        if (t != null) {
+            /* 取锁 */
+            final ReentrantLock mainLock = this.mainLock;
+            /* 加锁 */
+            mainLock.lock();
+            try {
+                /* 重读线程池状态 */
+                int rs = runStateOf(ctl.get());
+                /* 重读线程池状态 */
+                if (rs < SHUTDOWN ||
+                    (rs == SHUTDOWN && firstTask == null)) {
+                    /* 前置检查线程是否启动：线程已启动则抛出异常 */
+                    if (t.isAlive()) {
+                        throw new IllegalThreadStateException();
+                    }
+                    /* 添加任务，workers 类似 HashSet */
+                    workers.add(w);
+                    int s = workers.size();
+                    /**
+                     * largestPoolSize 记录
+                     * 线程池中出现过的最大线程数量
+                     * 如果当前线程池中线程数量更大，则更新该值
+                     */
+                    if (s > largestPoolSize) {
+                        largestPoolSize = s;
+                    }
+                    /* 任务成功添加 */
+                    workerAdded = true;
+                }
+            } finally {
+                /* 解锁 */
+                mainLock.unlock();
+            }
+            /* 任务已添加 */
+            if (workerAdded) {
+                /* 启动线程 */
+                t.start();
+                /* 更改任务状态 */
+                workerStarted = true;
+            }
+        }
+    } finally {
+        /* 任务未启动成功：添加任务失败 */
+        if (!workerStarted) {
+            addWorkerFailed(w);
+        }
+    }
+    /* 返回任务启动状态 */
+    return workerStarted;
+}
+```
+> 代码清单：线程池`addWorker()`源码
+
+注意一下这里的`t.start()`这个语句，启动时会调用`Worker`类中的`run()`方法，`Worker`本身实现了`Runnable`接口，所以一个`Worker`对象也是一个线程。
+
+## Worker 内部类
+
 ...
+
 
 
 [Concurrency-ThreadPool-1]: ../../images/Concurrency-ThreadPool-1.jpg
