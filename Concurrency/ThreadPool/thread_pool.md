@@ -142,7 +142,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     - 线程池不处于`RUNNING`状态；
     - 线程池不处于`TIDYING`状态或`TERMINATED`状态；
     - 如果线程池状态处于`SHUTDOWN`并且`workerQueue`为空；
-    - `workerCount`为0；
+    - 有效线程数`workerCount`为0；
     - 设置`TIDYING`状态成功。
 
 线程池的状态转换过程如图所示：
@@ -153,7 +153,87 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 
 ## `ctl`相关方法
 
+几个`ctl`状态计算与获取的方法：
+
+```java
 ...
+private static int runStateOf(int c)     { return c & ~CAPACITY; }
+private static int workerCountOf(int c)  { return c & CAPACITY; }
+private static int ctlOf(int rs, int wc) { return rs | wc; }
+...
+```
+> 代码清单：`ctl`相关方法
+
+- `runStateOf()`：获取运行状态
+
+- `workerCountOf()`：获取活动线程数
+
+- `ctlOf()`：获取运行状态和活动线程数
+
+## 构造函数
+
+
+```java
+...
+    public ThreadPoolExecutor(int corePoolSize,
+                              int maximumPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue<Runnable> workQueue,
+                              ThreadFactory threadFactory,
+                              RejectedExecutionHandler handler) {
+        if (corePoolSize < 0 ||
+            maximumPoolSize <= 0 ||
+            maximumPoolSize < corePoolSize ||
+            keepAliveTime < 0) {
+            throw new IllegalArgumentException();
+        }
+        if (workQueue == null || threadFactory == null || handler == null) {
+            throw new NullPointerException();
+        }
+        this.acc = System.getSecurityManager() == null ?
+                null :
+                AccessController.getContext();
+        this.corePoolSize = corePoolSize;
+        this.maximumPoolSize = maximumPoolSize;
+        this.workQueue = workQueue;
+        this.keepAliveTime = unit.toNanos(keepAliveTime);
+        this.threadFactory = threadFactory;
+        this.handler = handler;
+    }
+...
+```
+> 代码清单：`ThreadPoolExecutor`构造函数
+
+- **`corePoolSize`**：核心线程数量，当有新任务在`execute(`)方法提交时，会执行以下判断：
+    - 如果运行的线程少于`corePoolSize`，则创建新线程来处理任务，即使线程池中的其他线程是空闲的；
+    - 如果线程池中的线程数量大于等于`corePoolSize`且小于`maximumPoolSize`，则只有当`workQueue`满时才创建新的线程去处理任务；
+    - 如果设置的`corePoolSize`和`maximumPoolSize`相同，则创建的线程池的大小是固定的，这时如果有新任务提交，若`workQueue`未满，则将请求放入`workQueue`中，等待有空闲的线程去从`workQueue`中取任务并处理；
+    - 如果运行的线程数量大于等于`maximumPoolSize`，这时如果`workQueue`已经满了，则通过`handler`所指定的策略来处理任务；
+
+    所以，任务提交时，判断的顺序为：corePoolSize –> workQueue –> maximumPoolSize。
+- **`maximumPoolSize`**：最大线程数量。
+
+- **`workQueue`**：保存等待执行任务的阻塞队列，当提交一个新任务到线程池以后, 线程池会根据当前线程池中正在运行着的线程的数量来决定对该任务的处理方式，当任务提交时，如果线程池中的线程数量大于等于`corePoolSize`，则把该任务封装成一个`Worker`对象放入等待队列，主要有以下几种处理方式：
+    - **直接切换**：这种方式常用的队列是`SynchronousQueue`，该队列不保存任务，而是直接将任务交给工作线程。
+    - **无界队列**：一般使用基于链表的阻塞队列`LinkedBlockingQueue`。如果使用这种方式，那么线程池中能够创建的最大线程数就是`corePoolSize`，而`maximumPoolSize`就不会起作用了（后面也会说到）。当线程池中所有的核心线程都处于`RUNNING`状态时，一个新提交的任务就会放入等待队列中。
+    - **有界队列**：一般使用`ArrayBlockingQueue`。使用该方式可以将线程池的最大线程数量限制为`maximumPoolSize`，这样能够降低资源的消耗，但同时这种方式也使得线程池对线程的调度变得更困难，因为线程池和队列的容量都是有限的值，所以要想使线程池处理任务的吞吐率达到一个相对合理的范围，又想使线程调度相对简单，并且还要尽可能的降低线程池对资源的消耗，就需要合理的设置这两个数量。
+
+    如果要想降低系统资源的消耗（包括CPU的使用率，操作系统资源的消耗，上下文环境切换的开销等）, 可以设置较大的队列容量和较小的线程池容量, 但这样也会降低线程处理任务的吞吐量。如果提交的任务经常发生阻塞，那么可以考虑通过调用 setMaximumPoolSize() 方法来重新设定线程池的容量。如果队列的容量设置的较小，通常需要将线程池的容量设置大一点，这样CPU的使用率会相对的高一些。但如果线程池的容量设置的过大，则在提交的任务数量太多的情况下，并发量会增加，那么线程之间的调度就是一个要考虑的问题，因为这样反而有可能降低处理任务的吞吐量。
+
+- **`keepAliveTime`**：线程池维护线程所允许的空闲时间。当线程池中的线程数量大于`corePoolSize`的时候，如果这时没有新的任务提交，核心线程外的线程会等待直到等待时间超过`keepAliveTime`，再销毁线程。
+
+- **`unit`**：时间单位，`TimeUnit`类型。
+
+- **`threadFactory`**：线程工厂，`ThreadFactory`类型的变量，用来创建新线程。默认使用`Executors.defaultThreadFactory()`。使用默认的`ThreadFactory`创建线程时，会设置：线程名称，`NORM_PRIORITY`运行优先级，非守护线程。
+
+- **`handler`**：线程池饱和策略，`RejectedExecutionHandler`类型。如果阻塞队列满了并且没有空闲的线程，这时如果继续提交任务，就需要采取一种策略处理该任务。线程池提供了4种策略：
+    - `AbortPolicy`：直接抛出异常，这是默认策略；
+    - `CallerRunsPolicy`：用调用者所在的线程来执行任务；
+    - `DiscardOldestPolicy`：丢弃阻塞队列中靠最前的任务，并执行当前任务；
+    - `DiscardPolicy`：直接丢弃任务；
+
+
 
 
 
