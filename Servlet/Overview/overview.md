@@ -1,5 +1,9 @@
 # Servlet 简介
 
+Servlet（Server Applet），全称 Java Servlet，是用 Java 编写的服务器端程序。其主要功能在于交互式地浏览和修改数据，生成动态 Web 内容。狭义的 Servlet 是指 Java 语言实现的一个接口，广义的 Servlet 是指任何实现了这个 Servlet 接口的类，一般情况下，将 Servlet 理解为后者。
+
+Servlet 运行于支持 Java 的应用服务器上。从实现上讲，Servlet 可以响应任何类型的请求，但绝大多数情况下 Servlet 只用来扩展基于 HTTP 协议的 Web 服务器。
+
 ```plain
 ├── pom.xml
 └── src
