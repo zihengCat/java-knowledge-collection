@@ -1,10 +1,10 @@
 # Java 字符串类
 
-Java 字符串类是使用最为频繁的类之一，充分理解 Java 字符串类是非常重要的。
+Java 字符串类是 Java 程序设计中使用最为频繁的类之一，深入理解 Java 字符串类是非常有必要的。
 
 # Java 字符串类数据结构
 
-与 Java 基本类型不同，Java 字符串是一个类。
+**与 Java 基本类型不同，Java 字符串是一个类（Class）。**
 
 ```java
 public final class String
@@ -30,7 +30,7 @@ public final class String
 
 # Java 字符串类构造函数
 
-看一看 Java 字符串类的构造函数，Java 字符串类支持多种构造方式：
+观察 Java 字符串类的构造函数，Java 字符串类支持多种构造方式：
 
 - 无参构造函数：构造`""`空字符串。
 
@@ -38,11 +38,11 @@ public final class String
 
 - 以`StringBuilder`构造：拷贝`StringBuilder`中的字符数组。
 
-- 以`StringBuffer`构造：加锁后拷贝字符数组（线程安全）。
+- 以`StringBuffer`构造：加锁后拷贝`StringBuffer`中的字符数组（线程安全）。
 
-- 以`char[]`构造：拷贝字符数组，支持局部字符数组。
+- 以`char[]`构造：拷贝字符数组（支持局部字符数组）。
 
-- 以`byte[]`构造：按指定字符编码解码后拷贝。
+- 以`byte[]`构造：按指定字符编码解码后拷贝构造字符串。
 
 ```java
     /* 默认构造函数 */
@@ -102,7 +102,7 @@ public final class String
 
 # Java 字符串类静态工厂方法
 
-除了构造函数，Java 字符串类还提供了一系列静态工厂方法，支持从基本数据类型、对象构造字符串，其内部实现为调用基本类型包装类和对象类型的`toString()`方法。
+除了构造函数外，Java 字符串类还提供了一系列静态工厂方法，支持从基本数据类型、对象构造字符串，其内部实现为：调用基本类型包装类和对象类型的`toString()`方法。
 
 ```java
     /* 通过[布尔型]构造字符串 */
@@ -147,7 +147,7 @@ public final class String
 
 # Java 字符串类常用方法
 
-观察 Java 字符串类的常用方法，我们会发现，对字符串的操作都不是在原有的字符串上进行的，而是重新生成了一个新的字符串对象，执行操作后，原始字符串并没有被改变。
+观察 Java 字符串类的常用方法后，我们会发现，对字符串的变更操作都不是在原有字符串上进行的，而是重新生成了一个新的字符串对象，执行操作后，原始字符串并没有被改变。
 
 **`String`字符串对象一旦被创建即固定不变，任何对`String`对象的操作都会不影响原对象，任何对字符串的变更操作都会生成新的字符串对象。**
 
@@ -224,8 +224,8 @@ public final class String
 字符串常量池位于`.class`文件之中，在运行期间被 JVM 装载，并且可以扩充。字符串对象的`intern()`方法就是扩充字符串常量池的方法之一：当一个字符串对象实例调用`intern()`方法时，查找常量池中是否存在相同 Unicode 字符串常量，如果存在，返回常量池中的字符串引用，如果不存在，则在字符串常量池中新增一个 Unicode 字符串常量并返回其引用。
 
 ```java
-    /* 返回字符串常量池中的字符串引用 */
-    public native String intern();
+/* 返回字符串常量池中的字符串引用 */
+public native String intern();
 ```
 > 代码清单：Java 字符串类`intern()`方法
 
@@ -314,5 +314,6 @@ String s4 = new StringBuilder(s1).append(s2).append(s3).toString();
 
 5. **使用场景**：字符串拼接或改动较少的情况下，使用`String`；字符串拼接操作较多的情况下，使用`StringBuilder`；多线程并发情况下，使用`StringBuffer`。
 
+[Basic-String-1]: ../../images/Basic-String-1.png
 
 <!-- EOF -->
