@@ -305,7 +305,7 @@ String s4 = new StringBuilder(s1).append(s2).append(s3).toString();
 
 # `String`、`StringBuffer`、`StringBuilder`异同
 
-`String`、`StringBuffer`、`StringBuilder`都是 Java 中操作字符串的常用类，它们有异同点。
+`String`、`StringBuffer`、`StringBuilder`都是 Java 中操作字符串的常用类，它们各有异同。
 
 1. **数据结构**：`String`、`StringBuffer`、`StringBuilder`底层数据结构都是`char[]`字符数组。
 
