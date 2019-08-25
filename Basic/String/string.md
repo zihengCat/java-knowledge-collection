@@ -317,6 +317,27 @@ String s4 = new StringBuilder(s1).append(s2).append(s3).toString();
 
 5. **使用场景**：字符串拼接或改动较少的情况下，使用`String`；字符串拼接操作较多的情况下，使用`StringBuilder`；多线程并发情况下，使用`StringBuffer`。
 
+# Java 字符串长度
+
+Java 中的字符串`String`是否有长度限制。这个问题要分两个阶段看，分别是**编译时**和**运行时**，不同的时期限制不同。
+
+编译时：我们使用字符串字面量直接定义`String`的时候，Java 将字符串放入常量池中存储。常量池中的每一种数据项也有自己的类型，Java 中的 UTF-8 编码的 Unicode 字符串在常量池中以`CONSTANT_Utf8`类型表示。定义如下：
+
+```plain
+CONSTANT_Utf8_info {
+    u1 tag;
+    u2 length;
+    u1 bytes[length];
+}
+```
+> 代码清单：`CONSTANT_Utf8_info`类型
+
+其中`u2`表示无符号 16 位整型，理论上允许最大长度是`2 ^ 16 = 65536`。而 Java Class 文件是使用一种变体 UTF-8 格式来存放字符，`null`值使用两个字节表示，因此剩下`65536 - 2 ＝ 65534`字节。
+
+编译时：Java 字符串字面量最大长度为：65534。
+
+运行时：Java 字符串`String`在运行时最大长度为`Integer.MAX_VALUE`，这个值约等于4G。
+
 [Basic-String-1]: ../../images/Basic-String-1.png
 
 <!-- EOF -->
