@@ -334,9 +334,11 @@ CONSTANT_Utf8_info {
 
 其中`u2`表示无符号 16 位整型，理论上允许最大长度是`2 ^ 16 = 65536`。而 Java Class 文件是使用一种变体 UTF-8 格式来存放字符，`null`值使用两个字节表示，因此剩下`65536 - 2 ＝ 65534`字节。
 
-编译时：Java 字符串字面量最大长度为：65534。
+编译时：Java 字符串字面量最大长度为`2 ^ 16 - 2 = 65534`。
 
-运行时：Java 字符串`String`在运行时最大长度为`Integer.MAX_VALUE`，这个值约等于4G。
+运行时：在运行时，Java 字符串`String`使用字符数组`char[]`存储，Java 数组长度必须是非负整数，理论最大值为`Integer.MAX_VALUE`。
+
+运行时：Java 字符串最大长度为`2 ^ 31 - 1 = 2147483647`。
 
 [Basic-String-1]: ../../images/Basic-String-1.png
 
