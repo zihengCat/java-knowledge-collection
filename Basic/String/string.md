@@ -45,58 +45,58 @@ public final class String
 - 以`byte[]`构造：按指定字符编码解码后拷贝构造字符串。
 
 ```java
-    /* 默认构造函数 */
-    public String() {
-        this.value = "".value;
+/* 默认构造函数 */
+public String() {
+    this.value = "".value;
+}
+/* 以 String 构造 */
+public String(String original) {
+    this.value = original.value;
+    this.hash = original.hash;
+}
+/* 以 StringBuffer 构造 */
+public String(StringBuffer buffer) {
+    synchronized(buffer) {
+        this.value = Arrays.copyOf(buffer.getValue(), buffer.length());
     }
-    /* 以 String 构造 */
-    public String(String original) {
-        this.value = original.value;
-        this.hash = original.hash;
+}
+/* 以 StringBuilder 构造 */
+public String(StringBuilder builder) {
+    this.value = Arrays.copyOf(builder.getValue(), builder.length());
+}
+/* 以字符数组构造 */
+public String(char value[]) {
+    this.value = Arrays.copyOf(value, value.length);
+}
+/* 以局部字符数组构造 */
+public String(char value[], int offset, int count) {
+    if (offset < 0) {
+        throw new StringIndexOutOfBoundsException(offset);
     }
-    /* 以 StringBuffer 构造 */
-    public String(StringBuffer buffer) {
-        synchronized(buffer) {
-            this.value = Arrays.copyOf(buffer.getValue(), buffer.length());
+    if (count <= 0) {
+        if (count < 0) {
+            throw new StringIndexOutOfBoundsException(count);
+        }
+        if (offset <= value.length) {
+            this.value = "".value;
+            return;
         }
     }
-    /* 以 StringBuilder 构造 */
-    public String(StringBuilder builder) {
-        this.value = Arrays.copyOf(builder.getValue(), builder.length());
+    // Note: offset or count might be near -1>>>1.
+    if (offset > value.length - count) {
+        throw new StringIndexOutOfBoundsException(offset + count);
     }
-    /* 以字符数组构造 */
-    public String(char value[]) {
-        this.value = Arrays.copyOf(value, value.length);
+    this.value = Arrays.copyOfRange(value, offset, offset + count);
+}
+/* 以字节数组构造 */
+public String(byte bytes[], int offset, int length, String charsetName)
+        throws UnsupportedEncodingException {
+    if (charsetName == null) {
+        throw new NullPointerException("charsetName");
     }
-    /* 以局部字符数组构造 */
-    public String(char value[], int offset, int count) {
-        if (offset < 0) {
-            throw new StringIndexOutOfBoundsException(offset);
-        }
-        if (count <= 0) {
-            if (count < 0) {
-                throw new StringIndexOutOfBoundsException(count);
-            }
-            if (offset <= value.length) {
-                this.value = "".value;
-                return;
-            }
-        }
-        // Note: offset or count might be near -1>>>1.
-        if (offset > value.length - count) {
-            throw new StringIndexOutOfBoundsException(offset + count);
-        }
-        this.value = Arrays.copyOfRange(value, offset, offset + count);
-    }
-    /* 以字节数组构造 */
-    public String(byte bytes[], int offset, int length, String charsetName)
-            throws UnsupportedEncodingException {
-        if (charsetName == null) {
-            throw new NullPointerException("charsetName");
-        }
-        checkBounds(bytes, offset, length);
-        this.value = StringCoding.decode(charsetName, bytes, offset, length);
-    }
+    checkBounds(bytes, offset, length);
+    this.value = StringCoding.decode(charsetName, bytes, offset, length);
+}
 ```
 > 代码清单：Java 字符串类构造函数
 
@@ -105,43 +105,43 @@ public final class String
 除了构造函数外，Java 字符串类还提供了一系列静态工厂方法，支持从基本数据类型、对象构造字符串，其内部实现为：调用基本类型包装类和对象类型的`toString()`方法。
 
 ```java
-    /* 通过[布尔型]构造字符串 */
-    public static String valueOf(boolean b) {
-        return b ? "true" : "false";
-    }
-    /* 通过[字符型]构造字符串 */
-    public static String valueOf(char c) {
-        char data[] = {c};
-        return new String(data, true);
-    }
-    /* 通过[整数型]构造字符串 */
-    public static String valueOf(int i) {
-        return Integer.toString(i);
-    }
-    /* 通过[长整型]构造字符串 */
-    public static String valueOf(long l) {
-        return Long.toString(l);
-    }
-    /* 通过[单精度浮点型]构造字符串 */
-    public static String valueOf(float f) {
-        return Float.toString(f);
-    }
-    /* 通过[双精度浮点型]构造字符串 */
-    public static String valueOf(double d) {
-        return Double.toString(d);
-    }
-    /* 通过[字符数组]构造字符串 */
-    public static String valueOf(char data[]) {
-        return new String(data);
-    }
-    /* 通过[局部字符数组]构造字符串 */
-    public static String valueOf(char data[], int offset, int count) {
-        return new String(data, offset, count);
-    }
-    /* 通过[对象]构造字符串 */
-    public static String valueOf(Object obj) {
-        return (obj == null) ? "null" : obj.toString();
-    }
+/* 通过[布尔型]构造字符串 */
+public static String valueOf(boolean b) {
+    return b ? "true" : "false";
+}
+/* 通过[字符型]构造字符串 */
+public static String valueOf(char c) {
+    char data[] = {c};
+    return new String(data, true);
+}
+/* 通过[整数型]构造字符串 */
+public static String valueOf(int i) {
+    return Integer.toString(i);
+}
+/* 通过[长整型]构造字符串 */
+public static String valueOf(long l) {
+    return Long.toString(l);
+}
+/* 通过[单精度浮点型]构造字符串 */
+public static String valueOf(float f) {
+    return Float.toString(f);
+}
+/* 通过[双精度浮点型]构造字符串 */
+public static String valueOf(double d) {
+    return Double.toString(d);
+}
+/* 通过[字符数组]构造字符串 */
+public static String valueOf(char data[]) {
+    return new String(data);
+}
+/* 通过[局部字符数组]构造字符串 */
+public static String valueOf(char data[], int offset, int count) {
+    return new String(data, offset, count);
+}
+/* 通过[对象]构造字符串 */
+public static String valueOf(Object obj) {
+    return (obj == null) ? "null" : obj.toString();
+}
 ```
 > 代码清单：Java 字符串类静态工厂方法
 
@@ -152,66 +152,66 @@ public final class String
 **`String`字符串对象一旦被创建即固定不变，任何对`String`对象的操作都会不影响原对象，任何对字符串的变更操作都会生成新的字符串对象。**
 
 ```java
-    /* 连接字符串 */
-    public String concat(String str) {
-        int otherLen = str.length();
-        if (otherLen == 0) {
-            return this;
-        }
-        int len = value.length;
-        char buf[] = Arrays.copyOf(value, len + otherLen);
-        str.getChars(buf, len);
-        return new String(buf, true);
-    }
-    /* 替换字符 */
-    public String replace(char oldChar, char newChar) {
-        if (oldChar != newChar) {
-            int len = value.length;
-            int i = -1;
-            char[] val = value; /* avoid getfield opcode */
-
-            while (++i < len) {
-                if (val[i] == oldChar) {
-                    break;
-                }
-            }
-            if (i < len) {
-                char buf[] = new char[len];
-                for (int j = 0; j < i; j++) {
-                    buf[j] = val[j];
-                }
-                while (i < len) {
-                    char c = val[i];
-                    buf[i] = (c == oldChar) ? newChar : c;
-                    i++;
-                }
-                return new String(buf, true);
-            }
-        }
+/* 连接字符串 */
+public String concat(String str) {
+    int otherLen = str.length();
+    if (otherLen == 0) {
         return this;
     }
-    /* 截取子串 */
-    public String substring(int beginIndex, int endIndex) {
-        if (beginIndex < 0) {
-            throw new StringIndexOutOfBoundsException(beginIndex);
+    int len = value.length;
+    char buf[] = Arrays.copyOf(value, len + otherLen);
+    str.getChars(buf, len);
+    return new String(buf, true);
+}
+/* 替换字符 */
+public String replace(char oldChar, char newChar) {
+    if (oldChar != newChar) {
+        int len = value.length;
+        int i = -1;
+        char[] val = value; /* avoid getfield opcode */
+
+        while (++i < len) {
+            if (val[i] == oldChar) {
+                break;
+            }
         }
-        if (endIndex > value.length) {
-            throw new StringIndexOutOfBoundsException(endIndex);
+        if (i < len) {
+            char buf[] = new char[len];
+            for (int j = 0; j < i; j++) {
+                buf[j] = val[j];
+            }
+            while (i < len) {
+                char c = val[i];
+                buf[i] = (c == oldChar) ? newChar : c;
+                i++;
+            }
+            return new String(buf, true);
         }
-        int subLen = endIndex - beginIndex;
-        if (subLen < 0) {
-            throw new StringIndexOutOfBoundsException(subLen);
-        }
-        return ((beginIndex == 0) && (endIndex == value.length)) ? this
-                : new String(value, beginIndex, subLen);
     }
-    /* 字符串转字符数组 */
-    public char[] toCharArray() {
-        // Cannot use Arrays.copyOf because of class initialization order issues
-        char result[] = new char[value.length];
-        System.arraycopy(value, 0, result, 0, value.length);
-        return result;
+    return this;
+}
+/* 截取子串 */
+public String substring(int beginIndex, int endIndex) {
+    if (beginIndex < 0) {
+        throw new StringIndexOutOfBoundsException(beginIndex);
     }
+    if (endIndex > value.length) {
+        throw new StringIndexOutOfBoundsException(endIndex);
+    }
+    int subLen = endIndex - beginIndex;
+    if (subLen < 0) {
+        throw new StringIndexOutOfBoundsException(subLen);
+    }
+    return ((beginIndex == 0) && (endIndex == value.length)) ? this
+            : new String(value, beginIndex, subLen);
+}
+/* 字符串转字符数组 */
+public char[] toCharArray() {
+    // Cannot use Arrays.copyOf because of class initialization order issues
+    char result[] = new char[value.length];
+    System.arraycopy(value, 0, result, 0, value.length);
+    return result;
+}
 ```
 > 代码清单：Java 字符串类常用方法
 
@@ -250,29 +250,29 @@ public native String intern();
 Java 字符串类重写了`equals()`比较方法，将其实现为比较字符串内部字符数组的值是否全部相等。进行字符串比较操作时，应使用`equals()`方法而非`==`操作符。
 
 ```java
-    /* 字符串比较 */
-    public boolean equals(Object anObject) {
-        if (this == anObject) {
+/* 字符串比较 */
+public boolean equals(Object anObject) {
+    if (this == anObject) {
+        return true;
+    }
+    if (anObject instanceof String) {
+        String anotherString = (String)anObject;
+        int n = value.length;
+        if (n == anotherString.value.length) {
+            char v1[] = value;
+            char v2[] = anotherString.value;
+            int i = 0;
+            while (n-- != 0) {
+                if (v1[i] != v2[i]) {
+                    return false;
+                }
+                i++;
+            }
             return true;
         }
-        if (anObject instanceof String) {
-            String anotherString = (String)anObject;
-            int n = value.length;
-            if (n == anotherString.value.length) {
-                char v1[] = value;
-                char v2[] = anotherString.value;
-                int i = 0;
-                while (n-- != 0) {
-                    if (v1[i] != v2[i]) {
-                        return false;
-                    }
-                    i++;
-                }
-                return true;
-            }
-        }
-        return false;
     }
+    return false;
+}
 ```
 > 代码清单：Java 字符串类`equals()`方法
 
