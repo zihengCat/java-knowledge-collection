@@ -24,7 +24,7 @@ Java 核心知识点收集整理。
 
 - [Java 线程池](./Concurrency/ThreadPool/thread_pool.md)
 
-## 集合
+## 集合容器
 
 - [Java HashMap 分析](./Collections/HashMap/hashmap.md)
 
