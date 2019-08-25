@@ -240,11 +240,12 @@ public native String intern();
 在 Java 中，操作符`==`与`equals()`方法，含义是不同的。
 
 1. `==`操作符
-    - 作用于基本数据类型（`byte`、`short`、`char`、`int`、`long`、`float`、`double`、`boolean`），直接比较其存储的"值"是否相等。
+    - 作用于基本数据类型（`byte`、`short`、`char`、`int`、`long`、`float`、`double`、`boolean`），直接比较其存储的值是否相等。
     - 作用于引用类型（`Object`），比较对象所指的地址是否相等。
 
 2. `equals()`比较方法
-    - `Object`基类中定义的方法，所有类都继承该方法（所有类都是`Object`类的子类）。在`Object`基类中，`equals()`方法比较两个对象的地址是否相等（等同于`==`操作符）。
+    - `Object`基类中定义的方法，所有类都继承了该方法（所有类都是`Object`类的子类）。
+    - 在`Object`基类中，`equals()`方法实现为比较两个对象的地址是否相等（等同于`==`操作符）。
     - 子类可以重写`equals()`方法，实现出自己的比较方式（如：`String`类）。
 
 Java 字符串类重写了`equals()`比较方法，将其实现为比较字符串内部字符数组的值是否全部相等。进行字符串比较操作时，应使用`equals()`方法而非`==`操作符。
