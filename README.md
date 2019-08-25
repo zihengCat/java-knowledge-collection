@@ -6,7 +6,7 @@ Java 核心知识点收集整理。
 
 ## 基础
 
-...
+- [Java 字符串类](./Basic/String/string.md)
 
 ## JVM
 
