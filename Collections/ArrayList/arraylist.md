@@ -75,9 +75,9 @@ public class ArrayList<E> extends AbstractList<E>
  * @throws IllegalArgumentException 如果初始化容量为负
  */
 public ArrayList(int initialCapacity) {
-    /* 初始化容量大于0 : 构造指定容量的空数组
-       初始化容量等于0 : 构造容量为0的空数组
-       初始化容量小于0 : 抛出异常 */
+    /* 初始化容量大于 0 : 构造指定容量的空数组
+       初始化容量等于 0 : 构造容量为 0 的空数组
+       初始化容量小于 0 : 抛出异常 */
     if (initialCapacity > 0) {
         this.elementData = new Object[initialCapacity];
     } else if (initialCapacity == 0) {
@@ -104,9 +104,9 @@ public ArrayList(Collection<? extends E> c) {
     elementData = c.toArray();
     /*  设置容量 */
     if ((size = elementData.length) != 0) {
-        /* Collection.toArray() 有可能返回不正常数据 */
+        /* Collection.toArray() 可能返回不正常数据 */
         if (elementData.getClass() != Object[].class) {
-            /* 拷贝元素 */
+            /* 拷贝数组元素 */
             elementData = Arrays.copyOf(elementData, size, Object[].class);
         }
     } else {
