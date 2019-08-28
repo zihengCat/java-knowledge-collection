@@ -18,6 +18,26 @@ ArrayList 底层数据结构比较简单：对象数组。数组具有的特性�
 
 > 图：ArrayList 数据结构
 
+# ArrayList 基本用法
+
+以下代码展示了 ArrayList 基本使用方式。
+
+```java
+import java.util.ArrayList;
+class ArrayListTest {
+    public static void main(String args[]){
+        /* 创建容量为 2 的 ArrayList */
+        ArrayList<Integer> arrayList = new ArrayList<Integer>(2);
+        /* 向 ArrayList 加入元素 */
+        arrayList.add(1);
+        arrayList.add(2);
+        /* 访问 ArrayList 中的元素 */
+        System.out.println(arrayList.get(1));
+    }
+}
+```
+> 代码清单：ArrayList 基本用法
+
 # ArrayList 源码剖析
 
 从 JDK 源码角度深入分析 ArrayList 实现。
