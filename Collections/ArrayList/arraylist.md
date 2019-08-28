@@ -26,11 +26,11 @@ ArrayList 底层数据结构比较简单：对象数组。数组具有的特性�
 
 观察 ArrayList 类中的数据字段，可以得知：
 
-- 底层数据结构为**对象数组**
+- 底层数据结构为**对象数组**。
 
-- 默认数组容量为`10`
+- 默认数组容量为`10`。
 
-- 通过整型变量`size`纪录实际容器实际存储元素数量
+- 通过整型变量`size`纪录数组容器实际存储元素数量。
 
 ```java
 public class ArrayList<E> extends AbstractList<E>
@@ -53,6 +53,9 @@ public class ArrayList<E> extends AbstractList<E>
 
     /* 数组实际存储元素的数量 */
     private int size;
+
+    /* 数组最大容量 */
+    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 }
 ```
 > 代码清单：ArrayList 数据字段
@@ -116,6 +119,9 @@ public ArrayList(Collection<? extends E> c) {
 }
 ```
 > 代码清单：ArrayList 构造函数
+
+
+
 
 
 
