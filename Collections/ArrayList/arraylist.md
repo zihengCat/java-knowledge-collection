@@ -59,15 +59,68 @@ public class ArrayList<E> extends AbstractList<E>
 
 ## ArrayList 构造函数
 
-...
+观察 ArrayList 类的构造函数，可以看到，ArrayList 支持三种构造方式。
 
+- 无参数默认构造：构造以默认容量`10`构造空对象数组。
 
+- 指定容量构造：构造指定容量的空对象数组。
+
+- 以`Collection`序列对象构造：构造顺序为迭代器返回元素顺序的对象数组。
+
+```java
+/**
+ * 以指定容量构造。
+ *
+ * @param  initialCapacity  初始化容量
+ * @throws IllegalArgumentException 如果初始化容量为负
+ */
+public ArrayList(int initialCapacity) {
+    /* 初始化容量大于0 : 构造指定容量的空数组
+       初始化容量等于0 : 构造容量为0的空数组
+       初始化容量小于0 : 抛出异常 */
+    if (initialCapacity > 0) {
+        this.elementData = new Object[initialCapacity];
+    } else if (initialCapacity == 0) {
+        this.elementData = EMPTY_ELEMENTDATA;
+    } else {
+        throw new IllegalArgumentException("Illegal Capacity: "+
+                                           initialCapacity);
+    }
+}
+/**
+ * 以默认容量 10 构造。
+ */
+public ArrayList() {
+    this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+}
+/**
+ * 以 Collection 序列对象构造，顺序为迭代器返回元素顺序。
+ *
+ * @param c 序列对象
+ * @throws NullPointerException 如果序列对象为空
+ */
+public ArrayList(Collection<? extends E> c) {
+    /* 序列对象转换数组 */
+    elementData = c.toArray();
+    /*  设置容量 */
+    if ((size = elementData.length) != 0) {
+        /* Collection.toArray() 有可能返回不正常数据 */
+        if (elementData.getClass() != Object[].class) {
+            /* 拷贝元素 */
+            elementData = Arrays.copyOf(elementData, size, Object[].class);
+        }
+    } else {
+        /* 序列对象长度为零则切换至空数组 */
+        this.elementData = EMPTY_ELEMENTDATA;
+    }
+}
+```
+> 代码清单：ArrayList 构造函数
 
 
 
 [Collections-ArrayList-1-Hierarchy]: ../../images/Collections-ArrayList-1-Hierarchy.png
 
 [Collections-ArrayList-2-DataStructure]: ../../images/Collections-ArrayList-2-DataStructure.png
-
 
 <!-- EOF -->
