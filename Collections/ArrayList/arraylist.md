@@ -76,6 +76,9 @@ public class ArrayList<E> extends AbstractList<E>
 
     /* 数组最大容量 */
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+
+    /* 修改次数 */
+    protected transient int modCount = 0;
 }
 ```
 > 代码清单：ArrayList 数据字段
@@ -140,7 +143,44 @@ public ArrayList(Collection<? extends E> c) {
 ```
 > 代码清单：ArrayList 构造函数
 
+## ArrayList `add()`方法
 
+ArrayList `add()` 方法用于向容器内添加元素。
+
+```java
+/**
+ * 添加指定元素至数组尾部。
+ *
+ * @param e 待添加元素
+ * @return true 操作成功
+ */
+public boolean add(E e) {
+    ensureCapacityInternal(size + 1);  // Increments modCount!!
+    elementData[size++] = e;
+    return true;
+}
+/**
+ * 添加元素至数组指定位置，数组元素后移。
+ *
+ * @param index 指定位置索引下标
+ * @param element 待添加元素
+ * @throws IndexOutOfBoundsException
+ */
+public void add(int index, E element) {
+    /* 下标索引边界检查 */
+    rangeCheckForAdd(index);
+    /* 数组容量检查 */
+    ensureCapacityInternal(size + 1);  // Increments modCount!!
+    /* 数组元素整体后移一位 */
+    System.arraycopy(elementData, index, elementData, index + 1,
+                     size - index);
+    /* 向指定位置添加元素 */
+    elementData[index] = element;
+    /* 存储元素数量加1 */
+    size++;
+}
+```
+> 代码清单：ArrayList `add()`方法
 
 
 
