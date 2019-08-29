@@ -260,7 +260,144 @@ private void fastRemove(int index) {
 > 代码清单：ArrayList `remove()`方法
 
 
+## ArrayList `grow()`扩容方法
 
+ArrayList 扩容机制：`ensureCapacity()`检查数组容量，容量不足则触发扩容，扩容为原数组的 1.5 倍。
+
+```java
+/**
+ * 数组扩容，保证容器可以存储期望最小可用容量的元素。
+ *
+ * @param minCapacity 期望最小可用容量
+ */
+private void grow(int minCapacity) {
+    /* 当前数组长度 */
+    int oldCapacity = elementData.length;
+    /* 扩容数组长度，扩容 1.5 倍（1 + 1/2） */
+    int newCapacity = oldCapacity + (oldCapacity >> 1);
+    /* 扩容 1.5 倍后仍不满足需求，取「期望最小可用容量」 */
+    if (newCapacity - minCapacity < 0) {
+        newCapacity = minCapacity;
+    }
+    /* 扩容后超过最大限定容量，取「最大限定容量」 */
+    if (newCapacity - MAX_ARRAY_SIZE > 0) {
+        newCapacity = hugeCapacity(minCapacity);
+    }
+    /* 调用 Arrays.copyOf() 拷贝元素至新数组 */
+    elementData = Arrays.copyOf(elementData, newCapacity);
+}
+private static int hugeCapacity(int minCapacity) {
+    if (minCapacity < 0) { // overflow
+        throw new OutOfMemoryError();
+    }
+    return (minCapacity > MAX_ARRAY_SIZE) ?
+        Integer.MAX_VALUE :
+        MAX_ARRAY_SIZE;
+}
+```
+> 代码清单：ArrayList `grow()`扩容方法
+
+
+## ArrayList 其他方法
+
+下面看一看 ArrayList 其他的一些常用方法。
+
+```java
+/**
+ * 返回指定索引下标的元素。
+ *
+ * @param  index 索引下标
+ * @return 目标索引元素
+ * @throws IndexOutOfBoundsException
+ */
+public E get(int index) {
+    /* 边界检查 */
+    rangeCheck(index);
+    /* 返回对应数组元素 */
+    return elementData(index);
+}
+/**
+ * 将制定索引位置的元素替换为新元素。
+ *
+ * @param index 替换元素的索引下标
+ * @param element 替换元素
+ * @return 旧元素
+ * @throws IndexOutOfBoundsException
+ */
+public E set(int index, E element) {
+    /* 边界检查 */
+    rangeCheck(index);
+    /*  暂存旧元素 */
+    E oldValue = elementData(index);
+    /*  替换元素 */
+    elementData[index] = element;
+    /*  返回旧元素 */
+    return oldValue;
+}
+/**
+ * 清空数组。
+ */
+public void clear() {
+    /* 操作次数 + 1 */
+    modCount++;
+    /* 遍历数组，置空元素 */
+    for (int i = 0; i < size; i++) {
+        elementData[i] = null;
+    }
+    /* 存储数量置零 */
+    size = 0;
+}
+/* 「索引访问」辅助函数 */
+@SuppressWarnings("unchecked")
+E elementData(int index) {
+    return (E) elementData[index];
+}
+/* 「边界检查」辅助函数 */
+private void rangeCheck(int index) {
+    if (index >= size) {
+        throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+    }
+}
+/**
+ * 返回指定元素在数组中第一次出现的索引下标。返回 -1 表示不存在该元素。
+ *
+ * @param o 目标元素
+ * @return 目标元素下标
+ */
+public int indexOf(Object o) {
+    if (o == null) {
+        for (int i = 0; i < size; i++) {
+            if (elementData[i] == null) {
+                return i;
+            }
+        }
+    } else {
+        for (int i = 0; i < size; i++) {
+            if (o.equals(elementData[i])) {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+/**
+ * 容器中是否包含目标元素
+ * @param o 目标元素
+ * @return boolean
+ */
+public boolean contains(Object o) {
+    /* 调用 indexOf() 实现 */
+    return indexOf(o) >= 0;
+}
+/**
+ * 容器转数组。
+ */
+public Object[] toArray() {
+    /* 调用 Arrays.copyOf() 复制出一份新数组返回 */
+    return Arrays.copyOf(elementData, size);
+}
+```
+> 代码清单：ArrayList 其他方法
 
 
 
