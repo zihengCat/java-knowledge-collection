@@ -188,7 +188,7 @@ public void add(int index, E element) {
 
 ## ArrayList `remove()`方法
 
-ArrayList `add()` 方法用于移除容器内元素。支持两种方式：移除指定下标索引的元素，移除指定元素。
+ArrayList `remove()` 方法用于移除容器内元素。支持两种方式：移除指定下标索引的元素，移除指定元素。
 
 ```java
 /**
