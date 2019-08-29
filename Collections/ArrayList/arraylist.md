@@ -147,9 +147,9 @@ public ArrayList(Collection<? extends E> c) {
 
 ArrayList `add()` 方法用于向容器内添加元素。默认将元素添加至数组尾部，也可以指定插入位置。
 
-1. 插入数组尾部：数组容量检查 -> 插入元素至数组尾部 -> 容量 + 1
+1. **插入数组尾部**：数组容量检查 -> 插入元素至数组尾部 -> 容量 + 1
 
-2. 插入指定位置：索引边界检查 -> 数组容量检查 -> 数组元素后移1位 -> 插入元素 -> 容量 + 1
+2. **插入指定位置**：索引边界检查 -> 数组容量检查 -> 数组元素后移1位 -> 插入元素 -> 容量 + 1
 
 ```java
 /**
@@ -185,6 +185,82 @@ public void add(int index, E element) {
 }
 ```
 > 代码清单：ArrayList `add()`方法
+
+## ArrayList `remove()`方法
+
+ArrayList `add()` 方法用于移除容器内元素。支持两种方式：移除指定下标索引的元素，移除指定元素。
+
+```java
+/**
+ * 移除指定索引下标的元素，数组元素左移1位。
+ *
+ * @param index 待删除元素索引下标
+ * @return 删除元素
+ * @throws IndexOutOfBoundsException
+ */
+public E remove(int index) {
+    /* 索引下标边界检查 */
+    rangeCheck(index);
+
+    /* 操作 + 1 */
+    modCount++;
+
+    /* 取得待移除元素 */
+    E oldValue = elementData(index);
+
+    /* 计算移动元素长度 */
+    int numMoved = size - index - 1;
+    if (numMoved > 0) {
+        /* 数组元素左移1位 */
+        System.arraycopy(elementData, index + 1, elementData, index,
+                         numMoved);
+    }
+    elementData[--size] = null; // clear to let GC do its work
+
+
+    /* 返回移除元素 */
+    return oldValue;
+}
+
+/**
+ * 移除数组指定元素。
+ *
+ * @param o 待删除元素
+ * @return boolean 操作成功返回 true，不存在目标元素返回 false
+ */
+public boolean remove(Object o) {
+    if (o == null) {
+        for (int index = 0; index < size; index++)
+            if (elementData[index] == null) {
+                fastRemove(index);
+                return true;
+            }
+    } else {
+        for (int index = 0; index < size; index++)
+            if (o.equals(elementData[index])) {
+                fastRemove(index);
+                return true;
+            }
+    }
+    return false;
+}
+/*
+ * 快速删除方法，去除了边界检查与返回值暂存以提高效率。
+ */
+private void fastRemove(int index) {
+    modCount++;
+    int numMoved = size - index - 1;
+    if (numMoved > 0) {
+        System.arraycopy(elementData, index + 1, elementData, index,
+                         numMoved);
+    }
+    elementData[--size] = null; // clear to let GC do its work
+}
+```
+> 代码清单：ArrayList `remove()`方法
+
+
+
 
 
 
