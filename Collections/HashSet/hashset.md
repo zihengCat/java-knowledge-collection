@@ -56,14 +56,87 @@ public class HashSetTest {
 ```
 > 代码清单：HashSet 基本用法
 
+# HashSet 源码剖析
 
+从 JDK 源码角度分析 HashSet。**HashSet 内部使用 HashMap 实现，利用 HashMap 键不能重复的特性实现`Set`语义，大部分接口实现都重用 HashMap 代码**。
 
+## HashSet 数据字段
 
+观察 HashSet 类中的数据字段，可以得知：
 
+- HashSet 内部使用 HashMap 实现。
 
+- 利用了 HashMap 键不重复的特性。
 
+- 内部 HashMap 关联的值是一个空对象。
 
+```java
+public class HashSet<E>
+    extends AbstractSet<E>
+    implements Set<E>, Cloneable, java.io.Serializable
+{
+    /* 序列化号 */
+    static final long serialVersionUID = -5024744406713321676L;
 
+    /* 使用 HashMap */
+    private transient HashMap<E,Object> map;
+
+    /* Dummy 对象，用作内部 HashMap 的值 */
+    private static final Object PRESENT = new Object();
+}
+```
+> 代码清单：HashSet 数据字段
+
+## HashSet 构造函数
+
+HashSet 构造函数与 HashMap 一致。
+
+```java
+public HashSet() {
+    map = new HashMap<>();
+}
+public HashSet(int initialCapacity) {
+    map = new HashMap<>(initialCapacity);
+}
+public HashSet(int initialCapacity, float loadFactor) {
+    map = new HashMap<>(initialCapacity, loadFactor);
+}
+/* 未开放的构造函数 */
+HashSet(int initialCapacity, float loadFactor, boolean dummy) {
+    map = new LinkedHashMap<>(initialCapacity, loadFactor);
+}
+public HashSet(Collection<? extends E> c) {
+    map = new HashMap<>(Math.max((int) (c.size()/.75f) + 1, 16));
+    addAll(c);
+}
+```
+> 代码清单：HashSet 构造函数
+
+## HashSet 其他方法
+
+HashSet 其他方法基本都重用 HashMap 。
+
+```java
+public boolean add(E e) {
+    return map.put(e, PRESENT) == null;
+}
+public void clear() {
+    map.clear();
+}
+public boolean contains(Object o) {
+    return map.containsKey(o);
+}
+public boolean isEmpty() {
+    return map.isEmpty();
+}
+public int size() {
+    return map.size();
+}
+public Iterator<E> iterator() {
+    return map.keySet().iterator();
+}
+```
+> 代码清单：HashSet 其他方法
 
 [Collections-HashSet-1-Hierachy]: ../../images/Collections-HashSet-1-Hierachy.png
 
