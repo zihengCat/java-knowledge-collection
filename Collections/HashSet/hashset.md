@@ -48,7 +48,7 @@ public class HashSetTest {
         /* 迭代遍历容器元素 */
         for (Iterator<Integer> iterator = hashSet.iterator();
             iterator.hasNext(); /* Nope */ ) {
-            System.out.println(hashSet.next());
+            System.out.println(iterator.next());
         }
     }
 }
