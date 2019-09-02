@@ -1,6 +1,6 @@
 # HashSet 简介
 
-HashSet 是 Java 集合框架的一员，用于存放不重复的集合元素。关于 HashSet，有如下几个要点。
+HashSet 是 Java 集合框架的一员，用于存放不重复的集合元素。关于 HashSet 有如下几个要点。
 
 - HashSet 存放唯一不重复元素，允许存放一个`null`值。
 
@@ -45,8 +45,7 @@ public class HashSetTest {
         /* 可以加入一个 null 值 */
         hashSet.add(null);
         System.out.println(hashSet.size()); // 11
-        System.out.println(hashSet.size()); // 10
-        /* 迭代器遍历容器元素 */
+        /* 迭代遍历容器元素 */
         for (Iterator<Integer> iterator = hashSet.iterator();
             iterator.hasNext(); /* Nope */ ) {
             System.out.println(hashSet.next());
