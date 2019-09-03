@@ -1,6 +1,6 @@
 # HashMap 简介
 
-`HashMap`是 Java 实现的哈希表，存放键值对，最常用的 Java 集合之一，但是`HashMap`并不是线程安全的集合容器。
+`HashMap`是 Java 实现的哈希表，存放键值对，最常用的 Java 集合之一。`HashMap`并不是线程安全的集合容器。
 
 ![Collections-HashMap-1][Collections-HashMap-1]
 
@@ -20,57 +20,17 @@
 
 > 图：Java 8 HashMap 数据结构
 
-# HashMap 源码分析
+# HashMap 源码剖析
 
-Java HashMap 允许 4 种形式的构造函数：
+从 JDK 源码角度深入分析 HashMap 实现。
 
-- 无参默认构造
+## HashMap 数据字段
 
-- 指定容量大小构造
-
-- 指定容量大小与负载因子构造
-
-- 以另一个`Map`构造
-
-```java
-...
-    /* 默认构造函数 */
-    public HashMap() {
-        this.loadFactor = DEFAULT_LOAD_FACTOR;
-    }
-    /* 包含另一个 Map 的构造函数 */
-    public HashMap(Map<? extends K, ? extends V> m) {
-        this.loadFactor = DEFAULT_LOAD_FACTOR;
-        putMapEntries(m, false);
-    }
-    /* 指定[容量大小]的构造函数 */
-    public HashMap(int initialCapacity) {
-        this(initialCapacity, DEFAULT_LOAD_FACTOR);
-    }
-    /* 指定[容量大小]和[负载因子]的构造函数 */
-    public HashMap(int initialCapacity, float loadFactor) {
-        if (initialCapacity < 0) {
-            throw new IllegalArgumentException("Illegal initial capacity: " + initialCapacity);
-        }
-        if (initialCapacity > MAXIMUM_CAPACITY) {
-            initialCapacity = MAXIMUM_CAPACITY;
-        }
-        if (loadFactor <= 0 || Float.isNaN(loadFactor)) {
-            throw new IllegalArgumentException("Illegal load factor: " + loadFactor);
-        }
-        this.loadFactor = loadFactor;
-        this.threshold = tableSizeFor(initialCapacity);
-    }
-...
-```
-> 代码清单：HashMap 构造函数
-
-再来看一看 HashMap 中的类字段。
+看看 HashMap 类中的重要数据字段，包括：哈希桶数组、`Node`链表节点、`TreeNode`红黑树节点。
 
 ```java
 public class HashMap<K,V> extends AbstractMap<K,V>
     implements Map<K,V>, Cloneable, Serializable {
-...
     /* 序列化号 */
     private static final long serialVersionUID = 362498820763181265L;
     /* 默认初始容量: 16 */
@@ -93,103 +53,144 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     transient int size;
     /* 扩容或更改结构时的计数器 */
     transient int modCount;
-    /* 临界值: 当实际大小（容量*负载因子）超过临界值时，触发扩容 */
+    /* 临界值: 当实际大小（容量 * 负载因子）超过临界值时，触发扩容 */
     int threshold;
     /* 负载因子 */
     final float loadFactor;
-...
 }
 ```
-> 代码清单：HashMap 类字段
+> 代码清单：HashMap 数据字段
 
 ```java
-...
-    /**
-     * 基础 Node 数据结构，继承自 Map.Entry<K,V>
-     */
-    static class Node<K,V> implements Map.Entry<K,V> {
-        /* 哈希值 */
-        final int hash;
-        /* 键 */
-        final K key;
-        /* 值 */
-        V value;
-        /* 链表后继节点 */
-        Node<K,V> next;
-        /* 构造函数 */
-        Node(int hash, K key, V value, Node<K,V> next) {
-            this.hash = hash;
-            this.key = key;
-            this.value = value;
-            this.next = next;
-        }
-        /* 取键 */
-        public final K getKey()        { return key; }
-        /* 取值 */
-        public final V getValue()      { return value; }
-        /* 字符串化 */
-        public final String toString() { return key + "=" + value; }
-        /* 计算节点对象哈希值 */
-        public final int hashCode() {
-            return Objects.hashCode(key) ^ Objects.hashCode(value);
-        }
-        /* 设置新值，返回旧值 */
-        public final V setValue(V newValue) {
-            V oldValue = value;
-            value = newValue;
-            return oldValue;
-        }
-        /* 比较节点是否相等 */
-        public final boolean equals(Object o) {
-            if (o == this) {
-                return true;
-            }
-            if (o instanceof Map.Entry) {
-                Map.Entry<?,?> e = (Map.Entry<?,?>)o;
-                if (Objects.equals(key, e.getKey()) &&
-                    Objects.equals(value, e.getValue()))
-                    return true;
-            }
-            return false;
-        }
+/**
+ * 基础 Node 链表节点数据结构，
+ * 静态内部类，实现 Map.Entry<K,V> 接口
+ */
+static class Node<K,V> implements Map.Entry<K,V> {
+    /* 哈希值 */
+    final int hash;
+    /* 键 */
+    final K key;
+    /* 值 */
+    V value;
+    /* 链表后继节点 */
+    Node<K,V> next;
+    /* 构造函数 */
+    Node(int hash, K key, V value, Node<K,V> next) {
+        this.hash = hash;
+        this.key = key;
+        this.value = value;
+        this.next = next;
     }
-...
+    /* 取键 */
+    public final K getKey()        { return key; }
+    /* 取值 */
+    public final V getValue()      { return value; }
+    /* 字符串化 */
+    public final String toString() { return key + "=" + value; }
+    /* 计算节点哈希值 */
+    public final int hashCode() {
+        return Objects.hashCode(key) ^ Objects.hashCode(value);
+    }
+    /* 设置新值，返回旧值 */
+    public final V setValue(V newValue) {
+        V oldValue = value;
+        value = newValue;
+        return oldValue;
+    }
+    /* 比较节点是否相等 */
+    public final boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o instanceof Map.Entry) {
+            Map.Entry<?,?> e = (Map.Entry<?,?>)o;
+            if (Objects.equals(key, e.getKey()) &&
+                Objects.equals(value, e.getValue()))
+                return true;
+        }
+        return false;
+    }
+}
 ```
 > 代码清单：`Node`节点类源码
 
 ```java
-...
-    /**
-     * 红黑树节点数据结构，继承自 LinkedHashMap.Entry<K,V>
-     */
-    static final class TreeNode<K,V> extends LinkedHashMap.Entry<K,V> {
-        TreeNode<K,V> parent;  // red-black tree links
-        /* 左节点 */
-        TreeNode<K,V> left;
-        /* 右节点 */
-        TreeNode<K,V> right;
-        TreeNode<K,V> prev;    // needed to unlink next upon deletion
-        /* 颜色 */
-        boolean red;
-        /* 构造函数 */
-        TreeNode(int hash, K key, V val, Node<K,V> next) {
-            super(hash, key, val, next);
-        }
-        /**
-         * 返回红黑树根节点
-         */
-        final TreeNode<K,V> root() {
-            for (TreeNode<K,V> r = this, p;;) {
-                if ((p = r.parent) == null)
-                    return r;
-                r = p;
-            }
-        }
-        /* 更多红黑树方法实现... */
-...
+/**
+ * 红黑树节点数据结构，继承自 LinkedHashMap.Entry<K,V>
+ */
+static final class TreeNode<K,V> extends LinkedHashMap.Entry<K,V> {
+    /* 根节点 */
+    TreeNode<K,V> parent;  // red-black tree links
+    /* 左节点 */
+    TreeNode<K,V> left;
+    /* 右节点 */
+    TreeNode<K,V> right;
+    /* 上一个节点 */
+    TreeNode<K,V> prev;    // needed to unlink next upon deletion
+    /* 颜色 */
+    boolean red;
+    /* 构造函数 */
+    TreeNode(int hash, K key, V val, Node<K,V> next) {
+        super(hash, key, val, next);
     }
+    /**
+     * 返回红黑树根节点
+     */
+    final TreeNode<K,V> root() {
+        for (TreeNode<K,V> r = this, p;;) {
+            if ((p = r.parent) == null)
+                return r;
+            r = p;
+        }
+    }
+    /* 更多红黑树方法实现... */
+}
 ```
 > 代码清单：`TreeNode`节点类源码
+
+## 构造函数
+
+Java HashMap 允许 4 种形式的构造函数：
+
+- 无参默认构造
+
+- 指定容量大小构造
+
+- 指定容量大小与负载因子构造
+
+- 以另一个`Map`构造
+
+```java
+/* 默认构造函数 */
+public HashMap() {
+    this.loadFactor = DEFAULT_LOAD_FACTOR;
+}
+/* 以另一个 Map 构造 */
+public HashMap(Map<? extends K, ? extends V> m) {
+    this.loadFactor = DEFAULT_LOAD_FACTOR;
+    putMapEntries(m, false);
+}
+/* 指定[容量大小]构造 */
+public HashMap(int initialCapacity) {
+    this(initialCapacity, DEFAULT_LOAD_FACTOR);
+}
+/* 指定[容量大小]和[负载因子]构造 */
+public HashMap(int initialCapacity, float loadFactor) {
+    if (initialCapacity < 0) {
+        throw new IllegalArgumentException("Illegal initial capacity: " + initialCapacity);
+    }
+    if (initialCapacity > MAXIMUM_CAPACITY) {
+        initialCapacity = MAXIMUM_CAPACITY;
+    }
+    if (loadFactor <= 0 || Float.isNaN(loadFactor)) {
+        throw new IllegalArgumentException("Illegal load factor: " + loadFactor);
+    }
+    this.loadFactor = loadFactor;
+    this.threshold = tableSizeFor(initialCapacity);
+}
+```
+> 代码清单：HashMap 构造函数
 
 ```java
 ...
