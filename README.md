@@ -10,6 +10,10 @@ Java 核心知识点收集整理。
 
 - [Comparable 接口与 Comparator 接口](./Basic/ComparableAndComparatorInterfaces/comparable_and_comparator_interfaces.md)
 
+## 进阶
+
+- [Java 动态代理](./Advanced/DynamicProxy/dynamic_proxy.md)
+
 ## JVM
 
 - [Java 虚拟机 JVM 概览](./JVM/01.Overview/overview.md)
