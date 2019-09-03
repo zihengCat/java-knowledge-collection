@@ -4,13 +4,13 @@
 
 > 图：Java 代理执行逻辑
 
-# 代理模式
+# 代理模式简介
 
-代理模式是常见的设计模式之一，其核心思想是：**对实现类的替代，对方法的增强**。
+代理模式是常用的设计模式之一，其核心思想是：**对实现类的替代，对方法的增强**。
 
 ![Advanced-DynamicProxy-2][Advanced-DynamicProxy-2]
 
-> 图：Java 常用代理模式 UML 示意图
+> 图：Java 代理模式 UML 示意图
 
 需要注意的有下面几点：
 
@@ -174,15 +174,72 @@ public class SubjectTest {
 
 # CGLib 动态代理
 
-`cglib`（Byte Code Generation Library）是一枚 Java 动态字节码生成库，提供高阶 API 方便动态生成 Java 字节码，底层使用了`ASM`库。
+`cglib`（Byte Code Generation Library）是一个 Java 动态字节码生成库，提供高阶 API 方便动态生成 Java 字节码，底层使用了`ASM`库。利用`cglib`，可以实现不需要接口的动态代理。
 
 > `cglib`开源地址：https://github.com/cglib/cglib
 
+```java
+/* 无实现接口 */
+public class SubjectImpl {
+    public void doSomething() {
+        System.out.println("call doSomething()");
+    }
+}
+```
+> 代码清单：代理类
 
+```java
+import java.lang.reflect.Method;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+public class CGLibProxy implements MenthodInterceptor {
+    private CGLibProxy() {}
+    /* 单例模式 */
+    private static CGLibProxy instance = new CGLibProxy();
+    public static CGLibProxy getInstance() {
+        return instance;
+    }
+    /* 取得动态代理（泛型） */
+    @SuppressWarnings("unchecked")
+    public <T> T getProxy(Class<T> clazz) {
+        return (T)Enhancer.create(clazz, this);
+    }
+    /* 方法拦截 */
+    @Override
+    public Object intercept(
+        Object obj,
+        Method method,
+        Object[] args,
+        MethodProxy proxy
+    ) throws Throwable {
+        before();
+        Object result = proxy.invokeSuper(obj, args);
+        after();
+        return result;
+    }
+    private void before() {
+        System.out.println("call before()");
+    }
+    private void after() {
+        System.out.println("call after()");
+    }
+}
+```
+> 代码清单：`cglib`动态代理
 
+```java
+public class SubjectTest {
+    public static void main(String[] args) {
+        SubjectImpl sub = CGLibProxy.getInstance()
+                                    .getProxy(SubjectImpl.class);
+        sub.doSomething();
+    }
+}
+```
+> 代码清单：主类
 
-
-
+可以看到，`cglib`实现动态代理不需要接口信息。但是正因为没有接口信息，`cglib`动态代理没有办法拦截指定方法，被代理类中定义的所有方法都被`cglib`拦截包装。
 
 [Advanced-DynamicProxy-1]: ../../images/Advanced-DynamicProxy-1.jpg
 
