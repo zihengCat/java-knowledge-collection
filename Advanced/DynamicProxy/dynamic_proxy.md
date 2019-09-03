@@ -17,6 +17,6 @@
 
 
 
-[Advanced-DynamicProxy-1]: ../../image/Advanced-DynamicProxy-1.jpg
+[Advanced-DynamicProxy-1]: ../../images/Advanced-DynamicProxy-1.jpg
 
 <!-- EOF -->
