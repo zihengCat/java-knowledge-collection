@@ -57,5 +57,6 @@ Servlet 运行于支持 Java 的应用服务器上。从实现上讲，Servlet �
             ├── test-context.xml
             └── test-db.xml
 ```
-> 注：Java Web 目录结构（推荐）
+> 注：Java Web 推荐目录结构
 
+<!-- EOF -->
