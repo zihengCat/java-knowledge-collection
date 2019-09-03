@@ -174,7 +174,7 @@ public class SubjectTest {
 
 # CGLib 动态代理
 
-`cglib`（Byte Code Generation Library）是一个 Java 动态字节码生成库，提供高阶 API 方便动态生成 Java 字节码，底层使用了`ASM`库。利用`cglib`，可以实现不需要接口的动态代理。
+`cglib`（Byte Code Generation Library）是一个 Java 动态字节码生成库，提供高阶 API 方便动态生成 Java 字节码，底层使用了小而快的字节码处理框架`ASM`。利用`cglib`，可以实现不依赖接口的动态代理。
 
 > `cglib`开源地址：https://github.com/cglib/cglib
 
@@ -240,6 +240,14 @@ public class SubjectTest {
 > 代码清单：主类
 
 可以看到，`cglib`实现动态代理不需要接口信息。但是正因为没有接口信息，`cglib`动态代理没有办法拦截指定方法，被代理类中定义的所有方法都被`cglib`拦截包装。
+
+# 总结
+
+静态代理、JDK 动态代理、`cglib`动态代理这三种代理方式各有特点。
+
+- 静态代理与 JDK 动态代理都需要被代理类实现接口，通过接口信息对特定方法进行拦截包装。
+
+- CGLib 动态代理虽然不需要接口信息，但是其会对被代理类的所有方法都进行拦截包装。另外，因其实现方式是继承，所以不能代理`final`方法。
 
 [Advanced-DynamicProxy-1]: ../../images/Advanced-DynamicProxy-1.jpg
 
