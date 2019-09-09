@@ -24,6 +24,25 @@ LinkedHashMap 继承自 HashMap，也具有 HashMap 中所有的数据结构。�
 
 # LinkedHashMap 基本用法
 
+```java
+import java.util.Map
+import java.util.LinkedHashMap;
+public class LinkedHashMapTest {
+    public static void main(String[] args[]) {
+        Map<String, String> map = new LinkedHashMap<String, String>();
+        map.put("1", "a");
+        map.put("2", "b");
+        map.put("3", "c");
+        map.put("4", "d");
+        for (Iterator<Map.Entry<String,String>> iterator =
+                map.entrySet().iterator();
+            iterator.hasNext(); /* Nope */ ) {
+            System.out.println(iterator.next());
+        }
+    }
+}
+/* EOF */
+```
 
 
 
