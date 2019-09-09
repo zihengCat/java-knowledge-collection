@@ -145,7 +145,7 @@ public LinkedHashMap(int initialCapacity) {
 /**
  * 以另一 Map 构造。
  *
- * @param  m Map 结构
+ * @param  m Map 结构参数
  * @throws NullPointerException 参数为空
  */
 public LinkedHashMap(Map<? extends K, ? extends V> m) {
@@ -156,16 +156,57 @@ public LinkedHashMap(Map<? extends K, ? extends V> m) {
 ```
 > 代码清单：LinkedHashMap 构造函数
 
-## LinkedHashMap `put()`方法
+## LinkedHashMap 新增节点方法
+
+LinkedHashMap 插入元素直接复用 HashMap `put()`方法，没有重写 HashMap 的`put()`方法，而是重写了构建新节点的`newNode()`方法。
+
+```java
+/* 创建新单链表节点 */
+Node<K,V> newNode(int hash, K key, V value, Node<K,V> e) {
+    LinkedHashMap.Entry<K,V> p =
+        new LinkedHashMap.Entry<K,V>(hash, key, value, e);
+    linkNodeLast(p);
+    return p;
+}
+/* 创建新红黑树节点 */
+TreeNode<K,V> newTreeNode(int hash, K key, V value, Node<K,V> next) {
+    TreeNode<K,V> p = new TreeNode<K,V>(hash, key, value, next);
+    linkNodeLast(p);
+    return p;
+}
+/* 将节点链接到双向链表尾部 */
+private void linkNodeLast(LinkedHashMap.Entry<K,V> p) {
+    LinkedHashMap.Entry<K,V> last = tail;
+    tail = p;
+    if (last == null) {
+        head = p;
+    } else {
+        p.before = last;
+        last.after = p;
+    }
+}
+```
+> 代码清单：LinkedHashMap 新增节点方法
+
+## LinkedHashMap 移除节点方法
 
 ...
 
+# LinkedHashMap 总结
 
+LinkedHashMap 相对于 HashMap，源码简单许多，因为其继承了 HashMap，大部分操作都复用 HashMap 方法，仅重写了几个方法，用于维护迭代顺序。这也是其与 HashMap 相比最大的不同：有序迭代。在每次插入、访问、修改数据时，都会新增节点、调整内部双向链表节点顺序。
 
+- `accessOrder`，默认为`false`，则迭代时输出的顺序是插入节点的顺序。若为true，则输出的顺序是按照访问节点的顺序。设为`true`时，可以构建一个 LRU 缓存。
 
+- LinkedHashMap 并没有重写任何`put()`方法，而是重写了构建新节点的`newNode()`方法，在每次构建新节点时，将新节点链接到内部双向链表尾部。
 
+- 访问顺序`accessOrder = true`模式下，在`afterNodeAccess()`函数中，会将当前被访问到的节点移动至内部双向链表尾部。`afterNodeAccess()`会修改`modCount`，d多线程操作会导致*fail-fast*，因为内部迭代顺序已经改变。
 
+- LinkedHashMap 中`nextNode()`方法就是迭代器`Iterator`中的`next()`方法实现。从内部双链表的头节点开始循环输出，保证迭代顺序。双链表节点顺序则在增、删、改、查时都会更新。
 
+- LinkedHashMap 重写了`containsValue()`方法，直接遍历内部双向链表比对值是否相等，效率更高。
+
+- LinkedHashMap 不重写`containsKey()`方法，因为`key`使用`hash()`算法快速定位。
 
 [Collections-LinkedHashMap-1-Hierachy]: ../../images/Collections-LinkedHashMap-1-Hierachy.png
 
