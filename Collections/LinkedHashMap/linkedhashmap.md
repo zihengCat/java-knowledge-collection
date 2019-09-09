@@ -1,4 +1,4 @@
-# Java `LinkedHashMap` 源码剖析
+# Java `LinkedHashMap` 简介
 
 LinkedHashMap 是一个**有序哈希表**，用于存放关联数据，允许单一键为`null`，任意数量值为`null`。LinkedHashMap 并不是线程安全的集合容器。
 
