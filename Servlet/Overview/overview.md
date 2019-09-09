@@ -59,4 +59,19 @@ Servlet 运行于支持 Java 的应用服务器上。从实现上讲，Servlet �
 ```
 > 注：Java Web 推荐目录结构
 
+# 技术名词
+
+- `POJO`：即 Plain Old Java Objects，简单老式 Java 对象。可以包含业务逻辑或持久化逻辑，但不担当任何特殊角色且不继承或不实现任何其它 Java 框架的类或接口。
+
+- `IoC`：即 Inverse of Control，控制反转。非具体技术，而是一种设计思想，将原本在程序中手动创建对象的控制权，交由框架来管理。
+
+- `DAO`：即 Data Access Object，数据访问对象。
+
+
+
+
+
+
+
+
 <!-- EOF -->
