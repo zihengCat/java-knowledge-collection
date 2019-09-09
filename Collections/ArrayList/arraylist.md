@@ -1,18 +1,22 @@
 # ArrayList 简介
 
-ArrayList 是 Java 实现的动态数组，用于存放顺序对象，是最常用的 Java 集合类之一。ArrayList 并不是线程安全的集合容器。
+ArrayList 是 Java 实现的动态数组，用于存放顺序对象，允许存放`null`值，是最常用的 Java 集合类之一。ArrayList 并不是线程安全的集合容器。
 
-# ArrayList 继承关系
+# ArrayList 继承体系
 
 从 ArrayList 继承关系图中可以看出，`ArrayList`继承自抽象父类`AbstractList`，实现了`List`接口。另外，ArrayList 还支持快速随机访问`RandomAccess`。
 
 ![Collections-ArrayList-1-Hierarchy][Collections-ArrayList-1-Hierarchy]
 
-> 图：ArrayList 继承关系图
+> 图：ArrayList 继承体系图
 
 # ArrayList 数据结构
 
-ArrayList 底层数据结构比较简单：对象数组。数组具有的特性（固定类型、固定长度、随机访问等），ArrayList 也都具备，另外 ArrayList 也扩展了数组，可以动态伸缩。
+ArrayList 底层数据结构比较简单：对象数组。数组具备的特性（固定类型、固定长度、空间连续、随机访问等）ArrayList 也都具备。另外 ArrayList 也扩展了数组，可以动态伸缩。
+
+在 Java 中，数组一但在堆内存中创建，长度即固定不可变，ArrayList 实现数组扩容动态伸缩的原因：创建新数组，拷贝原数组元素。
+
+扩容操作也是 ArrayList 性能消耗较大的地方。如果能提前预知数据规模，应指定容量大小，减少扩容次数，提高运行效率。
 
 ![Collections-ArrayList-2-DataStructure][Collections-ArrayList-2-DataStructure]
 
