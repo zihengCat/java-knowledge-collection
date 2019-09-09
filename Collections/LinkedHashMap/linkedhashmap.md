@@ -196,7 +196,7 @@ private void linkNodeLast(LinkedHashMap.Entry<K,V> p) {
 
 LinkedHashMap 相对于 HashMap，源码简单许多，因为其继承了 HashMap，大部分操作都复用 HashMap 方法，仅重写了几个方法，用于维护迭代顺序。这也是其与 HashMap 相比最大的不同：有序迭代。在每次插入、访问、修改数据时，都会新增节点、调整内部双向链表节点顺序。
 
-- `accessOrder`，默认为`false`，则迭代时输出的顺序是插入节点的顺序。若为true，则输出的顺序是按照访问节点的顺序。设为`true`时，可以构建一个 LRU 缓存。
+- `accessOrder`，默认为`false`，则迭代时输出的顺序是插入节点的顺序。若设为`true`，则输出顺序按照节点访问顺序。设为`true`时，可以构建一个 LRU 缓存。
 
 - LinkedHashMap 并没有重写任何`put()`方法，而是重写了构建新节点的`newNode()`方法，在每次构建新节点时，将新节点链接到内部双向链表尾部。
 
