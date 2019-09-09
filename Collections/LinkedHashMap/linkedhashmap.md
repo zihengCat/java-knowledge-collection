@@ -53,6 +53,10 @@ public class LinkedHashMapTest {
 ```
 > 代码清单：LinkedHashMap 基本用法
 
+![Collections-LinkedHashMap-3-AddNode][Collections-LinkedHashMap-3-AddNode]
+
+> 图：LinkedHashMap 添加节点
+
 # LinkedHashMap 源码剖析
 
 从 JDK 源码角度深入分析 LinkedHashMap 实现。
@@ -211,5 +215,7 @@ LinkedHashMap 相对于 HashMap，源码简单许多，因为其继承了 HashMa
 [Collections-LinkedHashMap-1-Hierachy]: ../../images/Collections-LinkedHashMap-1-Hierachy.png
 
 [Collections-LinkedHashMap-2-DataStructure]: ../../images/Collections-LinkedHashMap-2-DataStructure.png
+
+[Collections-LinkedHashMap-3-AddNode]: ../../images/Collections-LinkedHashMap-3-AddNode.png
 
 <!-- EOF -->
