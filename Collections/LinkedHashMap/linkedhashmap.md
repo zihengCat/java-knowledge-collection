@@ -4,7 +4,7 @@ LinkedHashMap 是一个**有序哈希表**，用于存放关联数据，允许�
 
 # LinkedHashMap 继承体系
 
-LinkedHashMap 继承了 HashMap，实现`Map`接口，仅重写了几个方法实现，可以保持元素按「插入顺序」或「访问顺序」有序排列。
+LinkedHashMap 继承了 HashMap，实现`Map`接口，可以保持元素按「插入顺序」或「访问顺序」有序排列。
 
 LinkedHashMap 支持两种排序顺序：
 
@@ -59,10 +59,106 @@ public class LinkedHashMapTest {
 
 ## LinkedHashMap 数据字段
 
+LinkedHashMap 内部节点`Entry<K,V>`继承自`HashMap.Node<K,V>`，在其基础上扩展了前驱后继节点，改造为「双向链表」结构。并添加双向链表头尾节点`head`、`tail`。
 
+```java
+public class LinkedHashMap<K,V>
+    extends HashMap<K,V>
+    implements Map<K,V>
+{
+    /**
+     * LinkedHashMap 节点数据结构，继承 HashMap.Node 。
+     */
+    static class Entry<K,V> extends HashMap.Node<K,V> {
+        Entry<K,V> before, after;
+        Entry(int hash, K key, V value, Node<K,V> next) {
+            super(hash, key, value, next);
+        }
+    }
+    /**
+     * 双向链表头节点（最老）。
+     */
+    transient LinkedHashMap.Entry<K,V> head;
+    /**
+     * 双向链表尾节点（最新）。
+     */
+    transient LinkedHashMap.Entry<K,V> tail;
+    /**
+     * 元素迭代顺序。
+     * false：插入顺序
+     * true：访问顺序
+     */
+    final boolean accessOrder;
+}
+```
+> 代码清单：LinkedHashMap 数据字段
 
+## LinkedHashMap 构造函数
 
+LinkedHashMap 构造函数在 HashMap 基础之上额外添加`accessOrder`标识，用于控制节点顺序，默认为`false`，即按元素「插入顺序」排列。
 
+```java
+/**
+ * 无参构造函数，使用默认值：容量 16，负载因子 0.75，
+ * accessOrder 访问标识默认置为 false 。
+ */
+public LinkedHashMap() {
+	super();
+	accessOrder = false;
+}
+/**
+ * 以指定初始容量，负载因子，排序模式构造。
+ *
+ * @param  initialCapacity 初始容量
+ * @param  loadFactor      负载因子
+ * @param  accessOrder     排序模式
+ * @throws IllegalArgumentException 容量或负载因子为负。
+ */
+public LinkedHashMap(int initialCapacity,
+                     float loadFactor,
+                     boolean accessOrder) {
+    super(initialCapacity, loadFactor);
+    this.accessOrder = accessOrder;
+}
+/**
+ * 以指定初始容量，负载因子，
+ * 默认排序模式构造。
+ *
+ * @param  initialCapacity 初始容量
+ * @param  loadFactor      负载因子
+ * @throws IllegalArgumentException 容量或负载因子为负。
+ */
+public LinkedHashMap(int initialCapacity, float loadFactor) {
+	super(initialCapacity, loadFactor);
+	accessOrder = false;
+}
+/**
+ * 以指定初始容量构造。
+ *
+ * @param  initialCapacity 初始容量
+ * @throws IllegalArgumentException 容量或负载因子为负。
+ */
+public LinkedHashMap(int initialCapacity) {
+    super(initialCapacity);
+    accessOrder = false;
+}
+/**
+ * 以另一 Map 构造。
+ *
+ * @param  m Map 结构
+ * @throws NullPointerException 参数为空
+ */
+public LinkedHashMap(Map<? extends K, ? extends V> m) {
+    super();
+    accessOrder = false;
+    putMapEntries(m, false);
+}
+```
+> 代码清单：LinkedHashMap 构造函数
+
+## LinkedHashMap `put()`方法
+
+...
 
 
 
