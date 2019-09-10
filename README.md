@@ -42,6 +42,7 @@ Java 核心知识点收集整理。
 
 - [Java HashSet 分析](./Collections/HashSet/hashset.md)
 
+- [Java LinkedHashSet 分析](./Collections/LinkedHashSet/linkedhashset.md)
 
 ### Servlet
 
