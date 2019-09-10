@@ -192,9 +192,223 @@ private void linkNodeLast(LinkedHashMap.Entry<K,V> p) {
 ```
 > 代码清单：LinkedHashMap 新增节点方法
 
+在新增节点之后，LinkedHashMap 还会做些节点插入后操作。
+
+```java
+/* 根据 evict 删除最早插入的节点 */
+void afterNodeInsertion(boolean evict) { // possibly remove eldest
+    LinkedHashMap.Entry<K,V> first;
+    if (evict && (first = head) != null && removeEldestEntry(first)) {
+        K key = first.key;
+        removeNode(hash(key), key, null, false, true);
+    }
+}
+/* 该方法默认返回 false，即不删除节点 */
+protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+    return false;
+}
+```
+> 代码清单：LinkedHashMap `afterNodeInsertion()`方法
+
 ## LinkedHashMap 移除节点方法
 
-...
+LinkedHashMap 没有重写`remove()`方法，其删除逻辑复用 HashMap 方法实现。但其重写了`afterNodeRemoval()`回调方法，该方法会在`removeNode()`中回调，HashMap中该方法留空。
+
+```java
+/* 删除节点后，同步将节点从双向链表中移除 */
+void afterNodeRemoval(Node<K,V> e) { // unlink
+    /* 取得待删除节点及其前驱后继节点 */
+    LinkedHashMap.Entry<K,V> p =
+        (LinkedHashMap.Entry<K,V>)e, b = p.before, a = p.after;
+    /* 将待删除节点的前驱后继节点都置空 */
+    p.before = p.after = null;
+    /* 将节点从双向链表中移除 */
+    if (b == null) {
+        head = a;
+    } else {
+        b.after = a;
+    }
+    if (a == null) {
+        tail = b;
+    } else {
+        a.before = b;
+    }
+}
+```
+> 代码清单：LinkedHashMap 移除节点方法
+
+## LinkedHashMap 访问节点方法
+
+在访问节点方面，LinkedHashMap 重写了`get()`和`getOrDefault()`方法，在访问节点之后，调用`afterNodeAccess()`方法做些访问后操作。
+
+```java
+public V get(Object key) {
+    Node<K,V> e;
+    if ((e = getNode(hash(key), key)) == null) {
+        return null;
+    }
+    if (accessOrder) {
+        afterNodeAccess(e);
+    }
+    return e.value;
+}
+public V getOrDefault(Object key, V defaultValue) {
+    Node<K,V> e;
+    if ((e = getNode(hash(key), key)) == null) {
+        return defaultValue;
+    }
+    if (accessOrder) {
+        afterNodeAccess(e);
+    }
+    return e.value;
+}
+```
+> 代码清单：LinkedHashMap 访问节点方法
+
+```java
+/* 访问顺序模式下，将访问节点移动至双向链表尾部 */
+void afterNodeAccess(Node<K,V> e) { // move node to last
+    LinkedHashMap.Entry<K,V> last;
+    /* 如果 accessOrder 不为 true，则不执行任何操作 */
+    if (accessOrder && (last = tail) != e) {
+        LinkedHashMap.Entry<K,V> p =
+            (LinkedHashMap.Entry<K,V>)e, b = p.before, a = p.after;
+        p.after = null;
+        if (b == null) {
+            head = a;
+        } else {
+            b.after = a;
+        }
+        if (a != null) {
+            a.before = b;
+        } else {
+            last = b;
+        }
+        if (last == null) {
+            head = p;
+        } else {
+            p.before = last;
+            last.after = p;
+        }
+        tail = p;
+        ++modCount;
+    }
+}
+```
+> 代码清单：LinkedHashMap `afterNodeAccess()`方法
+
+## LinkedHashMap 迭代节点方法
+
+LinkedHashMap 最大的特点，就是内部通过双向链表维护了节点顺序。在遍历迭代时，可以按照顺序输出。
+
+```java
+public Set<Map.Entry<K,V>> entrySet() {
+    Set<Map.Entry<K,V>> es;
+    return (es = entrySet) == null ? (entrySet = new LinkedEntrySet()) : es;
+}
+final class LinkedEntrySet extends AbstractSet<Map.Entry<K,V>> {
+    public final int size()                 { return size; }
+    public final void clear()               { LinkedHashMap.this.clear(); }
+    public final Iterator<Map.Entry<K,V>> iterator() {
+        return new LinkedEntryIterator();
+    }
+    public final boolean contains(Object o) {
+        if (!(o instanceof Map.Entry)) {
+            return false;
+        }
+        Map.Entry<?,?> e = (Map.Entry<?,?>) o;
+        Object key = e.getKey();
+        Node<K,V> candidate = getNode(hash(key), key);
+        return candidate != null && candidate.equals(e);
+    }
+    public final boolean remove(Object o) {
+        if (o instanceof Map.Entry) {
+            Map.Entry<?,?> e = (Map.Entry<?,?>) o;
+            Object key = e.getKey();
+            Object value = e.getValue();
+            return removeNode(hash(key), key, value, true, true) != null;
+        }
+        return false;
+    }
+    /* 更多方法实现... */
+}
+```
+> 代码清单：LinkedHashMap `entrySet()`方法
+
+再来看看 LinkedHashMap 迭代器，可以看到，LinkedHashMap 迭代方式是**对内部双向链表的迭代输出**，这样可以满足按顺序输出的要求。
+
+```java
+// Iterators
+
+abstract class LinkedHashIterator {
+    /* 下一节点 */
+    LinkedHashMap.Entry<K,V> next;
+    /* 当前节点 */
+    LinkedHashMap.Entry<K,V> current;
+    int expectedModCount;
+
+    /* 构造函数 */
+    LinkedHashIterator() {
+        /* 下一节点初始化为双向链表头节点 */
+        next = head;
+        expectedModCount = modCount;
+        /* 当前节点初始化为空节点 */
+        current = null;
+    }
+
+    /* hasNext() 方法实现：下一节点不为空 */
+    public final boolean hasNext() {
+        return next != null;
+    }
+
+    /* next() 方法实现 */
+    final LinkedHashMap.Entry<K,V> nextNode() {
+        LinkedHashMap.Entry<K,V> e = next;
+        /* 检查 modCount，满足 fail-fast 机制 */
+        if (modCount != expectedModCount) {
+            throw new ConcurrentModificationException();
+        }
+        /* 检查下一节点是否为空 */
+        if (e == null) {
+            throw new NoSuchElementException();
+        }
+        /* 链表迭代 */
+        current = e;
+        next = e.after;
+        return e;
+    }
+
+    public final void remove() {
+        Node<K,V> p = current;
+        if (p == null) {
+            throw new IllegalStateException();
+        }
+        if (modCount != expectedModCount) {
+            throw new ConcurrentModificationException();
+        }
+        current = null;
+        K key = p.key;
+        removeNode(hash(key), key, null, false, false);
+        expectedModCount = modCount;
+    }
+}
+
+final class LinkedKeyIterator extends LinkedHashIterator
+    implements Iterator<K> {
+    public final K next() { return nextNode().getKey(); }
+}
+
+final class LinkedValueIterator extends LinkedHashIterator
+    implements Iterator<V> {
+    public final V next() { return nextNode().value; }
+}
+
+final class LinkedEntryIterator extends LinkedHashIterator
+    implements Iterator<Map.Entry<K,V>> {
+    public final Map.Entry<K,V> next() { return nextNode(); }
+}
+```
+> 代码清单：LinkedHashMap 迭代器
 
 # LinkedHashMap 总结
 
