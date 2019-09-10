@@ -4,7 +4,7 @@ LinkedHashSet 利用「哈希表」与「双向链表」实现`Set`接口，可�
 
 # Java `LinkedHashSet` 实现
 
-LinkedHashSet 继承自 HashSet，大部分操作也是直接复用 HashSet 方法实现。唯一的技巧就在于：**调用「隐藏构造函数」构造父类 HashSet，使 LinkedHashSet 后端变为 LinkedHashMap 实现，LinkedHashMap 可以维护内部元素的迭代顺序**。
+LinkedHashSet 继承自 HashSet，大部分操作也是直接复用 HashSet 方法实现。唯一的技巧就在于：**调用「隐藏构造函数」构造父类 HashSet，使 LinkedHashSet 后端变为 LinkedHashMap 实现，由 LinkedHashMap 维护内部元素的顺序**。
 
 ```java
 /* 继承自 HashSet，实现 Set 接口 */
@@ -32,20 +32,8 @@ public class LinkedHashSet<E>
 > 代码清单：LinkedHashSet 源码实现
 
 ```java
-/**
- * Constructs a new, empty linked hash set.  (This package private
- * constructor is only used by LinkedHashSet.) The backing
- * HashMap instance is a LinkedHashMap with the specified initial
- * capacity and the specified load factor.
- *
- * @param      initialCapacity   the initial capacity of the hash map
- * @param      loadFactor        the load factor of the hash map
- * @param      dummy             ignored (distinguishes this
- *             constructor from other int, float constructor.)
- * @throws     IllegalArgumentException if the initial capacity is less
- *             than zero, or if the load factor is nonpositive
- */
 HashSet(int initialCapacity, float loadFactor, boolean dummy) {
+    /* 后端实现变更为 LinkedHashMap */
     map = new LinkedHashMap<>(initialCapacity, loadFactor);
 }
 ```
