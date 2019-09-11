@@ -4,15 +4,21 @@ LinkedList 是 JDK 实现的「双向链表」集合容器，用于存储线性�
 
 # LinkedList 继承体系
 
-如图所示，
+如图所示，LinkedList 继承自抽象父类`AbstractSequentialList`，可顺序访问集合元素，实现了`List`，`Deque`接口。因此，LinkedList 还可以被用作「栈」与「队列」。
 
 ![Collections-LinkedList-1-Hierarchy][Collections-LinkedList-1-Hierarchy]
 
 > 图：LinkedList 继承体系图
 
+# LinkedList 数据结构
 
+LinkedList 的底层数据结构为「双向链表」，封装元素为链表节点，通过前趋后继节点指针串联数据，使用链式存储，内存不连续。
 
+LinkedList 使用链式存储结构，可以自由扩充容量，插入删除数据效率高，查找数据效率较低。
 
+![Collections-LinkedList-2-DataStructure][Collections-LinkedList-2-DataStructure]
+
+> 图：LinkedList 数据结构图
 
 # LinkedList 总结
 
@@ -20,5 +26,7 @@ LinkedList 是 JDK 实现的「双向链表」集合容器，用于存储线性�
 
 
 [Collections-LinkedList-1-Hierarchy]: ../../images/Collections-LinkedList-1-Hierarchy.png
+
+[Collections-LinkedList-2-DataStructure]: ../../images/Collections-LinkedList-2-DataStructure.png
 
 <!-- EOF -->
