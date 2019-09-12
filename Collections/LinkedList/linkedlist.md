@@ -669,7 +669,136 @@ public void clear() {
 
 ## LinkedList 迭代器
 
-...
+LinkedList 实现了`ListIterator`迭代器，支持前后双向迭代遍历。具体实现上，利用双向链表的特性，保留前后项迭代节点。
+
+另外，迭代器使用了 *Fail Fast* 机制，发现并发修改数据不一致的情况，快速失败。
+
+```java
+private class ListItr implements ListIterator<E> {
+    /* 前项节点 */
+    private Node<E> lastReturned;
+    /* 后项节点 */
+    private Node<E> next;
+    /* 后项节点索引位 */
+    private int nextIndex;
+    /* 期望修改次数 */
+    private int expectedModCount = modCount;
+    /* 构造函数：从指定索引位置开始迭代 */
+    ListItr(int index) {
+        // assert isPositionIndex(index);
+        /* 将指定索引位置节点赋予后项节点 */
+        next = (index == size) ? null : node(index);
+        /* 将指定索引位置赋予后项节点索引位 */
+        nextIndex = index;
+    }
+    /* hasNext()：判断后项节点索引位是否超出链表容量 */
+    public boolean hasNext() {
+        return nextIndex < size;
+    }
+    /* next()：取得迭代元素 */
+    public E next() {
+        /* 并发检查 */
+        checkForComodification();
+        /* 不存在后项节点，抛出异常 */
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        /* 后项节点变为前项节点 */
+        lastReturned = next;
+        /* 后项节点向后迭代一轮 */
+        next = next.next;
+        /* 后项节点索引位 + 1 */
+        nextIndex++;
+        /* 返回迭代元素 */
+        return lastReturned.item;
+    }
+    /* hasPrevious()：判断后项节点索引位是否大于 0 */
+    public boolean hasPrevious() {
+        return nextIndex > 0;
+    }
+    /* previous()：取得前项迭代元素 */
+    public E previous() {
+        /* 并发检查 */
+        checkForComodification();
+        /* 不存在前项节点，抛出异常 */
+        if (!hasPrevious()) {
+            throw new NoSuchElementException();
+        }
+        /* 前项节点变为后项节点 */
+        lastReturned = next = (next == null) ? last : next.prev;
+        /* 后项节点索引位 - 1 */
+        nextIndex--;
+        /* 返回迭代元素 */
+        return lastReturned.item;
+    }
+    /* nextIndex()：取得后项迭代元素索引位置 */
+    public int nextIndex() {
+        return nextIndex;
+    }
+    /* nextIndex()：取得前项迭代元素索引位置 */
+    public int previousIndex() {
+        return nextIndex - 1;
+    }
+    /* 通过迭代器移除元素 */
+    public void remove() {
+        /* 并发检查 */
+        checkForComodification();
+        /* 状态检查 */
+        if (lastReturned == null) {
+            throw new IllegalStateException();
+        }
+        /* 取得后项节点 */
+        Node<E> lastNext = lastReturned.next;
+        /* 释放前项节点 */
+        unlink(lastReturned);
+        if (next == lastReturned) {
+            next = lastNext;
+        } else {
+            nextIndex--;
+        }
+        /* 前项节点置空 */
+        lastReturned = null;
+        /* 期望修改次数 + 1，与实际修改次数对应 */
+        expectedModCount++;
+    }
+    /* 通过迭代器设置元素 */
+    public void set(E e) {
+        /* 状态检查 */
+        if (lastReturned == null) {
+            throw new IllegalStateException();
+        }
+        /* 并发检查 */
+        checkForComodification();
+        /* 设置元素 */
+        lastReturned.item = e;
+    }
+    /* 通过迭代器添加元素 */
+    public void add(E e) {
+        /* 并发检查 */
+        checkForComodification();
+        /* 前项节点置空 */
+        lastReturned = null;
+        /* 添加元素 */
+        if (next == null) {
+            linkLast(e);
+        } else {
+            linkBefore(e, next);
+        }
+        /* 后项节点索引位置 + 1 */
+        nextIndex++;
+        /* 期望修改次数 + 1，与实际修改次数对应 */
+        expectedModCount++;
+    }
+    /* 并发修改检测方法 */
+    final void checkForComodification() {
+        /* 检查「实际修改次数」与「期望修改次数」是否一致 */
+        if (modCount != expectedModCount) {
+            throw new ConcurrentModificationException();
+        }
+    }
+}
+```
+> 代码清单：LinkedList 迭代器
 
 # LinkedList 总结
 
