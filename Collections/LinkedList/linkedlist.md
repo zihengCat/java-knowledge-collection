@@ -802,8 +802,19 @@ private class ListItr implements ListIterator<E> {
 
 # LinkedList 总结
 
-...
+- LinkedList 实际使用双向链表实现。
 
+- LinkedList 实现了多个集合接口，可以被用作列表、双端队列、栈等。
+
+- LinkedList 维护双向链表节点内部类`Node`，包括数据域、前驱节点指针、后继节点指针。
+
+- LinkedList 无需扩缩容，也不用担心容量不足的问题。
+
+- LinkedList 克隆`clone`函数，将全部元素拷贝到一个新的 LinkedList 对象中。
+
+- LinkedList 实现序列化接口`java.io.Serializable`：写入时，先写入“容量”，再依次写入每一个节点保存的值；读出时，先读取“容量”，再依次读取每一个元素。
+
+- LinkedList 使用迭代器迭代遍历效率较高，`for()`循环直接遍历效率低下。
 
 [Collections-LinkedList-1-Hierarchy]: ../../images/Collections-LinkedList-1-Hierarchy.png
 
