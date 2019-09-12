@@ -810,7 +810,7 @@ private class ListItr implements ListIterator<E> {
 
 - LinkedList 无需扩缩容，也不用担心容量不足的问题。
 
-- LinkedList 克隆`clone`函数，将全部元素拷贝到一个新的 LinkedList 对象中。
+- LinkedList 克隆方法`clone()`，将全部元素拷贝到一个新的 LinkedList 对象中。
 
 - LinkedList 实现序列化接口`java.io.Serializable`：写入时，先写入“容量”，再依次写入每一个节点保存的值；读出时，先读取“容量”，再依次读取每一个元素。
 
