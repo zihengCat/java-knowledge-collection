@@ -1,6 +1,6 @@
-# ArrayList 简介
+# Java `ArrayList` 简介
 
-ArrayList 是 Java 实现的动态数组，用于存放顺序对象，允许存放`null`值，是最常用的 Java 集合类之一。ArrayList 并不是线程安全的集合容器。
+ArrayList 是 Java 实现的动态数组，用于存放顺序对象，允许存放`null`值，是最常用的 Java 集合实现类之一。ArrayList 并不是线程安全的集合容器。
 
 # ArrayList 继承体系
 
