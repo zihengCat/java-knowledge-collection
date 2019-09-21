@@ -37,7 +37,7 @@ public class MergeSort {
                 pLeft++;
             } else {
                 arrCopy[i] = arr[pRight];
-                pLeft++;
+                pRight++;
             }
             i++;
         }
@@ -52,8 +52,8 @@ public class MergeSort {
             i++;
         }
         /* 覆盖原数组 */
-        for (i = 0; i < arrCopy.length; ++i) {
-            arr[left + i] = arrCopy[i];
+        for (int j = 0; j < arrCopy.length; ++j) {
+            arr[left + j] = arrCopy[j];
         }
     }
 }
