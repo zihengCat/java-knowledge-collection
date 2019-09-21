@@ -76,6 +76,8 @@ Java 核心知识点收集整理。
 
 - [快速排序 - Java 实现](./DataStructuresAndAlgorithms/QuickSort/quick_sort.md)
 
+- [归并排序 - Java 实现](./DataStructuresAndAlgorithms/MergeSort/merge_sort.md)
+
 ## 操作系统
 
 ...
