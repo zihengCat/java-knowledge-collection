@@ -439,15 +439,13 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
 
 ## HashMap 扩容方法
 
-当 HashMap 中存放元素超过临界值时，会触发扩容`resize()`：
+当 HashMap 中存放元素数量超过临界值`threshold`时，会触发扩容`resize()`机制：重新计算容量，创建新容量数组替换旧数组。
 
-扩容(resize)就是重新计算容量，向HashMap对象里不停的添加元素，而HashMap对象内部的数组无法装载更多的元素时，对象就需要扩大数组的长度，以便能装入更多的元素。当然Java里的数组是无法自动扩容的，方法是使用一个新的数组代替已有的容量小的数组，就像我们用一个小桶装水，如果想装更多的水，就得换大水桶。
-
-我们分析下resize的源码，鉴于JDK1.8融入了红黑树，较复杂，为了便于理解我们仍然使用JDK1.7的代码，好理解一些，本质上区别不大，具体区别后文再说。)
+在`JDK 1.8`中，每次扩容为原来`2`倍，元素在新数组中的索引位置要么是在原位置，要么是在原位置再移动`2`次幂（原位置 + 原数组长度）位置。
 
 ![Collections-HashMap-5-ResizeFunction][Collections-HashMap-5-ResizeFunction]
 
-> 图：HashMap 扩容时元素位置变化 - Java 8
+> 图：HashMap 扩容时元素位置变化 - JDK 1.8
 
 ```java
 /**
@@ -475,10 +473,10 @@ final Node<K,V>[] resize() {
             threshold = Integer.MAX_VALUE;
             return oldTab;
         }
-        /* 扩容2倍 */
+        /* 扩容 2 倍 */
         else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
                  oldCap >= DEFAULT_INITIAL_CAPACITY) {
-            newThr = oldThr << 1; // double threshold
+            newThr = oldThr << 1;
         }
     }
     else if (oldThr > 0) { // initial capacity was placed in threshold
