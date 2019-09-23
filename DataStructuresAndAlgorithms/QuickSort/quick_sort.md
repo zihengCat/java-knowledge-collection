@@ -9,39 +9,48 @@ public class QuickSort {
         System.out.println(Arrays.toString(arr));
     }
     public static void quickSort(int[] arr, int left, int right) {
-        if (left >= right || arr == null) {
+        /* 处理异常情况 */
+        if (arr == null || arr.length < 2 || left >= right) {
             return;
         }
-        int i = partition(arr, left, right);
-        quickSort(arr, left, i - 1);
-        quickSort(arr, i + 1, right);
+        int index = partition(arr, left, right);
+        quickSort(arr, left, index - 1);
+        quickSort(arr, index + 1, right);
     }
     private static int partition(int[] arr, int left, int right) {
-        int i = left;
-        int j = right;
+        /* 取基准点 */
         int pivot = arr[left];
-        while (i < j) {
-            while (arr[j] >= pivot && i < j) {
-                --j;
+        /* 左指针 */
+        int pLeft = left;
+        /* 右指针 */
+        int pRight = right;
+        /* 左右指针前后遍历，
+           找到大于（小于）基准点的值，交换 */
+        while (pLeft < pRight) {
+            while (arr[pRight] >= pivot && pLeft < pRight) {
+                pRight--;
             }
-            while (arr[i] <= pivot && i < j) {
-                ++i;
+            while (arr[pLeft] <= pivot && pLeft < pRight) {
+                pLeft++;
             }
-            if (i < j) {
-                swap(arr, i, j);
+            if (pLeft < pRight) {
+                swap(arr, pLeft, pRight);
             }
         }
-        swap(arr, i, left);
-        return i;
+        /* 将基准值放置到合适位置 */
+        swap(arr, pLeft, left);
+        /* 返回基准值索引下标 */
+        return pLeft;
     }
+    /* 数组元素交换函数 */
     private static void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
+        int tmp = arr[i];
         arr[i] = arr[j];
-        arr[j] = temp;
+        arr[j] = tmp;
     }
 }
 /* EOF */
 ```
-> 代码清单：快速排序`Java`实现
+> 代码清单：快速排序 - Java 实现
 
 <!-- EOF -->
