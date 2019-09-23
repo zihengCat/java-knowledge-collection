@@ -181,7 +181,7 @@ Java HashMap 允许 4 种形式的构造函数：
 
 - 指定容量大小与负载因子构造
 
-- 以另一个`Map`构造
+- 以另一`Map`构造
 
 ```java
 /* 默认构造函数 */
@@ -216,11 +216,11 @@ public HashMap(int initialCapacity, float loadFactor) {
 
 ## HashMap 哈希计算
 
-HashMap 中对键的哈希值计算使用了哈希扰动函数`hash()`，计算方法：取对象哈希码`hashCode()`，右移`16`位，再做一次异或`XOR`操作。
+HashMap 中键哈希值计算使用了哈希扰动函数`hash()`，具体计算方法：取对象哈希码`hashCode()`，右移`16`位，再做一次异或`XOR`操作。
 
 ![Collections-HashMap-4-HashFunction][Collections-HashMap-4-HashFunction]
 
-> 图：HashMap 哈希计算
+> 图：HashMap 哈希计算方法
 
 ```java
 /**
@@ -441,7 +441,7 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
 
 当 HashMap 中存放元素数量超过临界值`threshold`时，会触发扩容`resize()`机制：重新计算容量，创建新容量数组替换旧数组。
 
-在`JDK 1.8`中，每次扩容为原来`2`倍，元素在新数组中的索引位置要么是在原位置，要么是在原位置再移动`2`次幂（原位置 + 原数组长度）位置。
+在`JDK 1.8`中，哈希桶数组容量为`2`的幂次，每次扩容都为原容量的`2`倍，元素在新数组中的索引位置要么是在原位置，要么是原位置再移动`2`次幂（原位置 + 原数组长度）位置。
 
 ![Collections-HashMap-5-ResizeFunction][Collections-HashMap-5-ResizeFunction]
 
