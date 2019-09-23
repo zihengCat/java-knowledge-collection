@@ -8,10 +8,10 @@
 
 3. 递归分割直至数组不可再分割（长度为`1`，只剩单个元素），执行归并操作（具体如下）。
     1. 申请辅助数组，长度为原数组长度；
-    2. 左、右指针指向已排序序列左右起点；
-    3. 比较大小，放入辅助数组中，指针后移，直至某一序列遍历完成；
+    2. 左、右指针分别指向已排序序列左右起点；
+    3. 比较大小，放入辅助数组中，指针后移，遍历直至某一序列走完；
     4. 将未完成遍历子序列的剩余元素拷贝到辅助数组中；
-    5. 辅助数组排序完成，覆盖原数组。
+    5. 辅助数组已排序完成，覆盖原数组。
 
 ```java
 import java.util.Arrays;
@@ -29,22 +29,22 @@ public class MergeSort {
         sort(arr, left, right);
     }
     private static void sort(int[] arr, int left, int right) {
-        /* 递归退出：分割数组长度为1 */
+        /* 递归退出条件：分割数组长度为1（数组中只剩下单个元素） */
         if (left == right) {
             return;
         }
-        /* 取得中点 */
+        /* 取中点 */
         int mid = (left + right) / 2;
-        /* 排序左部分 */
+        /* 排序左半部分 */
         sort(arr, left, mid);
-        /* 排序右部分 */
+        /* 排序右半部分 */
         sort(arr, mid + 1, right);
         /* 归并 */
         merge(arr, left, mid, right);
     }
     /**
-     * 以 mid 分界，左右数组都已排好序，
-     * 归并外排使得数组整体有序。
+     * 以 mid 分界，左半部分、右半部分数组都已排好序，
+     * 「归并外排」使得数组整体有序。
      */
     private static void merge(int[] arr, int left, int mid, int right) {
         /* 引入辅助数组 */
@@ -66,7 +66,7 @@ public class MergeSort {
             }
             i++;
         }
-        /* 有且仅有一边数组遍历完成且越界，
+        /* 「有且仅有」一边数组遍历完成且越界，
            将另一边数组剩余元素拷贝到辅助数组中 */
         while (pLeft <= mid) {
             arrCopy[i] = arr[pLeft];
