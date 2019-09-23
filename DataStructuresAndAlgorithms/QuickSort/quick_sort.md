@@ -2,9 +2,9 @@
 
 算法思路：
 
-1. 挑选基准值：从待排序列中挑出一个元素，称为“基准”（pivot）；
+1. 挑选基准值：从待排序列中挑出一个元素，作为「基准值（pivot）」；
 
-2. 分割重排序：重新排序数列，所有比基准值小的元素摆放在基准前面，所有比基准值大的元素摆在基准后面（与基准值相等的数可以到任何一边）。在这个分割结束之后，对基准值的排序就已经完成；
+2. 分割重排序：重新排序数列，所有比基准值小的元素摆放在基准值的前方，所有比基准值大的元素摆在基准值的后方（与基准值相等的数可以放到任何一边）。结束之后，对基准值的排序就已经完成；
 
 3. 递归排序子序列：递归地将小于基准值元素的子序列和大于基准值元素的子序列排序。
 
@@ -18,11 +18,16 @@ public class QuickSort {
     }
     public static void quickSort(int[] arr, int left, int right) {
         /* 处理异常情况 */
-        if (arr == null || arr.length < 2 || left >= right) {
+        if (arr == null || arr.length < 2 ||
+        /* 递归退出条件 */
+            left >= right) {
             return;
         }
+        /* 分割排序 */
         int index = partition(arr, left, right);
+        /* 排序左部分 */
         quickSort(arr, left, index - 1);
+        /* 排序右部分 */
         quickSort(arr, index + 1, right);
     }
     private static int partition(int[] arr, int left, int right) {
