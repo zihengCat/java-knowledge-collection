@@ -1,6 +1,8 @@
-# HashMap 简介
+# Java `HashMap` 简介
 
-`HashMap`是 Java 实现的哈希表，存放键值对，最常用的 Java 集合之一。`HashMap`并不是线程安全的集合容器。
+`HashMap`是 Java 实现的哈希表数据容器，存放键值对，最常用的 Java 集合容器实现类之一。`HashMap`并不是线程安全的集合容器。
+
+# HashMap 继承体系
 
 ![Collections-HashMap-1][Collections-HashMap-1]
 
@@ -14,11 +16,11 @@
 
 ![Collections-HashMap-2][Collections-HashMap-2]
 
-> 图：Java 7 HashMap 数据结构
+> 图：HashMap 数据结构 - Java 7
 
 ![Collections-HashMap-3][Collections-HashMap-3]
 
-> 图：Java 8 HashMap 数据结构
+> 图：HashMap 数据结构 - Java 8
 
 # HashMap 源码剖析
 
@@ -26,35 +28,54 @@
 
 ## HashMap 数据字段
 
-看看 HashMap 类中的重要数据字段，包括：哈希桶数组、`Node`链表节点、`TreeNode`红黑树节点。
+看看 HashMap 类中的重要数据结构字段，包括：
+
+- 哈希桶数组
+
+- `Node`链表节点
+
+- `TreeNode`红黑树节点
 
 ```java
 public class HashMap<K,V> extends AbstractMap<K,V>
     implements Map<K,V>, Cloneable, Serializable {
+
     /* 序列化号 */
     private static final long serialVersionUID = 362498820763181265L;
-    /* 默认初始容量: 16 */
+
+    /* 哈希表默认初始容量: 16 */
     static final int DEFAULT_INITIAL_CAPACITY = 1 << 4;
-    /* 最大容量: 2^30 */
+
+    /* 哈希表最大容量: 2^30 */
     static final int MAXIMUM_CAPACITY = 1 << 30;
+
     /* 默认负载因子: 0.75 */
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
-    /* 当哈希桶（Bucket）上的结点数大于这个值时[链表]转[红黑树] */
+
+    /* 当哈希桶（Bucket）节点数大于该值时：[链表]转[红黑树] */
     static final int TREEIFY_THRESHOLD = 8;
-    /* 当哈希桶（Bucket）上的结点数小于这个值时[红黑树]转[链表] */
+
+    /* 当哈希桶（Bucket）节点数小于该值时：[红黑树]转[链表] */
     static final int UNTREEIFY_THRESHOLD = 6;
-    /* 哈希桶中节点结构转化为[红黑树]对应表最小容量 */
+
+    /* 哈希桶中节点结构转化为[红黑树]时对应表的最小容量 */
     static final int MIN_TREEIFY_CAPACITY = 64;
-    /* 存储元素的数组，总为2的幂次 */
+
+    /* 存储元素的数组，元素数量总为2的幂次 */
     transient Node<K,V>[] table;
+
     /* 存放具体元素的集合 */
     transient Set<Map.Entry<K,V>> entrySet;
-    /* 已存放元素的个数（不等于数组长度） */
+
+    /* 哈希表已存放元素数量（不等于数组长度） */
     transient int size;
-    /* 扩容或更改结构时的计数器 */
+
+    /* 扩容或更改哈希结构时的计数器 */
     transient int modCount;
+
     /* 临界值: 当实际大小（容量 * 负载因子）超过临界值时，触发扩容 */
     int threshold;
+
     /* 负载因子 */
     final float loadFactor;
 }
@@ -67,11 +88,11 @@ public class HashMap<K,V> extends AbstractMap<K,V>
  * 静态内部类，实现 Map.Entry<K,V> 接口
  */
 static class Node<K,V> implements Map.Entry<K,V> {
-    /* 哈希值 */
+    /* 不可变哈希值 */
     final int hash;
-    /* 键 */
+    /* 不可变键 */
     final K key;
-    /* 值 */
+    /* 可变值 */
     V value;
     /* 链表后继节点 */
     Node<K,V> next;
@@ -139,15 +160,16 @@ static final class TreeNode<K,V> extends LinkedHashMap.Entry<K,V> {
      */
     final TreeNode<K,V> root() {
         for (TreeNode<K,V> r = this, p;;) {
-            if ((p = r.parent) == null)
+            if ((p = r.parent) == null) {
                 return r;
+            }
             r = p;
         }
     }
-    /* 更多红黑树方法实现... */
+    /* 红黑树具体实现... */
 }
 ```
-> 代码清单：`TreeNode`节点类源码
+> 代码清单：`TreeNode`红黑树节点类源码
 
 ## 构造函数
 
@@ -192,14 +214,20 @@ public HashMap(int initialCapacity, float loadFactor) {
 ```
 > 代码清单：HashMap 构造函数
 
-## HashMap 哈希扰动函数
+## HashMap 哈希计算
+
+HashMap 中对键的哈希值计算使用了哈希扰动函数`hash()`，计算方法：取对象哈希码`hashCode()`，右移`16`位，再做一次异或`XOR`操作。
+
+![Collections-HashMap-4-HashFunction][Collections-HashMap-4-HashFunction]
+
+> 图：HashMap 哈希计算
 
 ```java
 /**
  * 哈希扰动函数
  * key.hashCode()：返回对象哈希值（hashCode）
  * ^             ：按位异或
- * >>>           ：无符号右移，忽略符号位，空位以0补齐
+ * >>>           ：无符号右移，忽略符号位，空位以 0 补齐
  */
 static final int hash(Object key) {
     int h;
@@ -210,6 +238,8 @@ static final int hash(Object key) {
 
 ## HashMap `get()`方法
 
+HashMap`get()`方法根据哈希键获取哈希表中的元素。如果哈希表中存在键值对则返回目标值，不存在则返回空值`null`。
+
 ```java
 /**
  * 根据键获取值
@@ -219,7 +249,7 @@ public V get(Object key) {
     return (e = getNode(hash(key), key)) == null ? null : e.value;
 }
 /**
- * Map.get 方法实现
+ * Map.get() 方法实现
  *
  * @param hash 键哈希值
  * @param key 键
@@ -240,16 +270,17 @@ final Node<K,V> getNode(int hash, Object key) {
      * 数组长度大于0
      * 数组目标位置存在元素
      *
-     * 位置计算方法：(n - 1) & hash
+     * 元素位于数组索引下标位置的计算方法：(n - 1) & hash
      */
     if ((tab = table) != null && (n = tab.length) > 0 &&
         (first = tab[(n - 1) & hash]) != null) {
-        /* 总是先检查头节点，键匹配成功则直接返回头节点 */
+        /* 总是先检查头节点，
+           键匹配成功则直接返回头节点 */
         if (first.hash == hash &&
             ((k = first.key) == key || (key != null && key.equals(k)))) {
             return first;
         }
-        /* 哈希冲突（头节点后继节点有值）*/
+        /* 哈希冲突（头节点存在后继节点）*/
         if ((e = first.next) != null) {
             /* 节点链为[红黑树]：使用红黑树方法查找目标节点 */
             if (first instanceof TreeNode) {
@@ -264,11 +295,11 @@ final Node<K,V> getNode(int hash, Object key) {
             } while ((e = e.next) != null);
         }
     }
-    /* 没找到：该键值对不存在，返回 null */
+    /* 没找到：当前哈希表中不存在该键值对，返回 null */
     return null;
 }
 ```
-> 代码清单：HashMap `get()`方法及其实现
+> 代码清单：HashMap `get()`方法实现
 
 ## HashMap `put()`方法
 
@@ -280,7 +311,7 @@ public V put(K key, V value) {
     return putVal(hash(key), key, value, false, true);
 }
 /**
- * Map.put 方法实现
+ * Map.put() 方法实现
  *
  * @param hash 键哈希值
  * @param key 目标键
@@ -344,7 +375,7 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
             }
         }
         /* 侦测到哈希表中已存在目标键 */
-        if (e != null) { // existing mapping for key
+        if (e != null) {
             /* 取得已存在的值 */
             V oldValue = e.value;
             /**
@@ -365,8 +396,8 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
     }
     /* 操作计数器 + 1 */
     ++modCount;
-    /* 哈希表存放元素个数 + 1 */
-    /* 节点插入后哈希表元素个数大于临界值：扩容 */
+    /* 哈希表存放元素个数 + 1
+       节点插入后哈希表元素个数大于临界值：扩容 */
     if (++size > threshold) {
         resize();
     }
@@ -376,7 +407,7 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
     return null;
 }
 ```
-> 代码清单：HashMap `put()`方法及其实现
+> 代码清单：HashMap `put()`方法实现
 
 ## HashMap `resize()`扩容方法
 
@@ -496,6 +527,6 @@ final Node<K,V>[] resize() {
 
 [Collections-HashMap-3]: ../../images/Collections-HashMap-3.png
 
-[Collections-HashMap-4]: ../../images/Collections-HashMap-4.png
+[Collections-HashMap-4-HashFunction]: ../../images/Collections-HashMap-4-HashFunction.png
 
 <!-- EOF -->
