@@ -236,7 +236,7 @@ static final int hash(Object key) {
 ```
 > 代码清单：`hash()`哈希扰动函数
 
-## HashMap `get()`方法
+## HashMap 获取方法
 
 HashMap`get()`方法根据哈希键获取哈希值。如果哈希表中存在键值对则返回目标值，不存在则返回空值`null`。
 
@@ -246,11 +246,11 @@ HashMap`get()`方法根据哈希键获取哈希值。如果哈希表中存在键
 
 2. 根据键哈希值计算该键位于哈希桶数组的索引下标，**计算方法：`h % n`，当数组长度为`2`的幂次时，表达式等价于`(n - 1) & hash`**；
 
-3. 根据索引下标定位至哈希桶数组，先检查头节点，键匹配成功则直接返回头节点，匹配方式：`first.hash == hash && key.equals(e.key)`；
+3. 根据索引下标定位至哈希桶数组，先检查头节点，键匹配成功则直接返回头节点，**匹配方式：`first.hash == hash && key.equals(e.key)`**；
 
-4. 如果发现哈希冲突（头节点存在后继节点），判断节点链类型，为红黑树则使用红黑树方法查找目标节点，为链表则遍历链表查找目标节点，找到返回匹配节点元素；
+4. 如果发现哈希冲突（头节点存在后继节点），判断节点链类型，为红黑树则使用红黑树方法查找目标节点，为链表则遍历链表查找目标节点，找到返回匹配的节点元素；
 
-5. 头节点为空或节点链找不到目标键：当前哈希表中不存在该键值对，返回空值`null`。
+5. 头节点为空或节点链找不到目标键，说明当前哈希表中不存在该键值对，返回空值`null`。
 
 ```java
 /**
@@ -269,7 +269,7 @@ public V get(Object key) {
  */
 final Node<K,V> getNode(int hash, Object key) {
     /**
-     * 准备元素
+     * 准备临时变量
      * tab  : 哈希桶数组
      * n    : 数组长度
      * first: 头节点
@@ -313,7 +313,23 @@ final Node<K,V> getNode(int hash, Object key) {
 ```
 > 代码清单：HashMap `get()`方法实现
 
-## HashMap `put()`方法
+## HashMap 插入方法
+
+HashMap`put()`方法用于向哈希表中插入键值对，如果哈希表中已经存在键值对，则更新值，返回旧值。
+
+方法执行流程：
+
+1. 如果哈希桶数组为空或数组长度为0， 执行初始化操作；
+
+2. 调用`hash()`函数计算传入键的哈希值；
+
+3. 根据键哈希值计算该键应位于的哈希桶数组索引下标；
+
+4. 目标位置哈希未冲突，新建节点直接插入；
+
+5. 发生哈希冲突，判断节点链类型，为红黑树则使用红黑树方法插入节点，为链表则使用尾插法插入节点；
+
+6. 更新哈希表存放元素数量，超过临界值则执行扩容。
 
 ```java
 /**
@@ -335,7 +351,7 @@ public V put(K key, V value) {
 final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                boolean evict) {
     /**
-     * 准备元素
+     * 准备临时变量
      * tab: 哈希桶数组
      * n  : 数组长度
      * i  : 数组索引
@@ -375,6 +391,7 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                     if (binCount >= TREEIFY_THRESHOLD - 1) { // -1 for 1st
                         treeifyBin(tab, hash);
                     }
+                    /* 链表节点插入操作完成：跳出 */
                     break;
                 }
                 /* 发现键值对已存在：直接跳出 */
@@ -413,15 +430,24 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
     if (++size > threshold) {
         resize();
     }
-    /* 节点插入后操作
-       为 LinkedHashMap 准备的后续回调 */
+    /* 节点插入后操作，为 LinkedHashMap 准备的回调函数 */
     afterNodeInsertion(evict);
     return null;
 }
 ```
 > 代码清单：HashMap `put()`方法实现
 
-## HashMap `resize()`扩容方法
+## HashMap 扩容方法
+
+当 HashMap 中存放元素超过临界值时，会触发扩容`resize()`：
+
+扩容(resize)就是重新计算容量，向HashMap对象里不停的添加元素，而HashMap对象内部的数组无法装载更多的元素时，对象就需要扩大数组的长度，以便能装入更多的元素。当然Java里的数组是无法自动扩容的，方法是使用一个新的数组代替已有的容量小的数组，就像我们用一个小桶装水，如果想装更多的水，就得换大水桶。
+
+我们分析下resize的源码，鉴于JDK1.8融入了红黑树，较复杂，为了便于理解我们仍然使用JDK1.7的代码，好理解一些，本质上区别不大，具体区别后文再说。)
+
+![Collections-HashMap-5-ResizeFunction][Collections-HashMap-5-ResizeFunction]
+
+> 图：HashMap 扩容时元素位置变化 - Java 8
 
 ```java
 /**
@@ -431,7 +457,7 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
  */
 final Node<K,V>[] resize() {
     /**
-     * 准备元素
+     * 准备临时变量
      *
      * oldTab: 旧数组
      * oldCap: 旧数组长度
@@ -540,5 +566,7 @@ final Node<K,V>[] resize() {
 [Collections-HashMap-3]: ../../images/Collections-HashMap-3.png
 
 [Collections-HashMap-4-HashFunction]: ../../images/Collections-HashMap-4-HashFunction.png
+
+[Collections-HashMap-5-ResizeFunction]: ../../images/Collections-HashMap-5-ResizeFunction.png
 
 <!-- EOF -->
