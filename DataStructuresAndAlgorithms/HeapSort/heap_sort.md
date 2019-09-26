@@ -19,27 +19,47 @@ public class HeapSort {
         System.out.println(Arrays.toString(arr));
     }
     public static void heapSort(int[] arr, int left, int right) {
+        /* 异常情况 */
         if (arr == null || right - left + 1 < 2) {
             return;
         }
+        /* 构建堆结构 */
         for (int i = left; i <= right; ++i) {
             heapInsert(arr, i);
         }
+        /* 堆大小 */
         int heapSize = right - left + 1;
         do {
+            /* 交换堆顶与未排序数组最后一个数 */
             swap(arr, left, heapSize - 1);
+            /* 堆大小减 1 */
             heapSize--;
+            /* 重新调整堆结构 */
             heapify(arr, left, heapSize);
         } while (heapSize > 0);
     }
+    /**
+     * 比较当前节点与其父节点，交换上浮，直至位置合适。
+     * 算法复杂度：O(logN)
+     */
     private static void heapInsert(int[] arr, int index) {
         while (arr[index] > arr[(index - 1) / 2]) {
             swap(arr, index, (index - 1) / 2);
             index = (index - 1) / 2;
         }
     }
+    /**
+     * 将数组重新调整为堆结构。
+     *
+     * 1. 取得当前节点左子节点；
+     * 2. 比较当前节点、左子节点、右子节点，取最大（小）节点；
+     * 3. 如果当前节点已为最大（小）节点，无需任何操作，直接退出；
+     * 4. 交换当前节点与最大（小）节点，重复上述步骤。
+     *
+     * 算法复杂度：O(logN)
+     */
     private static void heapify(int[] arr, int index, int heapSize) {
-        int left = index * 2 - 1;
+        int left = index * 2 + 1;
         while (left < heapSize) {
             int largest = left;
             if (left + 1 < heapSize && arr[left + 1] > arr[left]) {
@@ -51,10 +71,11 @@ public class HeapSort {
             } else {
                 swap(arr, largest, index);
                 index = largest;
-                left = index * 2 - 1;
+                left = index * 2 + 1;
             }
         }
     }
+    /* 数组元素交换函数 */
     private static void swap(int[] arr, int i, int j) {
         int tmp = arr[i];
         arr[i] = arr[j];
@@ -65,5 +86,10 @@ public class HeapSort {
 ```
 > 代码清单：堆排序 - Java 实现
 
+算法复杂度分析：
+
+- 时间复杂度：`O(n*logn)`
+
+- 空间复杂度：`O(1)`
 
 <!-- EOF -->
