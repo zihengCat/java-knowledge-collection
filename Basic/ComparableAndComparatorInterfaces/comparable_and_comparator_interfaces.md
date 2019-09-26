@@ -1,8 +1,8 @@
-# Java `Comparable` 与 `Comparator` 接口
+# Java 比较器（`Comparable`接口与`Comparator`接口）
 
-Java 语言并没有类似 C++ 语言的运算符重载（Operator Overloading）特性。为了简单易懂，Java 没有选择隐式的运算符重载机制，而是使用了接口与对象方法。
+Java 语言并没有类似 C++ 语言的运算符重载（Operator Overloading）特性。为了简单易懂，Java 没有选择隐式的运算符重载机制，而是使用了接口与对象方法实现对象之间的比较。
 
-对象之间的比较，是十分常见的操作，筛选排序都会用到。**Java 定义了`Comparable`与`Comparator`两枚接口，用于对象比较操作**。
+对象之间的比较是十分常见的操作，筛选排序都会用到。**Java 定义了`Comparable`与`Comparator`两枚接口，用于对象比较操作**。
 
 # Java `Comparable` 接口
 

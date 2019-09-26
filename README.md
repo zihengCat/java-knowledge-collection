@@ -10,7 +10,7 @@ Java 核心知识点梳理。
 
 - [Java 字符串](./Basic/String/string.md)
 
-- [Comparable 接口与 Comparator 接口](./Basic/ComparableAndComparatorInterfaces/comparable_and_comparator_interfaces.md)
+- [Java 比较器（Comparable 接口与 Comparator 接口）](./Basic/ComparableAndComparatorInterfaces/comparable_and_comparator_interfaces.md)
 
 ### 进阶
 
