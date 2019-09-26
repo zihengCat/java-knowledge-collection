@@ -78,6 +78,8 @@ Java 核心知识点收集整理。
 
 - [归并排序 - Java 实现](./DataStructuresAndAlgorithms/MergeSort/merge_sort.md)
 
+- [堆排序 - Java 实现](./DataStructuresAndAlgorithms/HeapSort/heap_sort.md)
+
 ## 操作系统
 
 ...
