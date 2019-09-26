@@ -22,7 +22,7 @@ public class HeapSort {
         if (arr == null || right - left + 1 < 2) {
             return;
         }
-        for (int i = left; i <= right) {
+        for (int i = left; i <= right; ++i) {
             heapInsert(arr, i);
         }
         int heapSize = right - left + 1;
