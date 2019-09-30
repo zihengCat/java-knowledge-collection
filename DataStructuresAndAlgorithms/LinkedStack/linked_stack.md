@@ -106,8 +106,20 @@ public class LinkedStack<E> implements Stack<E> {
 ```
 > 代码清单：链式栈数据字段 - Java 代码
 
+# 链式栈构造函数
 
+链式栈一般无需限定栈容量，构造函数初始化过程：将栈底指针指向一个特殊的双向链表节点（链表头节点），栈顶指针也指向链表头节点，初始化栈容量。
 
-
+```java
+/**
+ * 初始化链式栈。
+ */
+public LinkedStack() {
+    this.base = new Node<E>();
+    this.top = this.base;
+    this.size = 0;
+}
+```
+> 代码清单：链式栈构造函数 - Java 代码
 
 <!-- EOF -->
