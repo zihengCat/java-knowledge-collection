@@ -122,4 +122,28 @@ public LinkedStack() {
 ```
 > 代码清单：链式栈构造函数 - Java 代码
 
+# 链式栈压栈操作
+
+压栈操作`push()`将指定元素压入栈中，在链式栈中其具体实现为：以传入元素构建一枚新的双向链表节点，使用尾插法插入新节点，栈顶指针指向新节点，栈存放元素数量增加1。
+
+```java
+/**
+ * 将目标元素压入栈中。
+ * @param e
+ * @return void
+ */
+public void push(E e) {
+    Node<E> newNode = new Node<E>(e);
+    newNode.setNext(null);
+    newNode.setPrev(top);
+    top.setNext(newNode);
+    top = newNode;
+    size++;
+}
+```
+> 代码清单：链式栈压栈操作 - Java 代码
+
+
+
+
 <!-- EOF -->
