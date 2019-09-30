@@ -88,7 +88,7 @@ Java 核心知识点梳理。
 
 - [数组实现栈（Java）](./DataStructuresAndAlgorithms/ArrayStack/array_stack.md)
 
-- 链表实现栈（Java）
+- [链表实现栈（Java）](./DataStructuresAndAlgorithms/LinkedStack/linked_stack.md)
 
 ### 队列
 

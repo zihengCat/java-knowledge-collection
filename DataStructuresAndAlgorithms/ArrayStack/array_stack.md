@@ -1,6 +1,8 @@
 # 数组实现栈（Java）
 
-栈（Stack）是一种后进先出（LIFO）的线性数据结构，具体实现上有：顺序栈、链式栈。本文讲解在 Java 中使用数组实现顺序栈。
+栈（Stack）是一种后进先出（LIFO）的线性数据结构，具体实现上有：顺序栈、链式栈。
+
+本文讲解在 Java 中使用数组实现顺序栈。
 
 # 实现思路
 
@@ -212,7 +214,7 @@ public void clear() {
  */
 private void ensureCapacity() {
     if (size + 1 > elementData.length) {
-        //throw new StackIsFullException("[ERROR]: Stack is full");
+        // throw new StackIsFullException("[ERROR]: Stack is full");
         grow();
     }
 }
@@ -254,7 +256,7 @@ public class ArrayStack<E> implements Stack<E> {
     public ArrayStack(int capacity) {
         if (capacity <= 0) {
             throw new IllegalArgumentException(
-                "[ERROR]: capacity is less than zero"
+                "[ERROR]: capacity should be greater than zero"
             );
         }
         this.elementData = (E[])new Object[capacity];
