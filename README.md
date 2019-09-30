@@ -84,7 +84,9 @@ Java 核心知识点梳理。
 
 ### 栈
 
-- 数组实现栈（Java）
+- [栈数据结构概览](./DataStructuresAndAlgorithms/StackOverview/stack_overview.md)
+
+- [数组实现栈（Java）](./DataStructuresAndAlgorithms/ArrayStack/array_stack.md)
 
 - 链表实现栈（Java）
 
