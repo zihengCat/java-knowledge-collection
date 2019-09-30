@@ -143,7 +143,181 @@ public void push(E e) {
 ```
 > 代码清单：链式栈压栈操作 - Java 代码
 
+# 链式栈弹栈操作
 
+弹栈操作`pop()`将栈顶元素弹出栈，在链式栈中其具体实现为：先检查栈是否为空，栈为空则抛出异常，栈存放元素数量减少1，暂存栈顶节点，从链表中移除栈顶节点，堆栈指针前移一位，返回暂存节点元素。
 
+```java
+/**
+ * 将栈顶元素弹出栈。
+ * @param void
+ * @return E
+ */
+public E pop() {
+    if (isEmpty()) {
+        throw new StackIsEmptyException("[ERROR]: Stack is empty");
+    }
+    Node<E> currentNode = top;
+    top = top.getPrev();
+    top.setNext(null);
+    E element = currentNode.getElement();
+    currentNode.setElement(null);
+    currentNode.setPrev(null);
+    currentNode.setNext(null);
+    size--;
+    return element;
+}
+```
+> 代码清单：链式栈弹栈操作 - Java 代码
+
+# 链式栈其他操作
+
+实现链式栈其他一些操作，这些操作的实现都比较简单。
+
+```java
+/**
+ * 查看栈顶元素。
+ * @param void
+ * @return E
+ */
+public E top() {
+    if (isEmpty()) {
+        throw new StackIsEmptyException("[ERROR]: Stack is empty");
+    }
+    return top.getElement();
+}
+/**
+ * 清空栈。
+ * @param void
+ * @return void
+ */
+public void clear() {
+    while (size > 0) {
+        Node<E> currentNode = top;
+        top = top.getPrev();
+        top.setNext(null);
+        currentNode.setElement(null);
+        currentNode.setPrev(null);
+        currentNode.setNext(null);
+        size--;
+    }
+}
+/**
+ * 判断栈是否为空。
+ * @param void
+ * @return boolean
+ */
+public boolean isEmpty() {
+    return size == 0;
+}
+/**
+ * 获取栈已存放元素数量。
+ * @param void
+ * @return size
+ */
+public int size() {
+    return size;
+}
+```
+> 代码清单：链式栈其他操作 - Java 代码
+
+# 完整代码
+
+```java
+import Stack;
+import StackIsEmptyException;
+import StackIsFullException;
+public class LinkedStack<E> implements Stack<E> {
+    private Node<E> base;
+    private Node<E> top;
+    private int size;
+    public LinkedStack() {
+        this.base = new Node<E>();
+        this.top = this.base;
+        this.size = 0;
+    }
+    public void push(E e) {
+        Node<E> newNode = new Node<E>(e);
+        newNode.setNext(null);
+        newNode.setPrev(top);
+        top.setNext(newNode);
+        top = newNode;
+        size++;
+    }
+    public E pop() {
+        if (isEmpty()) {
+            throw new StackIsEmptyException("[ERROR]: Stack is empty");
+        }
+        Node<E> currentNode = top;
+        top = top.getPrev();
+        top.setNext(null);
+        E element = currentNode.getElement();
+        currentNode.setPrev(null);
+        currentNode.setNext(null);
+        currentNode.setElement(null);
+        size--;
+        return element;
+    }
+    public E top() {
+        if (isEmpty()) {
+            throw new StackIsEmptyException("[ERROR]: Stack is empty");
+        }
+        return top.getElement();
+    }
+    public void clear() {
+        while (size > 0) {
+            Node<E> currentNode = top;
+            top = top.getPrev();
+            top.setNext(null);
+            currentNode.setElement(null);
+            currentNode.setPrev(null);
+            currentNode.setNext(null);
+            size--;
+        }
+    }
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    public int size() {
+        return size;
+    }
+    private class Node<E> {
+        private E element;
+        private Node<E> prev;
+        private Node<E> next;
+        public Node() {
+            this(null, null, null);
+        }
+        public Node(E element) {
+            this(element, null, null);
+        }
+        public Node(E element, Node<E> prev, Node<E> next) {
+            this.element = element;
+            this.prev = prev;
+            this.next = next;
+        }
+        public E getElement() {
+            return element;
+        }
+        public void setElement(E element) {
+            this.element = element;
+        }
+        public Node<E> getPrev() {
+            return prev;
+        }
+        public void setPrev(Node<E> prev) {
+            this.prev = prev;
+        }
+        public Node<E> getNext() {
+            return next;
+        }
+        public void setNext(Node<E> next) {
+            this.next = next;
+        }
+    }
+}
+/* EOF */
+```
+> 代码清单：链表实现栈 - Java 代码
 
 <!-- EOF -->
