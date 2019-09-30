@@ -20,15 +20,61 @@
 
 > 表：栈操作接口表
 
+使用 Java 接口描述栈操作。
 
-
-
-
+```java
+public interface Stack<E> {
+    public void push(E e);
+    public E pop();
+    public E top();
+    public int size();
+    public boolean isEmpty();
+}
+/* EOF */
+```
+> 代码清单：栈操作接口 - Java 代码
 
 # 栈异常（Exception）
 
+栈数据结构通常指定两项异常。
 
+- 栈满时数据压栈：`StackIsFullException`
 
+- 栈空时数据弹栈：`StackIsEmptyException`
+
+```java
+public class StackIsFullException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+    public StackIsFullException() {
+        super();
+    }
+    public StackIsFullException(String message) {
+        super(message);
+    }
+    public StackIsFullException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+/* EOF */
+```
+> 代码清单：`StackIsFullException`异常 - Java 代码
+
+```java
+public class StackIsEmptyException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+    public StackIsEmptyException() {
+        super();
+    }
+    public StackIsEmptyException(String message) {
+        super(message);
+    }
+    public StackIsEmptyException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+/* EOF */
+```
+> 代码清单：`StackIsEmptyException`异常 - Java 代码
 
 [StackStructure]: ../../images/DataStructuresAndAlgorithms-StackOverview-1-StackStructure.png
 
