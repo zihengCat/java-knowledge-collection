@@ -62,7 +62,7 @@ import StackIsFullException
 /* 数组栈 */
 public class ArrayStack<E> implements Stack<E> {
     /* 栈默认容量大小 */
-    private static final int DEFAULT_CAPACITY = 16;
+    private static final int DEFAULT_CAPACITY = 1 << 4; /* 16 */
     /* 存放实际元素的数组 */
     private E[] elementData;
     /* 栈顶指针（指示下一个元素在数组中的存放索引下标） */
@@ -73,6 +73,61 @@ public class ArrayStack<E> implements Stack<E> {
 /* EOF */
 ```
 > 代码清单：数组栈数据字段 - Java 代码
+
+## 数组栈构造函数
+
+为数组栈提供构造函数，初始化过程为数组分配指定容量的内存，栈容量置零，栈顶指针指向下一个空闲的数组索引下标。
+
+```java
+/**
+ * 默认无参构造。
+ */
+public ArrayStack() {
+    this(DEFAULT_CAPACITY);
+}
+/**
+ * 指定容量构造。
+ * @param capacity
+ */
+@SuppressWarnings("unchecked")
+public ArrayStack(int capacity) {
+    if (capacity <= 0) {
+        throw new IllegalArgumentException(
+            "[ERROR]: capacity is less than or equal to zero"
+        );
+    }
+    this.elementData = (E[])new Object[capacity];
+    this.top = 0;
+    this.size = 0;
+}
+```
+> 代码清单：数组栈构造函数 - Java 代码
+
+## 数组栈压栈操作
+
+压栈操作`push()`将指定元素压入栈中，其具体实现为：先检查栈空间容量，容量不足则抛出异常，在栈顶指针位置放入元素，栈顶指针后移一位，栈存放元素数量增加1。
+
+```java
+/**
+ * 将目标元素压入栈中。
+ * @param e
+ * @return void
+ */
+public void push(E e) {
+    ensureCapacity();
+    elementData[top++] = e;
+    size++;
+}
+/**
+ * 检查栈空间容量是否足够存放下一个元素。
+ */
+private void ensureCapacity() {
+    if (size + 1 > elementData.length) {
+        throw new StackIsFullException("[ERROR]: Stack is full");
+    }
+}
+```
+> 代码清单：数组栈压栈操作 - Java 代码
 
 # 拓展延伸 - 数组动态扩容
 
