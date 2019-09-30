@@ -4,11 +4,50 @@
 
 ## 实现思路
 
-数组实现栈结构，底层数据结构选用数组，栈还需要一枚栈顶指针，指示下一个元素存放的索引位置，再引入一个`size`变量指示栈中已存放元素数量。
+数组实现栈结构，底层数据结构选用数组，栈还需要一枚栈顶指针，指示下一个元素存放的索引位置，再引入一个`size`变量指示栈中已存放元素数量。另外，将栈实现为范型类，这样栈就可以存放任何类型的数据了。
 
 - 入栈：将元素放入栈顶位置，栈顶指针后移。
 
 - 出栈：栈顶指针前移，返回栈顶元素。
+
+## 数组栈测试代码（TDD）
+
+秉持着测试驱动开发（TDD）原则，先编写数组栈测试代码。
+
+```java
+/* 导入栈接口 */
+import Stack;
+/* 导入栈异常 */
+import StackIsEmptyException;
+import StackIsFullException
+/* 导入范型数组栈实现类 */
+import ArrayStack;
+/* 数组栈测试类 */
+public class ArrayStackTest {
+    public static void main(String[] args) {
+        int capacity = 128;
+        Stack<Integer> arrayStack = new ArrayStack<Integer>(capacity);
+        System.out.println("Before push elements, ArrayStack.size(): " +
+            arrayStack.size()
+        );
+        for (int i = 0; i < capacity; ++i) {
+            arrayStack.push(i);
+        }
+        System.out.println("After push elements, ArrayStack.size(): " +
+            arrayStack.size()
+        );
+        System.out.println("ArrayStack.top(): " + arrayStack.top());
+        for (int i = 0; i < capacity; ++i) {
+            System.out.println(arrayStack.pop());
+        }
+        System.out.println("After pop elements, ArrayStack.size(): " +
+            arrayStack.size()
+        );
+    }
+}
+/* EOF */
+```
+> 代码清单：数组栈测试代码
 
 ## 数组栈数据字段
 
