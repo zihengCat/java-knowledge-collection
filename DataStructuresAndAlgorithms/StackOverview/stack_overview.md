@@ -17,6 +17,7 @@
 | `top()`     | 查看栈顶元素。             |
 | `size()`    | 获取栈中存放元素数量。     |
 | `isEmpty()` | 判断栈是否为空。           |
+| `clear()`   | 清空栈。                   |
 
 > 表：栈操作接口表
 
@@ -29,6 +30,7 @@ public interface Stack<E> {
     public E top();
     public int size();
     public boolean isEmpty();
+    public void clear();
 }
 /* EOF */
 ```
