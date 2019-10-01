@@ -90,6 +90,8 @@ Java 核心知识点梳理。
 
 - [链表实现栈（Java）](./DataStructuresAndAlgorithms/LinkedStack/linked_stack.md)
 
+- [队列实现栈（Java）](./DataStructuresAndAlgorithms/QueueStack/queue_stack.md)
+
 ### 队列
 
 ...
