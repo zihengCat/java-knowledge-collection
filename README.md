@@ -10,7 +10,7 @@ Java 核心知识点梳理。
 
 - [Java 字符串](./Basic/String/string.md)
 
-- [Java 比较器（Comparable 接口与 Comparator 接口）](./Basic/ComparableAndComparatorInterfaces/comparable_and_comparator_interfaces.md)
+- [Java 比较器](./Basic/ComparableAndComparatorInterfaces/comparable_and_comparator_interfaces.md)
 
 ### 进阶
 
@@ -39,6 +39,10 @@ Java 核心知识点梳理。
 - [Java ArrayList 源码分析](./Collections/ArrayList/arraylist.md)
 
 - [Java LinkedList 源码分析](./Collections/LinkedList/linkedlist.md)
+
+#### Deque 系列
+
+- [Java ArrayDeque 源码分析](./Collections/ArrayDeque/arraydeque.md)
 
 #### Map 系列
 
@@ -100,7 +104,7 @@ Java 核心知识点梳理。
 
 - 链表实现队列（Java）
 
-- 栈实现队列（Java）
+- [栈实现队列（Java）](./DataStructuresAndAlgorithms/StackQueue/stack_queue.md)
 
 ## 操作系统
 

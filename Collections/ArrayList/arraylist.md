@@ -403,8 +403,9 @@ public Object[] toArray() {
 ```
 > 代码清单：ArrayList 其他方法
 
+# 参考资料
 
-
+- https://docs.oracle.com/javase/8/docs/technotes/guides/collections/index.html
 
 [Collections-ArrayList-1-Hierarchy]: ../../images/Collections-ArrayList-1-Hierarchy.png
 
