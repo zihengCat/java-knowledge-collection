@@ -12,7 +12,7 @@ ArrayDeque 是以动态数组实现的「双端队列」线性数据结构容器
 
 # ArrayDeque 数据结构
 
-ArrayDeque 底层数据结构采用「对象数组」，数组可动态扩容；另有队头指针、队尾指针，指示队头队尾在数组中的索引下标。另外，ArrayDeque 还将对象数组用作一个循环数组，移除元素时不需要移动其他元素，只需调整指针位置即可，大大提高了效率。
+ArrayDeque 底层数据结构采用「对象数组」，数组可动态扩容；另有队头指针、队尾指针，指示队头队尾在数组中的索引下标。另外，ArrayDeque 还将对象数组用作一个「循环数组」，移除元素时不需要移动队列中其他元素，只需调整队列指针位置即可，大大提高了运行效率。
 
 ![Collections-ArrayDeque-2-DataStructure][Collections-ArrayDeque-2-DataStructure]
 
@@ -81,7 +81,7 @@ public class ArrayDeque<E> extends AbstractCollection<E>
     /* 队头指针（队头元素在数组中的索引下标） */
     transient int head;
 
-    /* 队尾指针（新加入元素在数组中的索引下标） */
+    /* 队尾指针（下一个新加入元素在数组中的索引下标） */
     transient int tail;
 }
 ```
