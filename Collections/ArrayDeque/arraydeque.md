@@ -47,6 +47,46 @@ public class ArrayDequeTest {
 ```
 > 代码清单：ArrayDeque 基本用法
 
+# ArrayDeque 源码剖析
+
+从 JDK 源码角度深入分析 ArrayDeque 实现。
+
+## ArrayDeque 数据字段
+
+观察 ArrayDeque 中的数据字段，可以得知：
+
+- 底层数据结构为「对象数组」。
+
+- 队列容量必须为`2`的幂次。
+
+- 最小队列容量为`8`。
+
+- 队头指针指向队列头元素所在数组的索引下标。
+
+- 队尾指针指向下一个新加入元素（并非队尾元素）所在数组的索引下标。
+
+```java
+public class ArrayDeque<E> extends AbstractCollection<E>
+                           implements Deque<E>, Cloneable, Serializable
+{
+    /* 序列化号 */
+    private static final long serialVersionUID = 2340985798034038923L;
+
+    /* 队列最小容量，必须为 2 的幂次 */
+    private static final int MIN_INITIAL_CAPACITY = 8;
+
+    /* 对象数组 */
+    transient Object[] elements; // 不标注为 private 是为了简化内部类访问
+
+    /* 队头指针（队头元素在数组中的索引下标） */
+    transient int head;
+
+    /* 队尾指针（新加入元素在数组中的索引下标） */
+    transient int tail;
+}
+```
+> 代码清单：ArrayDeque 数据字段
+
 
 
 [Collections-ArrayDeque-1-Hierarchy]: ../../images/Collections-ArrayDeque-1-Hierarchy.png
