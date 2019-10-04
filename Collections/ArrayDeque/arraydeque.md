@@ -127,7 +127,7 @@ public ArrayDeque(Collection<? extends E> c) {
 ```
 > 代码清单：ArrayDeque 构造函数
 
-## ArrayDeque 容量分配方法
+## ArrayDeque 容量分配
 
 ArrayDeque 在容量分配时保证实际分配容量是`2`的幂次，实际容量计算方法为`calculateSize()`，`>>>`是无符号右移操作，`|`是位或操作，经过五次右移和位或操作后得到最接近指定元素数量的`2 ^ n - 1`数，将该数加`1`，得`2 ^ n`数。
 
@@ -172,21 +172,108 @@ private static int calculateSize(int numElements) {
 
 ```java
 /**
+ * 0 0 0 0 1 ? ? ? ? ?     // n
+ * 0 0 0 0 1 1 ? ? ? ?     // n |= n >>> 1;
+ * 0 0 0 0 1 1 1 1 ? ?     // n |= n >>> 2;
+ * 0 0 0 0 1 1 1 1 1 1     // n |= n >>> 4;
+ * ...
+ * 0 0 0 1 0 0 0 0 0 0     // n++
+ *
  * 以 calculateSize(17) 为例：
+ *
  * 17 = 0x11
  * >>>  1 : 0001 0001 | 0000 1000 = 0001 1001 (25)
  * >>>  2 : 0001 1001 | 0000 0110 = 0001 1111 (31)
  * >>>  4 : 0001 1111 | 0000 1000 = 0001 1111 (31)
  * >>>  8 : 0001 1111 | 0000 0000 = 0001 1111 (31)
  * >>> 16 : 0001 1111 | 0000 0000 = 0001 1111 (31)
- *  x + 1 : 0001 1111 + 0000 0001 = 0010 0000 (32)
+ * x += 1 : 0001 1111 + 0000 0001 = 0010 0000 (32)
  */
 ```
 > 注：`calculateSize()`方法计算逻辑
+
+## ArrayDeque 添加元素
+
+ArrayDeque 实现了`Deque`接口中所有添加元素方法：`add()`、`addFirst()`、`addLast()`、`offer()`、`offerFirst()`、`offerLast()`、`push()`，具体实现放在了添加元素至队头`addFirst()`，添加元素至队尾`addLast()`两枚方法中，其他添加元素方法都是调用这两枚方法实现的。
+
+```java
+/**
+ * 将指定元素添加到双端队列头部。
+ *
+ * @param e 需要添加的元素
+ * @return void
+ * @throws NullPointerException 如果元素为空
+ */
+public void addFirst(E e) {
+    /* 指定添加元素为空，抛出空指针异常 */
+    if (e == null) {
+        throw new NullPointerException();
+    }
+    /* 队头指针前移1位，在队头位置存放元素 */
+    elements[head = (head - 1) & (elements.length - 1)] = e;
+    /* 如果移动后队尾指针与队头指针重合，
+       说明数组已满，执行扩容操作 */
+    if (head == tail) {
+        doubleCapacity();
+    }
+}
+/**
+ * 将指定元素添加到双端队列尾部。
+ *
+ * @param e 需要添加的元素
+ * @return void
+ * @throws NullPointerException 如果元素为空
+ */
+public void addLast(E e) {
+    /* 指定添加元素为空，抛出空指针异常 */
+    if (e == null) {
+        throw new NullPointerException();
+    }
+    /* 队尾指针指向新添加元素可存放的数组索引位置，
+       在该位置直接存放元素 */
+    elements[tail] = e;
+    /* 队尾指针后移1位，
+       如果移动后队尾指针与队头指针重合，
+       说明数组已满，执行扩容操作 */
+    if ((tail = (tail + 1) & (elements.length - 1)) == head) {
+        doubleCapacity();
+    }
+}
+```
+> 代码清单：ArrayDeque 添加元素方法源码
+
+ArrayDeque 添加元素`addFirst()`方法中：**队尾指针永远指向下一个新添加元素的索引下标，所以数组中至少存在一个空位可以存放新添加元素**；语句`head = (head - 1) & (elements.length - 1)`将数组用作了循环数组，其含义是：**队头指针前移`1`位，如果此时索引下标未越界，即在当前位置存放元素；如果此时索引下标越界（值为`-1`），即循环到数组尾部添加元素**。
+
+![Collections-ArrayDeque-3-AddFirst][Collections-ArrayDeque-3-AddFirst]
+
+> 图：ArrayDeque 添加元素`addFirst()`方法
+
+```java
+/**
+ * head = (head - 1) & (elements.length - 1)
+ *
+ * 以 head 索引下标 0，数组长度 16 为例：
+ *
+ * (0 - 1) & (16 - 1)
+ * = -1 & 15
+ * = 1111 1111 & 0000 1111 = 0000 1111
+ * = 15
+ *
+ * 以 head 索引下标 3，数组长度 16 为例：
+ *
+ * (3 - 1) & (16 - 1)
+ * = 2 & 15
+ * = 0000 0010 & 0000 1111 = 0000 0010
+ * = 2
+ */
+```
+> 注：ArrayDeque 添加元素`addFirst()`方法详解
 
 
 [Collections-ArrayDeque-1-Hierarchy]: ../../images/Collections-ArrayDeque-1-Hierarchy.png
 
 [Collections-ArrayDeque-2-DataStructure]: ../../images/Collections-ArrayDeque-2-DataStructure.png
+
+[Collections-ArrayDeque-3-AddFirst]: ../../images/Collections-ArrayDeque-3-AddFirst.png
 
 <!-- EOF -->
