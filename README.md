@@ -118,7 +118,7 @@ Java 核心知识点梳理。
 
 ...
 
-# 许可协议（LICENSE）
+# 许可协议（License）
 
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
