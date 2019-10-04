@@ -194,7 +194,7 @@ private static int calculateSize(int numElements) {
 
 ## ArrayDeque 添加元素
 
-ArrayDeque 实现了`Deque`接口中所有添加元素方法：`add()`、`addFirst()`、`addLast()`、`offer()`、`offerFirst()`、`offerLast()`、`push()`，具体实现放在了添加元素至队头`addFirst()`，添加元素至队尾`addLast()`两枚方法中，其他添加元素方法都是调用这两枚方法实现的。
+ArrayDeque 实现了`Deque`接口定义的所有添加元素方法：`add()`、`addFirst()`、`addLast()`、`offer()`、`offerFirst()`、`offerLast()`、`push()`，具体实现放在添加元素至队头`addFirst()`方法，添加元素至队尾`addLast()`方法这两枚方法之中，其他添加元素方法都是调用这两枚方法实现的。
 
 ```java
 /**
@@ -248,7 +248,7 @@ ArrayDeque 添加队头元素`addFirst()`方法中：**队尾指针永远指向�
 
 > 图：ArrayDeque 添加元素`addFirst()`方法
 
-ArrayDeque 添加队尾元素`addLast()`方法与`addFirst()`类似，**由于队尾指针指向下一个新添加元素的索引下标，所以直接存放元素**；语句`tail = (tail + 1) & (elements.length - 1)`将数组用作循环数组，含义：**队尾指针后移`1`位，如果此时索引下标未越界，即指向该位置；如果此时索引下标越界（值为：`elements.length`），将队尾指针指向数组头部`0`位置**。
+ArrayDeque 添加队尾元素`addLast()`方法与`addFirst()`方法相似，**由于队尾指针指向下一个新添加元素的索引下标，所以直接存放元素**；语句`tail = (tail + 1) & (elements.length - 1)`将数组用作循环数组，含义：**队尾指针后移`1`位，如果此时索引下标未越界，即指向该位置；如果此时索引下标越界（值为：`elements.length`），将队尾指针指向数组头部`0`位置**。
 
 ![Collections-ArrayDeque-4-AddLast][Collections-ArrayDeque-4-AddLast]
 
@@ -290,8 +290,64 @@ ArrayDeque 添加队尾元素`addLast()`方法与`addFirst()`类似，**由于�
  * = 10
  */
 ```
-> 注：ArrayDeque 添加元素方法位运算详解
+> 注：ArrayDeque 添加元素方法「位运算」详解
 
+## ArrayDeque 移除元素
+
+ArrayDeque 实现了`Deque`接口定义的所有移除元素方法：`remove()`、`removeFirst()`、`removeLast()`、`poll()`、`pollFirst()`、`pollLast()`、`pop()`。具体实现放在了移除队头元素`pollFirst()`方法，移除队尾元素`pollLast()`方法这两枚方法之中，其他移除元素方法都是调用这两枚方法实现的。
+
+```java
+/**
+ * 移除并返回队头元素。
+ *
+ * @param void
+ * @return E 队头元素，如果为空则说明队列为空
+ */
+public E pollFirst() {
+    int h = head;
+    @SuppressWarnings("unchecked")
+    E result = (E) elements[h];
+    // Element is null if deque empty
+    if (result == null) {
+        return null;
+    }
+    elements[h] = null;     // Must null out slot
+    head = (h + 1) & (elements.length - 1);
+    return result;
+}
+/**
+ * 移除并返回队尾元素。
+ *
+ * @param void
+ * @return E 队尾元素，如果为空则说明队列为空
+ */
+public E pollLast() {
+    int t = (tail - 1) & (elements.length - 1);
+    @SuppressWarnings("unchecked")
+    E result = (E) elements[t];
+    if (result == null) {
+        return null;
+    }
+    elements[t] = null;
+    tail = t;
+    return result;
+}
+```
+> 代码清单：ArrayDeque 移除元素方法源码
+
+了解 ArrayDeque 的「位运算」机制后，移除队头、队尾元素方法就很好理解了：`pollFirst()`方法返回队头指针所指元素，并将队头指针后移`1`位；`pollLast()`方法返回队尾指针前一位元素，并将队尾指针前移`1`位。元素移除后，其数组原位置会被置空，这也是 ArrayDeque 不允许存放空值的原因。
+
+## ArrayDeque 查看元素
+
+...
+
+## ArrayDeque 扩容机制
+
+...
+
+## ArrayDeque 其他方法
+
+...
 
 [Collections-ArrayDeque-1-Hierarchy]: ../../images/Collections-ArrayDeque-1-Hierarchy.png
 
