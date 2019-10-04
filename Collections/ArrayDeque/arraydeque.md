@@ -87,6 +87,102 @@ public class ArrayDeque<E> extends AbstractCollection<E>
 ```
 > 代码清单：ArrayDeque 数据字段
 
+## ArrayDeque 构造函数
+
+与 ArrayList 相似，ArrayDeque 支持三种构造方式：
+
+- 无参数默认构造：以默认容量`16`构造空对象数组。
+
+- 指定容量构造：以指定容量构造空对象数组。
+
+- 以`Collection`序列对象构造：构造序列对象迭代器返回元素顺序的对象数组。
+
+```java
+/**
+ * 无参数默认构造，以默认容量 16 构造空对象数组。
+ *
+ * @param void
+ */
+public ArrayDeque() {
+    elements = new Object[16];
+}
+/**
+ * 指定容量构造，以指定容量构造空对象数组。
+ *
+ * @param numElements 指定容量
+ */
+public ArrayDeque(int numElements) {
+    allocateElements(numElements);
+}
+/**
+ * 以 Collection 序列对象构造序列对象迭代器返回元素顺序的对象数组。
+ *
+ * @param c 序列对象
+ * @throws NullPointerException 如果序列对象为空
+ */
+public ArrayDeque(Collection<? extends E> c) {
+    allocateElements(c.size());
+    addAll(c);
+}
+```
+> 代码清单：ArrayDeque 构造函数
+
+## ArrayDeque 容量分配方法
+
+ArrayDeque 在容量分配时保证实际分配容量是`2`的幂次，实际容量计算方法为`calculateSize()`，`>>>`是无符号右移操作，`|`是位或操作，经过五次右移和位或操作后得到最接近指定元素数量的`2 ^ n - 1`数，将该数加`1`，得`2 ^ n`数。
+
+```java
+/**
+ * 分配能存储指定数量元素的空数组。
+ *
+ * @param numElements 元素数量
+ */
+private void allocateElements(int numElements) {
+    elements = new Object[calculateSize(numElements)];
+}
+/**
+ * 容量计算方法。
+ *
+ * @param numElements 元素数量
+ * @return int 实际容量
+ */
+private static int calculateSize(int numElements) {
+    /* 初始化容量为 8 */
+    int initialCapacity = MIN_INITIAL_CAPACITY;
+    // Find the best power of two to hold elements.
+    // Tests "<=" because arrays aren't kept full.
+    if (numElements >= initialCapacity) {
+        initialCapacity = numElements;
+        initialCapacity |= (initialCapacity >>>  1);
+        initialCapacity |= (initialCapacity >>>  2);
+        initialCapacity |= (initialCapacity >>>  4);
+        initialCapacity |= (initialCapacity >>>  8);
+        initialCapacity |= (initialCapacity >>> 16);
+        initialCapacity++;
+
+        if (initialCapacity < 0)   // Too many elements, must back off
+            initialCapacity >>>= 1;// Good luck allocating 2 ^ 30 elements
+    }
+    return initialCapacity;
+}
+```
+> 代码清单：ArrayDeque 容量分配方法
+
+通过以下例子，可以更加深刻理解`calculateSize()`方法计算逻辑。
+
+```java
+/**
+ * 以 calculateSize(17) 为例：
+ * 17 = 0x11
+ * >>>  1 : 0001 0001 | 0000 1000 = 0001 1001 (25)
+ * >>>  2 : 0001 1001 | 0000 0110 = 0001 1111 (31)
+ * >>>  4 : 0001 1111 | 0000 1000 = 0001 1111 (31)
+ * >>>  8 : 0001 1111 | 0000 0000 = 0001 1111 (31)
+ * >>> 16 : 0001 1111 | 0000 0000 = 0001 1111 (31)
+ *  x + 1 : 0001 1111 + 0000 0001 = 0010 0000 (32)
+ */
+```
+> 注：`calculateSize()`方法计算逻辑
 
 
 [Collections-ArrayDeque-1-Hierarchy]: ../../images/Collections-ArrayDeque-1-Hierarchy.png
