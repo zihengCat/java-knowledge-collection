@@ -339,7 +339,42 @@ public E pollLast() {
 
 ## ArrayDeque 查看元素
 
-...
+ArrayDeque 查看元素相关方法与移除元素方法相似，只是不需要置空元素，也无需移动头尾指针。
+
+```java
+public E element() {
+    return getFirst();
+}
+public E getFirst() {
+    @SuppressWarnings("unchecked")
+    E result = (E) elements[head];
+    if (result == null) {
+        throw new NoSuchElementException();
+    }
+    return result;
+}
+public E getLast() {
+    @SuppressWarnings("unchecked")
+    E result = (E) elements[(tail - 1) & (elements.length - 1)];
+    if (result == null) {
+        throw new NoSuchElementException();
+    }
+    return result;
+}
+public E peek() {
+    return peekFirst();
+}
+@SuppressWarnings("unchecked")
+public E peekFirst() {
+    // elements[head] is null if deque empty
+    return (E) elements[head];
+}
+@SuppressWarnings("unchecked")
+public E peekLast() {
+    return (E) elements[(tail - 1) & (elements.length - 1)];
+}
+```
+> 代码清单：ArrayDeque 查看元素方法源码
 
 ## ArrayDeque 扩容机制
 
