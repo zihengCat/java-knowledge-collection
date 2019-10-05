@@ -23,7 +23,45 @@
 
 # 队列异常（Exception）
 
-...
+队列数据结构通常指定两项异常。
+
+- 队列满时数据入队：`QueueIsFullException`
+
+- 队列空时数据出队：`QueueIsEmptyException`
+
+```java
+public class QueueIsFullException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+    public QueueIsFullException() {
+        super();
+    }
+    public QueueIsFullException(String message) {
+        super(message);
+    }
+    public QueueIsFullException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+/* EOF */
+```
+> 代码清单：`QueueIsFullException`异常 - Java 代码
+
+```java
+public class QueueIsEmptyException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+    public QueueIsEmptyException() {
+        super();
+    }
+    public QueueIsEmptyException(String message) {
+        super(message);
+    }
+    public QueueIsEmptyException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+/* EOF */
+```
+> 代码清单：`QueueIsEmptyException`异常 - Java 代码
 
 [QueueStructure]: ../../images/DataStructuresAndAlgorithms-QueueOverview-1-QueueStructure.png
 
