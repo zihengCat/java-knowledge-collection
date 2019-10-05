@@ -378,7 +378,56 @@ public E peekLast() {
 
 ## ArrayDeque 扩容机制
 
-...
+ArrayDeque 每次添加新元素后，都会检查队头队尾指针是否重合，如果队尾指针重合，说明当前数组已满，执行扩容操作。ArrayDeque 扩容操作由`doubleCapacity()`方法完成，每次扩容都为原数组两倍，具体执行逻辑为：
+
+1. 申请一个新数组（原数组的两倍）；
+
+2. 将队头指针右边的元素拷贝至新数组`[0, elements.length - 1 - head]`位置；
+
+3. 将队头指针左边的元素拷贝至新数组`[elements.length - head, elements.length - 1]`位置；
+
+4. 重置队头队尾指针。
+
+![Collections-ArrayDeque-5-DoubleCapacity][Collections-ArrayDeque-5-DoubleCapacity]
+
+> 图：ArrayDeque 扩容示意图
+
+```java
+/**
+ * 将队列扩容两倍，仅在队头、队尾指针重合时执行该操作。
+ *
+ * @param void
+ * @return void
+ */
+private void doubleCapacity() {
+    /* 确认队头队尾指针重合 */
+    assert head == tail;
+    int p = head;
+    int n = elements.length;
+    /* 队头指针右边的元素 */
+    int r = n - p; // number of elements to the right of p
+    /* 扩容 2 倍 */
+    int newCapacity = n << 1;
+    if (newCapacity < 0) {
+        throw new IllegalStateException("Sorry, deque too big");
+    }
+    /* 申请新数组 */
+    Object[] a = new Object[newCapacity];
+    /* 将队头指针右边的元素拷贝至新数组
+       [head, elements.length - 1] -> [0, elements.length - 1 - head] */
+    System.arraycopy(elements, p, a, 0, r);
+    /* 将队头指针左边的元素拷贝至新数组
+       [0, head] -> [elements.length - head, elements.length - 1] */
+    System.arraycopy(elements, 0, a, r, p);
+    /* 设置新数组 */
+    elements = a;
+    /* 队头指针：起始位置 */
+    head = 0;
+    /* 队头指针：原数组长度位置 */
+    tail = n;
+}
+```
+> 代码清单：ArrayDeque 扩容方法源码
 
 ## ArrayDeque 其他方法
 
@@ -391,5 +440,7 @@ public E peekLast() {
 [Collections-ArrayDeque-3-AddFirst]: ../../images/Collections-ArrayDeque-3-AddFirst.png
 
 [Collections-ArrayDeque-4-AddLast]: ../../images/Collections-ArrayDeque-4-AddLast.png
+
+[Collections-ArrayDeque-5-DoubleCapacity]: ../../images/Collections-ArrayDeque-5-DoubleCapacity.png
 
 <!-- EOF -->
