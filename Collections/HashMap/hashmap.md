@@ -4,7 +4,7 @@
 
 # HashMap 继承体系
 
-![Collections-HashMap-1][Collections-HashMap-1]
+![Collections-HashMap-1-Hierarchy][Collections-HashMap-1-Hierarchy]
 
 > 图：HashMap 继承关系图
 
@@ -555,9 +555,9 @@ final Node<K,V>[] resize() {
     return newTab;
 }
 ```
-> 代码清单：HashMap `resize()`扩容方法实现
+> 代码清单：HashMap 扩容方法`resize()`源码
 
-[Collections-HashMap-1]: ../../images/Collections-HashMap-1.png
+[Collections-HashMap-1-Hierarchy]: ../../images/Collections-HashMap-1-Hierarchy.jpg
 
 [Collections-HashMap-2]: ../../images/Collections-HashMap-2.png
 
