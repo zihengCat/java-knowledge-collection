@@ -382,7 +382,7 @@ ArrayDeque 每次添加新元素后，都会检查队头队尾指针是否重合
 
 1. 申请一个新数组（原数组的两倍）；
 
-2. 将队头指针右边的元素拷贝至新数组`[0, elements.length - 1 - head]`位置；
+2. 将队头指针右边的元素拷贝至新数组`[0, elements.length - head - 1]`位置；
 
 3. 将队头指针左边的元素拷贝至新数组`[elements.length - head, elements.length - 1]`位置；
 
@@ -431,7 +431,82 @@ private void doubleCapacity() {
 
 ## ArrayDeque 其他方法
 
-...
+ArrayDeque 其他一些常用方法，这些方法都比较简单，不多赘述。
+
+```java
+/**
+ * 判断队列是否为空。
+ *
+ * @return {@code true} 如果队列不包含任何元素
+ */
+public boolean isEmpty() {
+    return head == tail;
+}
+/**
+ * 返回队列中包含元素数量。
+ *
+ * @return {@code size} 队列包含元素数量
+ */
+public int size() {
+    return (tail - head) & (elements.length - 1);
+}
+/**
+ * 清空队列。
+ */
+public void clear() {
+    int h = head;
+    int t = tail;
+    if (h != t) { // clear all cells
+        head = tail = 0;
+        int i = h;
+        int mask = elements.length - 1;
+        do {
+            elements[i] = null;
+            i = (i + 1) & mask;
+        } while (i != t);
+    }
+}
+/**
+ * 队列转换数组。
+ *
+ * @return {@code Object[]}
+ */
+public Object[] toArray() {
+    return copyElements(new Object[size()]);
+}
+/**
+ * 从头到尾依序拷贝队列元素至指定数组中，传入的数组容量必须足够大。
+ *
+ * @return {@code a} 传入数组
+ */
+private <T> T[] copyElements(T[] a) {
+    if (head < tail) {
+        System.arraycopy(elements, head, a, 0, size());
+    } else if (head > tail) {
+        int headPortionLen = elements.length - head;
+        System.arraycopy(elements, head, a, 0, headPortionLen);
+        System.arraycopy(elements, 0, a, headPortionLen, tail);
+    }
+    return a;
+}
+```
+> 代码清单：ArrayDeque 其他方法源码
+
+# ArrayDeque 总结
+
+- ArrayDeque 是使用「动态数组」实现的「双端队列」线性数据结构容器。
+
+- ArrayDeque 不允许存放`null`空值。
+
+- ArrayDeque 并不是线程安全的集合容器。
+
+- ArrayDeque 将底层对象数组用作「循环数组」，移除元素时不需要移动队列中其他元素，只需调整队列指针位置，运行效率高。
+
+- ArrayDeque 队列容量总是`2`的幂次，每次扩容都为原容量的`2`倍。
+
+# 参考资料
+
+- https://docs.oracle.com/javase/8/docs/technotes/guides/collections/index.html
 
 [Collections-ArrayDeque-1-Hierarchy]: ../../images/Collections-ArrayDeque-1-Hierarchy.png
 
