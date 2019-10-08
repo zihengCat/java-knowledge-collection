@@ -100,7 +100,7 @@ Java 核心知识点梳理。
 
 - [队列数据结构概览](./DataStructuresAndAlgorithms/QueueOverview/queue_overview.md)
 
-- 数组实现队列（Java）
+- [数组实现队列（Java）](./DataStructuresAndAlgorithms/ArrayQueue/array_queue.md)
 
 - 链表实现队列（Java）
 
