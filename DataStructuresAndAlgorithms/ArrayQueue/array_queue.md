@@ -48,7 +48,7 @@ public class QueueTest {
 }
 /* EOF */
 ```
-> 代码清单：顺序队列测试代码
+> 代码清单：顺序队列测试代码 - `Java`代码
 
 # 顺序队列数据字段
 
@@ -106,5 +106,94 @@ public ArrayQueue(int capacity) {
 }
 ```
 > 代码清单：顺序队列构造函数 - `Java`代码
+
+# 顺序队列入队操作
+
+入队操作`enqueue()`将指定元素添加到队列中，一般是添加到队尾位置，其具体实现为：先检查队列容量是否足够，容量不足则抛出异常；在队尾指针位置放入新元素，队尾指针后移一位；队列存放元素数量加`1`。
+
+```java
+/**
+ * 将指定元素入队。
+ * @param e
+ * @return void
+ */
+public void enqueue(E e) {
+    ensureCapacity();
+    elementData[tail++] = e;
+    size++;
+}
+/**
+ * 检查队列容量是否足够，容量不足则抛出异常。
+ * @param void
+ * @return void
+ */
+private void ensureCapacity() {
+    if (size + 1 > elementData.length) {
+        throw new QueueIsFullException("[ERROR]: Queue is full");
+    }
+}
+```
+> 代码清单：顺序队列入队操作 - `Java`代码
+
+# 顺序队列出队操作
+
+出队操作`dequeue()`将队头元素移除出队列，其具体实现为：先检查队列是否为空，队列为空则不允许出队操作，抛出异常；暂存队头元素，队列剩余元素整体前移`1`位，队尾指针也前移`1`位，队列存放元素数量减`1`，最后返回目标元素。
+
+```java
+/**
+ * 将队头元素出队。
+ * @param void
+ * @return E
+ */
+public E dequeue() {
+    /* 队列为空，则不允许出队操作，抛出异常 */
+    if (isEmpty()) {
+        throw new QueueIsEmptyException("[ERROR]: Queue is empty");
+    }
+    /* 保存队头元素 */
+    E element = elementData[head];
+    /* 队列剩余元素整体前移 1 位 */
+    arrayCopy(elementData, head + 1, elementData, head, size - 1);
+    /* 队尾指针也前移 1 位 */
+    tail--;
+    /* 队列元素数量减 1 个 */
+    size--;
+    /* 返回目标元素 */
+    return element;
+}
+/**
+ * 数组元素拷贝函数。
+ *
+ * @param src     源数组
+ * @param srcPos  源数组起始位置
+ * @param dest    目标数组
+ * @param destPos 目标数组起始位置
+ * @param length  拷贝长度
+ *
+ * @return void
+ */
+private void arrayCopy(
+    E[] src, int srcPos,
+    E[] dest, int destPos,
+    int length) {
+    // System.arraycopy(src, srcPos, dest, destPos, length);
+    for (int i = 0; i < length; ++i) {
+        dest[destPos + i] = src[srcPos + i];
+    }
+}
+```
+> 代码清单：顺序队列出队操作 - `Java`代码
+
+# 顺序队列其他操作
+
+...
+
+# 顺序队列动态扩容
+
+...
+
+# 完整代码（Java）
+
+...
 
 <!-- EOF -->
