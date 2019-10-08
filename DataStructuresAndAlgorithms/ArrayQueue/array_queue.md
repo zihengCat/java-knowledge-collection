@@ -168,8 +168,7 @@ public E dequeue() {
  * @param srcPos  源数组起始位置
  * @param dest    目标数组
  * @param destPos 目标数组起始位置
- * @param length  拷贝长度
- *
+ * @param length  拷贝元素长度
  * @return void
  */
 private void arrayCopy(
@@ -186,7 +185,51 @@ private void arrayCopy(
 
 # 顺序队列其他操作
 
-...
+接下来，实现顺序队列接口其他一些操作，这些操作的具体实现都比较简单。
+
+```java
+/**
+ * 查看队头元素。
+ * @param void
+ * @return E
+ */
+public E peek() {
+    if (isEmpty()) {
+        throw new QueueIsEmptyException("[ERROR]: Queue is empty");
+    }
+    return elementData[head];
+}
+/**
+ * 查看队头已存放元素数量。
+ * @param void
+ * @return size
+ */
+public int size() {
+    return size;
+}
+/**
+ * 检查队列是否为空。
+ * @param void
+ * @return boolean
+ */
+public boolean isEmpty() {
+    return head == tail;
+}
+/**
+ * 清空队列。
+ * @param void
+ * @return void
+ */
+public void clear() {
+    for (int i = head; i < tail; ++i) {
+        elementData[i] = null;
+    }
+    this.head = 0;
+    this.tail = 0;
+    this.size = 0;
+}
+```
+> 代码清单：顺序队列其他操作 - `Java`代码
 
 # 顺序队列动态扩容
 
