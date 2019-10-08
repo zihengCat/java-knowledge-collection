@@ -169,6 +169,7 @@ public E dequeue() {
  * @param dest    目标数组
  * @param destPos 目标数组起始位置
  * @param length  拷贝元素长度
+ *
  * @return void
  */
 private void arrayCopy(
@@ -233,7 +234,47 @@ public void clear() {
 
 # 顺序队列动态扩容
 
-...
+在上述顺序栈实现中，队列在初始化时指定容量，队列无法动态扩容，在队列满后再入队数据，会抛出`QueueIsFullException`异常。但我们可以改写代码，实现顺序队列动态扩容。具体实现逻辑如下：
+
+1. 发现队列容量已满，执行扩容操作；
+
+2. 创建一个新数组（新数组容量为原容量的`2`倍）；
+
+3. 将旧数组中的元素按顺序依次拷贝至新数组中；
+
+4. 将队列数组替换为新数组。
+
+```java
+/**
+ * 检查队列容量是否足够，容量不足则执行扩容操作。
+ * @param void
+ * @return void
+ */
+private void ensureCapacity() {
+    if (size + 1 > elementData.length) {
+        // throw new QueueIsFullException("[ERROR]: Queue is full");
+        grow();
+    }
+}
+/**
+ * 队列扩容。
+ * @param void
+ * @return void
+ */
+@SuppressWarnings("unchecked")
+private void grow() {
+    int oldCapacity = elementData.length;
+    int newCapacity = oldCapacity << 1;
+    E[] oldElementData = this.elementData;
+    E[] newElementData = (E[])new Object[newCapacity];
+    for (int i = head; i < tail; ++i) {
+        newElementData[i] = oldElementData[i];
+        oldElementData[i] = null;
+    }
+    this.elementData = newElementData;
+}
+```
+> 代码清单：顺序队列动态扩容 - `Java`代码
 
 # 完整代码（Java）
 
