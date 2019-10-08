@@ -50,7 +50,61 @@ public class QueueTest {
 ```
 > 代码清单：顺序队列测试代码
 
+# 顺序队列数据字段
 
+理解顺序队列整体实现思路后，着手编写 Java 代码：引入队列操作接口与队列异常，使用范型实现类来实现队列接口；设置底层对象数组、队头指针、队尾指针、队列容量变量。
 
+```java
+import Queue;
+import QueueIsFullException;
+import QueueIsEmptyException;
+public class ArrayQueue<E> implements Queue<E> {
+    /* 队列默认容量大小 */
+    private static final int DEFAULT_CAPACITY = 1 << 4; /* 16 */
+    /* 存放实际元素的对象数组 */
+    private E[] elementData;
+    /* 队头指针（指示队头元素） */
+    private int head;
+    /* 队尾指针（指示队尾元素的下一个空位） */
+    private int tail;
+    /* 队列已存放元素数量 */
+    private int size;
+}
+/* EOF */
+```
+> 代码清单：顺序队列数据字段 - `Java`代码
+
+# 顺序队列构造函数
+
+为顺序队列提供构造函数，初始化过程为对象数组分配指定容量内存，队列容量置为零，队头指针指向数组起始位置，队尾指针指向下一个空闲位置的数组索引下标。
+
+```java
+/**
+ * 默认无参构造函数。
+ * @param void
+ * @return void
+ */
+public ArrayQueue() {
+    this(DEFAULT_CAPACITY);
+}
+/**
+ * 指定容量构造。
+ * @param capacity
+ * @return void
+ */
+@SuppressWarnings("unchecked")
+public ArrayQueue(int capacity) {
+    if (capacity <= 0) {
+        throw new IllegalArgumentException(
+            "[ERROR]: capacity should be greater than zero"
+        );
+    }
+    this.elementData = (E[])new Object[capacity];
+    this.head = 0;
+    this.tail = 0;
+    this.size = 0;
+}
+```
+> 代码清单：顺序队列构造函数 - `Java`代码
 
 <!-- EOF -->
