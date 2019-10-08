@@ -102,7 +102,7 @@ Java 核心知识点梳理。
 
 - [数组实现队列（Java）](./DataStructuresAndAlgorithms/ArrayQueue/array_queue.md)
 
-- 链表实现队列（Java）
+- [链表实现队列（Java）](./DataStructuresAndAlgorithms/LinkedQueue/linked_queue.md)
 
 - [栈实现队列（Java）](./DataStructuresAndAlgorithms/StackQueue/stack_queue.md)
 
