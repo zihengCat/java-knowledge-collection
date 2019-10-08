@@ -1,4 +1,4 @@
-# 数组实现栈（Java）
+# 数组实现栈（Stack）
 
 栈（Stack）是一种后进先出（LIFO）的线性数据结构，具体实现上有：顺序栈、链式栈。
 
@@ -61,7 +61,7 @@ import Stack;
 /* 导入栈异常 */
 import StackIsEmptyException;
 import StackIsFullException
-/* 数组栈 */
+/* 数组栈实现类 */
 public class ArrayStack<E> implements Stack<E> {
     /* 栈默认容量大小 */
     private static final int DEFAULT_CAPACITY = 1 << 4; /* 16 */
@@ -74,7 +74,7 @@ public class ArrayStack<E> implements Stack<E> {
 }
 /* EOF */
 ```
-> 代码清单：数组栈数据字段 - Java 代码
+> 代码清单：数组栈数据字段 - `Java`代码
 
 # 数组栈构造函数
 
@@ -83,6 +83,8 @@ public class ArrayStack<E> implements Stack<E> {
 ```java
 /**
  * 默认无参构造。
+ * @param void
+ * @return void
  */
 public ArrayStack() {
     this(DEFAULT_CAPACITY);
@@ -90,6 +92,7 @@ public ArrayStack() {
 /**
  * 指定容量构造。
  * @param capacity
+ * @return void
  */
 @SuppressWarnings("unchecked")
 public ArrayStack(int capacity) {
@@ -103,7 +106,7 @@ public ArrayStack(int capacity) {
     this.size = 0;
 }
 ```
-> 代码清单：数组栈构造函数 - Java 代码
+> 代码清单：数组栈构造函数 - `Java`代码
 
 # 数组栈压栈操作
 
@@ -121,7 +124,9 @@ public void push(E e) {
     size++;
 }
 /**
- * 检查栈空间容量是否足够存放下一个元素。
+ * 检查栈空间容量是否足够存放下一个元素，容量不足则抛出异常。
+ * @param void
+ * @return void
  */
 private void ensureCapacity() {
     if (size + 1 > elementData.length) {
@@ -129,7 +134,7 @@ private void ensureCapacity() {
     }
 }
 ```
-> 代码清单：数组栈压栈操作 - Java 代码
+> 代码清单：数组栈压栈操作 - `Java`代码
 
 # 数组栈弹栈操作
 
@@ -138,6 +143,7 @@ private void ensureCapacity() {
 ```java
 /**
  * 将栈顶元素弹出栈。
+ * @param void
  * @return E
  */
 public E pop() {
@@ -149,17 +155,18 @@ public E pop() {
 }
 /**
  * 检查当前栈是否为空。
+ * @param void
  * @return boolean
  */
 public boolean isEmpty() {
     return size == 0;
 }
 ```
-> 代码清单：数组栈弹栈操作 - Java 代码
+> 代码清单：数组栈弹栈操作 - `Java`代码
 
 # 数组栈其他操作
 
-接下来，实现数组栈其他一些操作，这些操作的实现都比较简单。
+接下来，实现数组栈接口其他一些操作，这些操作的具体实现都比较简单。
 
 ```java
 /**
@@ -194,11 +201,11 @@ public void clear() {
     size = 0;
 }
 ```
-> 代码清单：数组栈其他操作 - Java 代码
+> 代码清单：数组栈其他操作 - `Java`代码
 
-# 栈动态扩容（拓展内容）
+# 数组栈动态扩容
 
-在上述数组栈实现中，栈是无法动态扩容的，在栈满后再压入数据，会抛出`StackIsFullException`异常。但我们可以改写代码，实现数组栈动态扩容。具体实现：
+在上述数组栈实现中，栈是无法动态扩容的，在栈容量满后再压入数据，会抛出`StackIsFullException`异常。但我们可以改写代码，实现数组栈动态扩容。具体实现：
 
 1. 发现栈容量已满，执行扩容操作；
 
@@ -210,7 +217,9 @@ public void clear() {
 
 ```java
 /**
- * 检查栈容量是否足够存放下一个元素，不足则扩容两倍。
+ * 检查栈容量是否足够存放下一个元素，容量不足则执行扩容操作。
+ * @param void
+ * @return void
  */
 private void ensureCapacity() {
     if (size + 1 > elementData.length) {
@@ -219,7 +228,7 @@ private void ensureCapacity() {
     }
 }
 /**
- * 数组扩容。
+ * 数组扩容（2倍）。
  * @param void
  * @return void
  */
@@ -236,22 +245,28 @@ private void grow() {
     this.elementData = newElementData;
 }
 ```
-> 代码清单：栈动态扩容 - Java 代码
+> 代码清单：数组栈动态扩容 - `Java`代码
 
-# 完整代码
+# 完整代码（Java）
+
+给出数组实现栈完整`Java`代码。
 
 ```java
 import Stack;
 import StackIsEmptyException;
 import StackIsFullException;
+
 public class ArrayStack<E> implements Stack<E> {
-    private static final int DEFAULT_CAPACITY = 16;
+
+    private static final int DEFAULT_CAPACITY = 1 << 4;
     private E[] elementData;
     private int top;
     private int size;
+
     public ArrayStack() {
         this(DEFAULT_CAPACITY);
     }
+
     @SuppressWarnings("unchecked")
     public ArrayStack(int capacity) {
         if (capacity <= 0) {
@@ -263,11 +278,13 @@ public class ArrayStack<E> implements Stack<E> {
         this.top = 0;
         this.size = 0;
     }
+
     public void push(E e) {
         ensureCapacity();
         elementData[top++] = e;
         size++;
     }
+
     public E pop() {
         if (isEmpty()) {
             throw new StackIsEmptyException("[ERROR]: Stack is empty");
@@ -275,18 +292,22 @@ public class ArrayStack<E> implements Stack<E> {
         size--;
         return elementData[--top];
     }
+
     public E top() {
         if (isEmpty()) {
             throw new StackIsEmptyException("[ERROR]: Stack is empty");
         }
         return elementData[top - 1];
     }
+
     public int size() {
         return size;
     }
+
     public boolean isEmpty() {
         return size == 0;
     }
+
     public void clear() {
         for (int i = 0; i < size; ++i) {
             elementData[i] = null;
@@ -294,12 +315,14 @@ public class ArrayStack<E> implements Stack<E> {
         top = 0;
         size = 0;
     }
+
     private void ensureCapacity() {
         if (size + 1 > elementData.length) {
             // throw new StackIsFullException("[ERROR]: Stack is full");
             grow();
         }
     }
+
     @SuppressWarnings("unchecked")
     private void grow() {
         int oldCapacity = elementData.length;
@@ -315,6 +338,6 @@ public class ArrayStack<E> implements Stack<E> {
 }
 /* EOF */
 ```
-> 代码清单：数组实现栈 - Java 代码
+> 代码清单：数组实现栈 - `Java`代码
 
 <!-- EOF -->
