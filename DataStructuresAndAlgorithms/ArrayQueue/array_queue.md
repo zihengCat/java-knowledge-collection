@@ -70,7 +70,6 @@ public class ArrayQueue<E> implements Queue<E> {
     /* 队列已存放元素数量 */
     private int size;
 }
-/* EOF */
 ```
 > 代码清单：顺序队列数据字段 - `Java`代码
 
