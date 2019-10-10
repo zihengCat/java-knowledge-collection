@@ -108,6 +108,23 @@ public class LinkedQueue<E> implements Queue<E> {
 ```
 > 代码清单：链式队列数据字段 - `Java`代码
 
+# 链式队列构造函数
+
+链式队列一般无需限定队列容量，构造函数初始化过程：队头指针、队尾指针都指向`null`空值，将队列容量置为`0`。
+
+```java
+/**
+ * 默认无参构造函数。
+ * @param void
+ */
+public LinkedQueue() {
+    this.head = null;
+    this.tail = this.head;
+    this.size = 0;
+}
+```
+> 代码清单：链式队列构造函数 - `Java`代码
+
 # 完整代码（Java）
 
 给出链表实现队列完整`Java`代码。
