@@ -125,6 +125,147 @@ public LinkedQueue() {
 ```
 > 代码清单：链式队列构造函数 - `Java`代码
 
+# 链式队列入队操作
+
+入队操作`enqueue()`将指定元素插入到队列中，在链式队列中其具体实现为：以传入元素构建一枚新的双向链表节点，使用尾插法在双向链表中插入新节点，队尾指针指向新节点，队列存放元素数量增加`1`。
+
+```java
+/**
+ * 将新元素插入到队尾（入队）。
+ * @param e
+ * @return void
+ */
+public void enqueue(E e) {
+    /* 取得当前队尾节点 */
+    Node<E> oldTail = tail;
+    /* 以目标元素构建双向链表新节点 */
+    Node<E> newNode = new Node<E>(e);
+    /* 新节点后继节点为空 */
+    newNode.setNext(null);
+    /* 新节点前驱节点为当前队尾节点 */
+    newNode.setPrev(oldTail);
+    /* 队尾指针指向新节点 */
+    tail = newNode;
+    /**
+     * 先前队尾指针为空：链表不存在节点，将队头指针指向新加入节点
+     * 先前队尾指针不为空：链表已存在节点，将先前节点链接到新加入节点
+     */
+    if (oldTail == null) {
+        head = newNode;
+    } else {
+        oldTail.setNext(newNode);
+    }
+    /* 队列已存放元素数量 + 1 */
+    size++;
+}
+```
+> 代码清单：链式队列入队操作 - `Java`代码
+
+# 链式队列出队操作
+
+出队操作`dequeue()`将队头元素移除出队列，在链式队列中其具体实现为：先检查队列是否为空，队列为空则不允许出队，抛出异常；暂存队头节点，队头指针后移一位，从链表中移除先前暂存的队头节点，队列存放元素数量减少`1`，返回暂存节点元素。
+
+```java
+/**
+ * 将队头元素移出队列（出队）。
+ * @param void
+ * @return E
+ */
+public E dequeue() {
+    /* 如果队列为空，则不允许出队，抛出异常 */
+    if (isEmpty()) {
+        throw new QueueIsEmptyException(
+            "[ERROR]: Queue is empty"
+        );
+    }
+    /* 取得队头节点 */
+    Node<E> currentNode = head;
+    /* 取得队头节点后继节点 */
+    Node<E> nextNode = head.getNext();
+    /* 队头指针后移一位 */
+    head = head.getNext();
+    /**
+     * 后继节点为空：链表仅存在单个节点，将队尾指针指向空
+     * 后继节点不为空：链表存在多个节点，将后继节点的前驱指针指向空
+     */
+    if (nextNode == null) {
+        tail = null;
+    } else {
+        nextNode.setPrev(null);
+    }
+    /* 取得目标元素 */
+    E element = currentNode.getElement();
+    /* 清空节点帮助 GC */
+    currentNode.setElement(null);
+    currentNode.setPrev(null);
+    currentNode.setNext(null);
+    /* 队列已存放元素数量 - 1 */
+    size--;
+    /* 返回目标元素 */
+    return element;
+}
+```
+> 代码清单：链式队列出队操作 - `Java`代码
+
+# 链式队列其他操作
+
+最后实现链式队列其他一些操作，这些操作的具体实现大都比较简单，不多做赘述。
+
+```java
+/**
+ * 查看队头元素。
+ * @param void
+ * @return E
+ */
+public E peek() {
+    if (isEmpty()) {
+        throw new QueueIsEmptyException(
+            "[ERROR]: Queue is empty"
+        );
+    }
+    return head.getElement();
+}
+/**
+ * 判断队列是否为空。
+ * @param void
+ * @return boolean
+ */
+public boolean isEmpty() {
+    return head == null && tail == null;
+}
+/**
+ * 获取队列已存放元素数量。
+ * @param void
+ * @return size
+ */
+public int size() {
+    return size;
+}
+/**
+ * 清空队列。
+ * @param void
+ * @return void
+ */
+public void clear() {
+    /*
+    while (!isEmpty()) {
+        dequeue();
+    }
+    */
+    for (int i = 0; i < size; ++i) {
+        Node<E> currentNode = head;
+        head = head.getNext();
+        currentNode.setElement(null);
+        currentNode.setPrev(null);
+        currentNode.setNext(null);
+    }
+    this.head = null;
+    this.tail = this.head;
+    this.size = 0;
+}
+```
+> 代码清单：链式队列其他操作 - `Java`代码
+
 # 完整代码（Java）
 
 给出链表实现队列完整`Java`代码。
