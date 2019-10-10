@@ -6,11 +6,53 @@
 
 # 实现思路
 
-...
+链表实现队列结构，底层数据结构选用「双向链表」，准备队头指针`head`与队尾指针`tail`，再引入一个`size`变量纪录队列中已存放元素数量。
+
+- 入队：将元素包装为双向链表节点，尾插法插入到链表中，队尾指针指向新节点。
+
+- 出队：暂存队头指针所指节点，队头指针后移一位，从链表中移除旧队头节点，返回旧队头节点元素。
 
 # 链式队列测试代码（TDD）
 
-...
+秉持着测试驱动开发（TDD）原则，先编写链式队列测试代码。
+
+```java
+import Queue;
+import LinkedQueue;
+public class QueueTest {
+    public static void main(String[] args) {
+        testQueue(new LinkedQueue<Integer>());
+    }
+    public static void testQueue(Queue<Integer> queue) {
+        int capacity = 128;
+        queue.enqueue(0);
+        System.out.println("Before clear elements, Queue.size(): " +
+            queue.size()
+        );
+        queue.clear();
+        System.out.println("After clear elements, Queue.size(): " +
+            queue.size()
+        );
+        System.out.println("Before enqueue elements, Queue.size(): " +
+            queue.size()
+        );
+        for (int i = 0; i < capacity; ++i) {
+            queue.enqueue(i);
+        }
+        System.out.println("After enqueue elements, Queue.size(): " +
+            queue.size()
+        );
+        while (!queue.isEmpty()) {
+            System.out.println(queue.dequeue());
+        }
+        System.out.println("After dequeue elements, Queue.size(): " +
+            queue.size()
+        );
+    }
+}
+/* EOF */
+```
+> 代码清单：链式队列测试代码 - `Java`代码
 
 # 完整代码（Java）
 
