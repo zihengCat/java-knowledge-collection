@@ -54,6 +54,60 @@ public class QueueTest {
 ```
 > 代码清单：链式队列测试代码 - `Java`代码
 
+# 链式队列数据字段
+
+理解链式队列整体实现思路后，着手编写 Java 代码：引入队列操作接口与队列异常，使用范型类来实现队列接口；维护双向链表节点内部类、队头指针、队尾指针、队列容量变量。
+
+```java
+import Queue;
+import QueueIsFullException;
+import QueueIsEmptyException
+public class LinkedQueue<E> implements Queue<E> {
+    /* 队头指针 */
+    private Node<E> head;
+    /* 队尾指针 */
+    private Node<E> tail;
+    /* 队列已存放元素数量 */
+    private int size;
+    /* 双向链表节点类 */
+    private class Node<E> {
+        private E element;
+        private Node<E> prev;
+        private Node<E> next;
+        public Node() {
+            this(null, null, null);
+        }
+        public Node(E element) {
+            this(element, null, null);
+        }
+        public Node(E element, Node<E> prev, Node<E> next) {
+            this.element = element;
+            this.prev = prev;
+            this.next = next;
+        }
+        public E getElement() {
+            return element;
+        }
+        public void setElement(E element) {
+            this.element = element;
+        }
+        public Node<E> getPrev() {
+            return prev;
+        }
+        public void setPrev(Node<E> prev) {
+            this.prev = prev;
+        }
+        public Node<E> getNext() {
+            return next;
+        }
+        public void setNext(Node<E> next) {
+            this.next = next;
+        }
+    }
+}
+```
+> 代码清单：链式队列数据字段 - `Java`代码
+
 # 完整代码（Java）
 
 给出链表实现队列完整`Java`代码。
