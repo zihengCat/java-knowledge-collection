@@ -86,6 +86,10 @@ Java 核心知识点梳理。
 
 - [计数排序 - Java 实现](./DataStructuresAndAlgorithms/CountSort/count_sort.md)
 
+### 链表
+
+...
+
 ### 栈
 
 - [栈数据结构概览](./DataStructuresAndAlgorithms/StackOverview/stack_overview.md)
