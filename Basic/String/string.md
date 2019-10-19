@@ -290,9 +290,9 @@ String s4 = s1  +  s2  +  s3;
 ```
 > 代码清单：Java 字符串连接样例
 
-这实际上是 Java 编译器为程序员提供的语法糖。字符串`+`操作符连接，会被转化为`StringBuilder`类操作。
+这实际上是 Java 编译器为程序员提供的语法糖：字符串`+`操作符连接，会被编译器转化为`StringBuilder`类操作。
 
-例如，对于上述语句，编译器会执行优化：
+例如，对于上述语句，编译器会执行编译优化，优化后结果：
 
 ```java
 String s0 = "abc";
@@ -301,7 +301,7 @@ String s4 = new StringBuilder(s1).append(s2).append(s3).toString();
 ```
 > 代码清单：Java 字符串连接样例（编译器优化）
 
-因此，使用`+`操作符连接字符串是比较低效的（尤其是在循环中使用），如果要连接大量字符串，应使用`StringBuffer`类或`StringBulider`类。
+因此在 Java 中使用`+`操作符连接字符串是比较低效的操作（尤其是在循环中使用），如果需要连接大量字符串，应使用`StringBuffer`类或`StringBulider`类。
 
 # `String`、`StringBuffer`、`StringBuilder`异同
 
