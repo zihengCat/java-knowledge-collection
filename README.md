@@ -92,7 +92,7 @@ Java 核心知识点梳理。
 
 ### 线性表
 
-...
+- [线性表（List）数据结构概览](./DataStructuresAndAlgorithms/ListOverview/list_overview.md)
 
 ### 栈
 
