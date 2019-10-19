@@ -311,9 +311,9 @@ String s4 = new StringBuilder(s1).append(s2).append(s3).toString();
 
 2. **可变性**：`String`是不可变字符串对象，`StringBuilder`和`StringBuffer`都是可变字符串对象（其内部的字符数组长度可变）。
 
-3. **线程安全**：`String`字符串对象不可变，可以理解为常量，天然线程安全。`StringBuilde`r`无相关线程安全机制保障，线程不安全。`StringBuffer`与`StringBuilder`中的方法和功能完全等价，但`StringBuffer`中的方法大都使用了`synchronized`同步锁，线程安全。
+3. **线程安全**：`String`字符串对象不可变，可以理解为常量，天然线程安全。`StringBuilder`无相关线程安全机制保障，线程不安全。`StringBuffer`与`StringBuilder`中的方法和功能完全等价，但`StringBuffer`中的方法使用了`synchronized`同步锁，线程安全。
 
-4. **执行效率**：通常情况下`StringBuilder > StringBuffer > String`，不绝对。
+4. **执行效率**：通常情况`StringBuilder > StringBuffer > String`，但并不绝对。
 
 5. **使用场景**：字符串拼接或改动较少的情况下，使用`String`；字符串拼接操作较多的情况下，使用`StringBuilder`；多线程并发情况下，使用`StringBuffer`。
 
