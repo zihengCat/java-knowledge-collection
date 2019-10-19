@@ -2,10 +2,14 @@ package io.ziheng.queue;
 
 import io.ziheng.queue.Queue;
 import io.ziheng.queue.ArrayQueue;
+import io.ziheng.queue.LinkedQueue;
+import io.ziheng.queue.StackQueue;
 
 public class QueueTest {
     public static void main(String[] args) {
         testQueue(new ArrayQueue<Integer>());
+        testQueue(new LinkedQueue<Integer>());
+        testQueue(new StackQueue<Integer>());
     }
     public static void testQueue(Queue<Integer> queue) {
         /* test Queue.clear() */

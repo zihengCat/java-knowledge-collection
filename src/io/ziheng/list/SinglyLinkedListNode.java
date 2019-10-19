@@ -1,4 +1,4 @@
-package io.ziheng.linkedlist;
+package io.ziheng.list;
 public class SinglyLinkedListNode<E> {
     private E element;
     private SinglyLinkedListNode<E> next;
