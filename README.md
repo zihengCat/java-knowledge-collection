@@ -68,6 +68,10 @@ Java 核心知识点梳理。
 
 ...
 
+## 设计模式
+
+...
+
 ## 数据结构与算法
 
 ### 排序
@@ -115,10 +119,6 @@ Java 核心知识点梳理。
 - [树（Tree）数据结构概览](./DataStructuresAndAlgorithms/TreeOverview/tree_overview.md)
 
 - [二叉树（Binary Tree）数据结构概览](./DataStructuresAndAlgorithms/BinaryTreeOverview/binary_tree_overview.md)
-
-## 设计模式
-
-...
 
 ## 操作系统
 
