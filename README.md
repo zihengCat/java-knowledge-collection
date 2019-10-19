@@ -86,13 +86,13 @@ Java 核心知识点梳理。
 
 - [计数排序 - Java 实现](./DataStructuresAndAlgorithms/CountSort/count_sort.md)
 
-### 链表
+### 线性表
 
 ...
 
 ### 栈
 
-- [栈数据结构概览](./DataStructuresAndAlgorithms/StackOverview/stack_overview.md)
+- [栈（Stack）数据结构概览](./DataStructuresAndAlgorithms/StackOverview/stack_overview.md)
 
 - [数组实现栈（Java）](./DataStructuresAndAlgorithms/ArrayStack/array_stack.md)
 
@@ -102,7 +102,7 @@ Java 核心知识点梳理。
 
 ### 队列
 
-- [队列数据结构概览](./DataStructuresAndAlgorithms/QueueOverview/queue_overview.md)
+- [队列（Queue）数据结构概览](./DataStructuresAndAlgorithms/QueueOverview/queue_overview.md)
 
 - [数组实现队列（Java）](./DataStructuresAndAlgorithms/ArrayQueue/array_queue.md)
 
@@ -113,6 +113,8 @@ Java 核心知识点梳理。
 ### 二叉树
 
 - [树（Tree）数据结构概览](./DataStructuresAndAlgorithms/TreeOverview/tree_overview.md)
+
+- [二叉树（Binary Tree）数据结构概览](./DataStructuresAndAlgorithms/BinaryTreeOverview/binary_tree_overview.md)
 
 ## 设计模式
 

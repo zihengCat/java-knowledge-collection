@@ -8,8 +8,17 @@ public class QueueTest {
         testQueue(new ArrayQueue<Integer>());
     }
     public static void testQueue(Queue<Integer> queue) {
-        int capacity = 128;
+        /* test Queue.clear() */
+        queue.enqueue(0);
+        System.out.println("Before clear elements, Queue.size(): " +
+            queue.size()
+        );
         queue.clear();
+        System.out.println("After clear elements, Queue.size(): " +
+            queue.size()
+        );
+        /* test Queue.enqueue() */
+        int capacity = 128;
         System.out.println("Before enqueue elements, Queue.size(): " +
             queue.size()
         );
@@ -19,6 +28,7 @@ public class QueueTest {
         System.out.println("After enqueue elements, Queue.size(): " +
             queue.size()
         );
+        /* test Queue.dequeue() */
         while (!queue.isEmpty()) {
             System.out.println(queue.dequeue());
         }
