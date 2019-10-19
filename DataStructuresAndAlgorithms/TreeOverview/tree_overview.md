@@ -6,6 +6,10 @@
 
 2. 当 *n > 1* 时，其余结点可分为 *m (m > 0)* 个互不相交的有限集 *T1、T2、......、Tm* ，每一个有限集本身也是一颗树，称为根的子树（SubTree）。
 
+![DataStructuresAndAlgorithms-TreeOverview-1-TreeDefinition][DataStructuresAndAlgorithms-TreeOverview-1-TreeDefinition]
+
+> 图：树（Tree）的定义
+
 树（Tree）适用于表示具有「层次结构」的数据类型。树中的每个元素被称为树的结点（Tree Node），有且仅有一个特定的根（Root）结点，树结点具有若干指向子结点的指针域，每个子结点本身也是一颗树。
 
 显然，树的定义是递归的，且树还具有以下特点：
@@ -50,5 +54,11 @@
 | 树的高度/深度        | 树内各结点的层次的最大值。 |
 
 > 表：树（Tree）其他概念说明表
+
+
+
+
+
+[DataStructuresAndAlgorithms-TreeOverview-1-TreeDefinition]: ../../images/DataStructuresAndAlgorithms-TreeOverview-1-TreeDefinition.png
 
 <!-- EOF -->
