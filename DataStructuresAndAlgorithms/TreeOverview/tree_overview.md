@@ -53,9 +53,21 @@
 | 结点深度（Depth）    | 从根结点开始自顶向下逐层累加（深度从`0`开始）。 |
 | 结点高度（Height）   | 从叶结点开始自底向上逐层累加（高度从`0`开始）。 |
 | 树的高度/深度（Depth/Height of Tree） | 树内各结点的层次的最大值。 |
-| 森林（Forest）       | *n (n >=0)* 颗互不相交的树的集合。 |
+| 森林（Forest）       | *n (n >= 0)* 颗互不相交的树的集合。 |
 
 > 表：树（Tree）其他概念说明表
+
+# 树（Tree）基本性质
+
+树数据结构具有如下几个基本性质：
+
+- 树的结点数目等于树中所有结点的度数之和加`1`。
+
+- 度为 *m* 的树中，第 *i (i >= 1)* 层至多有 *m^(i-1)* 个结点。
+
+- 高度为 *h* 的 *m* 叉树至多拥有 *(m^h - 1)/(m - 1)* 个结点。
+
+- 具有 *n* 个结点的 *m* 叉树最小高度为 *log_m(n(m - 1)) + 1* 。
 
 [DataStructuresAndAlgorithms-TreeOverview-1-TreeStructure]: ../../images/DataStructuresAndAlgorithms-TreeOverview-1-TreeStructure.png
 
