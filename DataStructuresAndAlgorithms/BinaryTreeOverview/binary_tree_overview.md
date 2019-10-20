@@ -14,7 +14,7 @@
 
 # 几种特殊二叉树
 
-数据组织结构的差异会导致二叉树有各式各样的型态，下面简单介绍几种特殊的二叉树。
+数据组织结构的差异会导致二叉树有各式各样的形态，下面简单介绍几种特殊的二叉树。
 
 ## 斜二叉树（Skewed Binary Tree）
 
@@ -46,14 +46,25 @@
 
 - 叶子结点都位于同一层。
 
-## 完全二叉树
+## 完全二叉树（Complete Binary Tree）
 
-...
+一棵高度为 *h* 且具有 *n* 个结点的二叉树，当且仅当其每个结点都与高度为 *h* 的满二叉树中的结点一一对应时，被称为完全二叉树。也就是说，在完全二叉树中，从根结点至倒数第二层都是满二叉树，最后一层可以不完全填充，但其叶子结点都靠左对齐。
+
+![4-CompleteBinaryTreeStructure][4-CompleteBinaryTreeStructure]
+
+> 图：完全二叉树（Complete Binary Tree）结构
+
+完全二叉树特点：
+
+- 叶子结点只能出现在最下两层，且最下层的叶子结点一定集中在左侧且连续。
+
+- 若存在度为 1 的结点，则只可能有一个，且该节点只有左子结点没有右子结点。
+
+> 注：满二叉树一定是完全二叉树，完全二叉树不一定是满二叉树。
 
 # 二叉树（Binary Tree）存储结构
 
 ...
-
 
 
 [1-BinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-1-BinaryTreeStructure.png
@@ -61,5 +72,7 @@
 [2-SkewedBinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-2-SkewedBinaryTreeStructure.png
 
 [3-FullBinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-3-FullBinaryTreeStructure.png
+
+[4-CompleteBinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-4-CompleteBinaryTreeStructure.png
 
 <!-- EOF -->
