@@ -88,7 +88,13 @@
 
 ## 链式存储结构
 
-...
+由于顺序存储的空间利用率较低，二叉树一般都采用链式存储结构。二叉树链式存储结构使用二叉链表存储二叉树结点，二叉链表包含三部分：数据域、左节点指针域、右节点指针域。
+
+![6-BinaryTreeInTreeNodeList][6-BinaryTreeInTreeNodeList]
+
+> 图：二叉树链式（二叉链表）存储结构
+
+> 注：在含有 *n* 个结点的二叉链表中，共含有 *n + 1* 个`NULL`空链域（重要结论）。
 
 [1-BinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-1-BinaryTreeStructure.png
 
@@ -99,5 +105,7 @@
 [4-CompleteBinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-4-CompleteBinaryTreeStructure.png
 
 [5-CompleteBinaryTreeInArray]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-5-CompleteBinaryTreeInArray.png
+
+[6-BinaryTreeInTreeNodeList]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-6-BinaryTreeInTreeNodeList.png
 
 <!-- EOF -->
