@@ -30,9 +30,21 @@
 
 - 树结点只存在左子节点或右子节点。
 
-## 满二叉树
+## 满二叉树（Full Binary Tree）
 
-...
+一棵高度为 *h* 且具有 *2^h - 1* 个结点的二叉树被称为满二叉树（完美二叉树）。也就是说，在满二叉树中，每一层都含有最多的结点，所有分支节点都具有两个子结点（分支结点的度都为 2 ），所有叶子结点都位于同一层。
+
+![3-FullBinaryTreeStructure][3-FullBinaryTreeStructure]
+
+> 图：满二叉树（Full Binary Tree）结构
+
+满二叉树特点：
+
+- 二叉树结点数目达到当前树高的最大值。
+
+- 分支结点的度都为 2 。
+
+- 叶子结点都位于同一层。
 
 ## 完全二叉树
 
@@ -47,5 +59,7 @@
 [1-BinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-1-BinaryTreeStructure.png
 
 [2-SkewedBinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-2-SkewedBinaryTreeStructure.png
+
+[3-FullBinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-3-FullBinaryTreeStructure.png
 
 <!-- EOF -->
