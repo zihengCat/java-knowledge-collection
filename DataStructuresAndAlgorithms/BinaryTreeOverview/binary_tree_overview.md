@@ -82,7 +82,7 @@
 
 如果使用顺序存储结构存储二叉树，二叉树中某结点的索引下标为 *i* ，其左子结点的索引下标为 *2i + 1* ，其右子结点的索引下标为 *2i + 2* ，其双亲结点的索引下标为 *(i - 1) / 2* 。
 
-![5-CompleteBinaryTreeArray][5-CompleteBinaryTreeArray]
+![5-CompleteBinaryTreeInArray][5-CompleteBinaryTreeInArray]
 
 > 图：完全二叉树顺序（数组）存储结构
 
@@ -98,6 +98,6 @@
 
 [4-CompleteBinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-4-CompleteBinaryTreeStructure.png
 
-[5-CompleteBinaryTreeArray]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-5-CompleteBinaryTreeArray.png
+[5-CompleteBinaryTreeInArray]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-5-CompleteBinaryTreeInArray.png
 
 <!-- EOF -->
