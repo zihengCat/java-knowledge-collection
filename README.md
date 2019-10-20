@@ -120,6 +120,8 @@ Java 核心知识点梳理。
 
 - [二叉树（Binary Tree）数据结构概览](./DataStructuresAndAlgorithms/BinaryTreeOverview/binary_tree_overview.md)
 
+- [二叉树遍历](./DataStructuresAndAlgorithms/BinaryTreeTraversal/binary_tree_traversal.md)
+
 ## 操作系统
 
 ...
