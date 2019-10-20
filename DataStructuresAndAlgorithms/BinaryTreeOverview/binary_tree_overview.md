@@ -12,6 +12,14 @@
 
 - 二叉树是有序树，左、右子树有序，不能随意颠倒。
 
+# 二叉树（Binary Tree）基本性质
+
+- 非空二叉树的叶子结点数目等于其度为 2 的结点数目加 1 。
+
+- 非空二叉树的第 *k (k >= 1)* 层至多有 *2^(k-1)* 个结点。
+
+- 高度为 *h (h >= 1)* 的二叉树至多有 *2^h - 1* 个结点。
+
 # 几种特殊二叉树
 
 数据组织结构的差异会导致二叉树有各式各样的形态，下面简单介绍几种特殊的二叉树。
@@ -64,8 +72,23 @@
 
 # 二叉树（Binary Tree）存储结构
 
-...
+二叉树（Binary Tree）的物理存储结构可以分为：顺序存储、链式存储。
 
+## 顺序存储结构
+
+二叉树的顺序存储结构是指使用一组地址连续的存储空间自上而下、从左到右存储二叉树结点，再通过一些方法确定结点的逻辑关系（父子、兄弟等）。
+
+顺序存储结构比较适用于完全二叉树，因为不会浪费额外空间。
+
+如果使用顺序存储结构存储二叉树，二叉树中某结点的索引下标为 *i* ，其左子结点的索引下标为 *2i + 1* ，其右子结点的索引下标为 *2i + 2* ，其双亲结点的索引下标为 *(i - 1) / 2* 。
+
+![5-CompleteBinaryTreeArray][5-CompleteBinaryTreeArray]
+
+> 图：完全二叉树顺序（数组）存储结构
+
+## 链式存储结构
+
+...
 
 [1-BinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-1-BinaryTreeStructure.png
 
@@ -74,5 +97,7 @@
 [3-FullBinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-3-FullBinaryTreeStructure.png
 
 [4-CompleteBinaryTreeStructure]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-4-CompleteBinaryTreeStructure.png
+
+[5-CompleteBinaryTreeArray]: ../../images/DataStructuresAndAlgorithms-BinaryTreeOverview-5-CompleteBinaryTreeArray.png
 
 <!-- EOF -->
