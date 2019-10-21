@@ -35,7 +35,7 @@ public class TreeNode<E> {
     @Override
     public String toString() {
         return String.format(
-            "TreeNode{%s}", element.toString()
+            "TreeNode{%s}", element == null ? "null" : element.toString()
         );
     }
 }
