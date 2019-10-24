@@ -8,7 +8,7 @@ public interface Map<K,V> {
     V put(K key, V value);
     V remove(K key);
     void clear();
-    /* Map entry (key-value pair) */
+    /* Map Entry: key-value pair */
     public interface Entry<K,V> {
         K getKey();
         V getValue();
