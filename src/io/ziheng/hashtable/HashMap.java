@@ -3,13 +3,17 @@ package io.ziheng.hashtable;
 import io.ziheng.hashtable.Map;
 
 public class HashMap<K,V> { // implements Map<K,V> {
-    private static final int MAXIMUM_CAPACITY = 1 << 30;
-    public HashMap() {
-        // ...
-    }
+
     public static void main(String[] args) {
         System.out.println(new HashMap<String,String>());
     }
+
+    private static final int MAXIMUM_CAPACITY = 1 << 30;
+
+    public HashMap() {
+        // ...
+    }
+
     /* Map.Entry Implementation: Singly LinkedList Node */
     private class Node<K,V> implements Map.Entry<K,V> {
         private int hash;
@@ -38,6 +42,20 @@ public class HashMap<K,V> { // implements Map<K,V> {
             return String.format(
                 "%s=%s", key.toString(), value.toString()
             );
+        }
+    }
+    /**
+     * 散列函数，计算键哈希值。
+     *
+     * @param key
+     * @return int
+     */
+    private static int hash(K key) {
+        if (key == null) {
+            return 0;
+        } else {
+            int h = key.hashCode();
+            return h ^ (h >>> 16);
         }
     }
 
