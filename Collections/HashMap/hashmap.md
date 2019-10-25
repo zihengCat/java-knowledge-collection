@@ -10,9 +10,13 @@
 
 # HashMap 数据结构
 
+![Collections-HashMap-2-DataStructure][Collections-HashMap-2-DataStructure]
+
+> 图：HashMap 底层数据结构 - 示意图
+
 在 Java 8 之前，HashMap 底层数据结构为：「数组」+「链表」。
 
-而 Java 8 之后，HashMap 底层数据结构变成了：「数组」+「链表」+「红黑树」。
+在 Java 8 以后，HashMap 底层数据结构为：「数组」+「链表」+「红黑树」。
 
 ![Collections-HashMap-2][Collections-HashMap-2]
 
@@ -558,6 +562,8 @@ final Node<K,V>[] resize() {
 > 代码清单：HashMap 扩容方法`resize()`源码
 
 [Collections-HashMap-1-Hierarchy]: ../../images/Collections-HashMap-1-Hierarchy.jpg
+
+[Collections-HashMap-2-DataStructure]: ../../images/Collections-HashMap-2-DataStructure.png
 
 [Collections-HashMap-2]: ../../images/Collections-HashMap-2.png
 
