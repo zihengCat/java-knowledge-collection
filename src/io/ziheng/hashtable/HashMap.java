@@ -22,18 +22,19 @@ public class HashMap<K,V> implements Map<K,V> {
         System.out.println("HashMap.remove(): " + hashMap.remove("4"));
         System.out.println("HashMap.size(): " + hashMap.size());
         */
+        /* Test -> Map.put() */
         System.out.println("Map.size(): " + map.size());
         for (int i = 0; i < 100; ++i) {
             map.put(i, i * 10);
         }
         System.out.println("Map.size(): " + map.size());
-        /* Test containsKey() */
+        /* Test -> Map.containsKey() */
         System.out.println("Map.containsKey(64): " + map.containsKey(64));
         System.out.println("Map.containsKey(640): " + map.containsKey(640));
-        /* Test containsValue() */
+        /* Test -> Map.containsValue() */
         System.out.println("Map.containsValue(64): " + map.containsValue(64));
         System.out.println("Map.containsValue(640): " + map.containsValue(640));
-
+        /* Test -> Map.remove() */
         for (int i = 0; i < 100; ++i) {
             System.out.printf("{%d = %d}" + System.lineSeparator(),
                 i, map.getKeyIndex(i)
@@ -41,7 +42,7 @@ public class HashMap<K,V> implements Map<K,V> {
             map.remove(i);
         }
         System.out.println("Map.size(): " + map.size());
-
+        /* Test -> Map.get() */
         System.out.println("Map.get(48): " + map.get(48));
         System.out.println("Map.getKeyIndex(48): " + map.getKeyIndex(48));
         System.out.println("Map.get(64): " + map.get(64));
@@ -50,7 +51,6 @@ public class HashMap<K,V> implements Map<K,V> {
         System.out.println("Map.getKeyIndex(80): " + map.getKeyIndex(80));
         System.out.println("Map.remove(64): " + map.remove(64));
         System.out.println("Map.get(64): " + map.get(64));
-
     }
 
     /* 数组默认长度 */
@@ -203,6 +203,14 @@ public class HashMap<K,V> implements Map<K,V> {
         return (table.length - 1) & hash(key);
     }
     /* ---------------- Private Operations ---------------- */
+    /**
+     * 哈希表扩容操作（扩容2倍）。
+     * @param void
+     * @return {@code Node<K,V>[]}
+     */
+    private Node<K,V>[] resize() {
+        // TODO
+    }
     private Node<K,V> removeNode(int hash, K key) {
         Node<K,V>[] tab;
         Node<K,V> firstNode;
