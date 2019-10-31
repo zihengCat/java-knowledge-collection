@@ -22,18 +22,22 @@ public class HashMap<K,V> implements Map<K,V> {
         System.out.println("HashMap.remove(): " + hashMap.remove("4"));
         System.out.println("HashMap.size(): " + hashMap.size());
         */
+
         /* Test -> Map.put() */
         System.out.println("Map.size(): " + map.size());
         for (int i = 0; i < 100; ++i) {
             map.put(i, i * 10);
         }
         System.out.println("Map.size(): " + map.size());
+
         /* Test -> Map.containsKey() */
         System.out.println("Map.containsKey(64): " + map.containsKey(64));
         System.out.println("Map.containsKey(640): " + map.containsKey(640));
+
         /* Test -> Map.containsValue() */
         System.out.println("Map.containsValue(64): " + map.containsValue(64));
         System.out.println("Map.containsValue(640): " + map.containsValue(640));
+
         /* Test -> Map.remove() */
         for (int i = 0; i < 100; ++i) {
             System.out.printf("{%d = %d}" + System.lineSeparator(),
@@ -42,6 +46,7 @@ public class HashMap<K,V> implements Map<K,V> {
             map.remove(i);
         }
         System.out.println("Map.size(): " + map.size());
+
         /* Test -> Map.get() */
         System.out.println("Map.get(48): " + map.get(48));
         System.out.println("Map.getKeyIndex(48): " + map.getKeyIndex(48));
