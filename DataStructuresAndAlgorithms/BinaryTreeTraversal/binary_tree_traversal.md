@@ -2,7 +2,7 @@
 
 二叉树的遍历是指：**按照某条搜索路径依次访问二叉树中的每个结点，使得二叉树中的每个结点均被访问一次，且仅被访问一次。**
 
-由于二叉树是递归定义的，按照深度优先遍历（Depth-First Search，DFS）原则，遍历一棵二叉树需要决定对其根节点、左右子树的先后访问顺序，由此诞生几种不同的遍历次序：
+由于二叉树是递归定义的，按照深度优先遍历（Depth-First Search，DFS），遍历一棵二叉树需要决定对其根节点、左右子树的先后访问顺序，由此诞生几种不同的遍历次序：
 
 - 前序遍历（根左右）
 
@@ -12,7 +12,7 @@
 
 > 注：其中「序」指的是根结点的访问次序。
 
-按照广度优先遍历（Breadth-First Search，BFS）原则，二叉树还有层序遍历法：从上至下，从左至右依次遍历二叉树每个节点。
+按照广度优先遍历（Breadth-First Search，BFS），二叉树还有层序遍历法：从上至下，从左至右依次遍历二叉树每个节点。
 
 ```plain
      1
@@ -109,7 +109,7 @@ public class BinaryTreeTraversal {
 
 # 二叉树前序遍历（Preorder Traversal）
 
-二叉树前序遍历：按照根结点、左子树、右子树的顺序进行遍历。
+二叉树前序遍历：按照`根结点 ➜ 左子树 ➜ 右子树`的顺序进行遍历。
 
 上述二叉树实例前序遍历结果为：`[1, 2, 4, 5, 3, 6, 7]`
 
@@ -153,7 +153,7 @@ public static <E> void iterativePreorderTraversal(TreeNode<E> root) {
 
 # 二叉树中序遍历（Inorder Traversal）
 
-二叉树中序遍历：按照左子树、根结点、右子树的顺序进行遍历。
+二叉树中序遍历：按照`左子树 ➜ 根结点 ➜ 右子树`的顺序进行遍历。
 
 上述二叉树实例中序遍历结果为：`[4, 2, 5, 1, 6, 3, 7]`
 
@@ -196,11 +196,54 @@ public static <E> void iterativeInorderTraversal(TreeNode<E> root) {
 
 # 二叉树后序遍历（Postorder Traversal）
 
+二叉树后序遍历：按照`左子树 ➜ 右子树 ➜ 根结点`的顺序进行遍历。
+
+上述二叉树实例后序遍历结果为：`[4, 5, 2, 6, 7, 3, 1]`
+
 ![PostOrderTraversal][PostOrderTraversal]
 
 > 图：二叉树后序遍历示意图
 
-# 二叉树层序（遍历（Level Order Traversal）
+```java
+public static <E> void recursivePostorderTraversal(TreeNode<E> root) {
+    if (root == null) {
+        return;
+    }
+    recursivePostorderTraversal(root.getLeftNode());
+    recursivePostorderTraversal(root.getRightNode());
+    visitTreeNode(root);
+}
+```
+> 代码清单：二叉树后序遍历（递归实现）
+
+```java
+public static <E> void iterativePostorderTraversal(TreeNode<E> root) {
+    if (root == null) {
+        return;
+    }
+    Deque<TreeNode<E>> stack = new LinkedList<TreeNode<E>>();
+    TreeNode<E> node = root;
+    TreeNode<E> lastNodeVisited = null;
+    while (!stack.isEmpty() || node != null) {
+        if (node != null) {
+            stack.push(node);
+            node = node.getLeftNode();
+        } else {
+            TreeNode<E> peekNode = stack.peek();
+            if (peekNode.getRightNode() != null &&
+                lastNodeVisited != peekNode.getRightNode()) {
+                node = peekNode.getRightNode();
+            } else {
+                visitTreeNode(peekNode);
+                lastNodeVisited = stack.pop();
+            }
+        }
+    }
+}
+```
+> 代码清单：二叉树后序遍历（迭代实现）
+
+# 二叉树层序（广度优先）遍历（Level Order Traversal）
 
 ![LevelOrderTraversal][LevelOrderTraversal]
 
@@ -210,7 +253,6 @@ public static <E> void iterativeInorderTraversal(TreeNode<E> root) {
 
 ```
 > 代码清单：二叉树层序遍历（Level Order Traversal）
-
 
 [PreOrderTraversal]: ../../images/DataStructuresAndAlgorithms-BinaryTreeTraversal-N-PreOrderTraversal.png
 
