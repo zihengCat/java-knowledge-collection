@@ -23,21 +23,40 @@
 
 # 二叉树前序遍历（Preorder Traversal）
 
-...
+![PreOrderTraversal][PreOrderTraversal]
+
+> 图：二叉树前序遍历示意图
 
 # 二叉树中序遍历（Inorder Traversal）
 
-...
+![InOrderTraversal][InOrderTraversal]
+
+> 图：二叉树中序遍历示意图
 
 # 二叉树后序遍历（Postorder Traversal）
 
-...
+![PostOrderTraversal][PostOrderTraversal]
 
-# 二叉树层序遍历（Level Order Traversal）
+> 图：二叉树后序遍历示意图
+
+# 二叉树层序（遍历（Level Order Traversal）
+
+![LevelOrderTraversal][LevelOrderTraversal]
+
+> 图：二叉树层序遍历示意图
 
 ```java
 
 ```
 > 代码清单：二叉树层序遍历（Level Order Traversal）
+
+
+[PreOrderTraversal]: ../../images/DataStructuresAndAlgorithms-BinaryTreeTraversal-N-PreOrderTraversal.png
+
+[InOrderTraversal]: ../../images/DataStructuresAndAlgorithms-BinaryTreeTraversal-N-InOrderTraversal.png
+
+[PostOrderTraversal]: ../../images/DataStructuresAndAlgorithms-BinaryTreeTraversal-N-PostOrderTraversal.png
+
+[LevelOrderTraversal]: ../../images/DataStructuresAndAlgorithms-BinaryTreeTraversal-N-LevelOrderTraversal.png
 
 <!-- EOF -->
