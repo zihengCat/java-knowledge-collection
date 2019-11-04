@@ -111,11 +111,11 @@ public class BinaryTreeTraversal {
 
 二叉树前序遍历：按照根结点、左子树、右子树的顺序进行遍历。
 
+上述二叉树实例前序遍历结果为：`[1, 2, 4, 5, 3, 6, 7]`
+
 ![PreOrderTraversal][PreOrderTraversal]
 
 > 图：二叉树前序遍历示意图
-
-上述二叉树实例前序遍历结果为：`[1, 2, 4, 5, 3, 6, 7]`
 
 ```java
 public static <E> void recursivePreorderTraversal(TreeNode<E> root) {
@@ -153,9 +153,46 @@ public static <E> void iterativePreorderTraversal(TreeNode<E> root) {
 
 # 二叉树中序遍历（Inorder Traversal）
 
+二叉树中序遍历：按照左子树、根结点、右子树的顺序进行遍历。
+
+上述二叉树实例中序遍历结果为：`[4, 2, 5, 1, 6, 3, 7]`
+
 ![InOrderTraversal][InOrderTraversal]
 
 > 图：二叉树中序遍历示意图
+
+```java
+public static <E> void recursiveInorderTraversal(TreeNode<E> root) {
+    if (root == null) {
+        return;
+    }
+    recursiveInorderTraversal(root.getLeftNode());
+    visitTreeNode(root);
+    recursiveInorderTraversal(root.getRightNode());
+}
+```
+> 代码清单：二叉树中序遍历（递归实现）
+
+```java
+public static <E> void iterativeInorderTraversal(TreeNode<E> root) {
+    if (root == null) {
+        return;
+    }
+    Deque<TreeNode<E>> stack = new LinkedList<TreeNode<E>>();
+    TreeNode<E> node = root;
+    while (!stack.isEmpty() || node != null) {
+        if (node != null) {
+            stack.push(node);
+            node = node.getLeftNode();
+        } else {
+            node = stack.pop();
+            visitTreeNode(node);
+            node = node.getRightNode();
+        }
+    }
+}
+```
+> 代码清单：二叉树中序遍历（迭代实现）
 
 # 二叉树后序遍历（Postorder Traversal）
 
