@@ -245,14 +245,34 @@ public static <E> void iterativePostorderTraversal(TreeNode<E> root) {
 
 # 二叉树层序（广度优先）遍历（Level Order Traversal）
 
+二叉树层序遍历：按照`从上到下 ➜ 从左至右`的顺序进行遍历，另外，层序遍历是可以唯一确定一棵二叉树的遍历方式。
+
+上述二叉树实例层序遍历结果为：`[1, 2, 3, 4, 5, 6, 7]`
+
 ![LevelOrderTraversal][LevelOrderTraversal]
 
 > 图：二叉树层序遍历示意图
 
 ```java
-
+public static <E> void iterativeLevelOrderTraversal(TreeNode<E> root) {
+    if (root == null) {
+        return;
+    }
+    Queue<TreeNode<E>> queue = new LinkedList<TreeNode<E>>();
+    queue.offer(root);
+    while (!queue.isEmpty()) {
+        TreeNode<E> node = queue.poll();
+        visitTreeNode(node);
+        if (node.getLeftNode() != null) {
+            queue.offer(node.getLeftNode());
+        }
+        if (node.getRightNode() != null) {
+            queue.offer(node.getRightNode());
+        }
+    }
+}
 ```
-> 代码清单：二叉树层序遍历（Level Order Traversal）
+> 代码清单：二叉树层序遍历
 
 [PreOrderTraversal]: ../../images/DataStructuresAndAlgorithms-BinaryTreeTraversal-N-PreOrderTraversal.png
 
