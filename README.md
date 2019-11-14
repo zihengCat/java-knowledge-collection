@@ -90,9 +90,9 @@ Java 核心知识点梳理。
 
 - [计数排序 - Java 实现](./DataStructuresAndAlgorithms/CountSort/count_sort.md)
 
-### 散列表
+### 哈希表
 
-- [散列表（HashTable）概览](./DataStructuresAndAlgorithms/HashTableOverview/hash_table_overview.md)
+- [哈希表（HashTable）概览](./DataStructuresAndAlgorithms/HashTableOverview/hash_table_overview.md)
 
 ### 字符串
 
