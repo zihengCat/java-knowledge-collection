@@ -130,6 +130,8 @@ Java 核心知识点梳理。
 
 - [二叉树遍历（Java）](./DataStructuresAndAlgorithms/BinaryTreeTraversal/binary_tree_traversal.md)
 
+- [二叉树最大深度（Java）](./DataStructuresAndAlgorithms/MaximumDepthOfBinaryTree/maximum_depth_of_binary_tree.md)
+
 ## 操作系统
 
 ...
