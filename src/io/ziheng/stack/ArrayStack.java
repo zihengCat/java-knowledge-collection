@@ -14,6 +14,7 @@ public class ArrayStack<E> implements Stack<E> {
     public ArrayStack() {
         this(DEFAULT_CAPACITY);
     }
+
     @SuppressWarnings("unchecked")
     public ArrayStack(int capacity) {
         if (capacity <= 0) {
@@ -25,30 +26,46 @@ public class ArrayStack<E> implements Stack<E> {
         this.top = 0;
         this.size = 0;
     }
+
+    @Override
     public void push(E e) {
         ensureCapacity();
-        elementData[top++] = e;
+        elementData[top] = e;
+        top++;
         size++;
     }
+
+    @Override
     public E pop() {
         if (isEmpty()) {
             throw new StackIsEmptyException("[ERROR]: Stack is empty");
         }
+        top--;
+        E element = elementData[top];
+        elementData[top] = null;
         size--;
-        return elementData[--top];
+        return element;
     }
-    public E top() {
+
+    @Override
+    public E peek() {
         if (isEmpty()) {
             throw new StackIsEmptyException("[ERROR]: Stack is empty");
         }
         return elementData[top - 1];
     }
+
+    @Override
     public int size() {
         return size;
     }
+
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
+
+    @Override
     public void clear() {
         for (int i = 0; i < size; ++i) {
             elementData[i] = null;
@@ -56,12 +73,14 @@ public class ArrayStack<E> implements Stack<E> {
         top = 0;
         size = 0;
     }
+
     private void ensureCapacity() {
         if (size + 1 > elementData.length) {
             // throw new StackIsFullException("[ERROR]: Stack is full");
             grow();
         }
     }
+
     @SuppressWarnings("unchecked")
     private void grow() {
         int oldCapacity = elementData.length;
@@ -74,5 +93,6 @@ public class ArrayStack<E> implements Stack<E> {
         }
         this.elementData = newElementData;
     }
+
 }
 /* EOF */

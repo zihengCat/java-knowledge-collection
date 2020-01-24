@@ -112,6 +112,8 @@ Java 核心知识点梳理。
 
 - [队列实现栈（Java）](./DataStructuresAndAlgorithms/QueueStack/queue_stack.md)
 
+- [栈的应用：括号匹配]()
+
 ### 队列
 
 - [队列（Queue）数据结构概览](./DataStructuresAndAlgorithms/QueueOverview/queue_overview.md)
