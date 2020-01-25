@@ -1,10 +1,10 @@
 package io.ziheng.queue;
 public interface Queue<E> {
-    public void enqueue(E e);
-    public E dequeue();
-    public E peek();
-    public int size();
-    public boolean isEmpty();
-    public void clear();
+    void enqueue(E e);
+    E dequeue();
+    E peek();
+    int size();
+    boolean isEmpty();
+    void clear();
 }
 /* EOF */

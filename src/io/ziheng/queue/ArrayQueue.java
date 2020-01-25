@@ -29,12 +29,14 @@ public class ArrayQueue<E> implements Queue<E> {
         this.size = 0;
     }
 
+    @Override
     public void enqueue(E e) {
         ensureCapacity();
         elementData[tail++] = e;
         size++;
     }
 
+    @Override
     public E dequeue() {
         if (isEmpty()) {
             throw new QueueIsEmptyException("[ERROR]: Queue is empty");
@@ -46,6 +48,7 @@ public class ArrayQueue<E> implements Queue<E> {
         return element;
     }
 
+    @Override
     public E peek() {
         if (isEmpty()) {
             throw new QueueIsEmptyException("[ERROR]: Queue is empty");
@@ -53,14 +56,17 @@ public class ArrayQueue<E> implements Queue<E> {
         return elementData[head];
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return head == tail;
     }
 
+    @Override
     public void clear() {
         for (int i = head; i < tail; ++i) {
             elementData[i] = null;
@@ -91,13 +97,13 @@ public class ArrayQueue<E> implements Queue<E> {
     private void grow() {
         int oldCapacity = elementData.length;
         int newCapacity = oldCapacity << 1;
-        E[] oldElementData = this.elementData;
+        E[] oldElementData = elementData;
         E[] newElementData = (E[])new Object[newCapacity];
         for (int i = head; i < tail; ++i) {
             newElementData[i] = oldElementData[i];
             oldElementData[i] = null;
         }
-        this.elementData = newElementData;
+        elementData = newElementData;
     }
 }
 /* EOF */

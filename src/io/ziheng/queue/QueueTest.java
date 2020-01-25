@@ -1,17 +1,23 @@
 package io.ziheng.queue;
 
 import io.ziheng.queue.Queue;
+
+import java.lang.annotation.Inherited;
+
 import io.ziheng.queue.ArrayQueue;
-import io.ziheng.queue.LinkedQueue;
+import io.ziheng.queue.CircularQueue;
+//import io.ziheng.queue.LinkedQueue;
 import io.ziheng.queue.StackQueue;
 
 public class QueueTest {
     public static void main(String[] args) {
         testQueue(new ArrayQueue<Integer>());
-        testQueue(new LinkedQueue<Integer>());
+        //testQueue(new LinkedQueue<Integer>());
+        testQueue(new CircularQueue<Integer>(128));
         testQueue(new StackQueue<Integer>());
     }
     public static void testQueue(Queue<Integer> queue) {
+        System.out.println("---------------------------------------");
         /* test Queue.clear() */
         queue.enqueue(0);
         System.out.println("Before clear elements, Queue.size(): " +
@@ -34,11 +40,12 @@ public class QueueTest {
         );
         /* test Queue.dequeue() */
         while (!queue.isEmpty()) {
-            System.out.println(queue.dequeue());
+            queue.dequeue();
         }
         System.out.println("After dequeue elements, Queue.size(): " +
             queue.size()
         );
+        System.out.println("---------------------------------------");
     }
 }
 /* EOF */
