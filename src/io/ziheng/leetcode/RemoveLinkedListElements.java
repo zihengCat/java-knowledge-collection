@@ -12,6 +12,9 @@ public class RemoveLinkedListElements {
         ListNode next;
         ListNode(int x) { val = x; }
     }
+    /**
+     * Recursive way.
+     */
     public ListNode removeElementsRecursively(ListNode head, int val) {
         if (head == null) {
             return null;
@@ -24,6 +27,9 @@ public class RemoveLinkedListElements {
             return head;
         }
     }
+    /**
+     * Iterative way.
+     */
     public ListNode removeElementsIteratively(ListNode head, int val) {
         ListNode dummyHead = new ListNode(-1);
         dummyHead.next = head;
