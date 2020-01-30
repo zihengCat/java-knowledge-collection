@@ -102,6 +102,8 @@ Java 核心知识点梳理。
 
 - [线性表（List）数据结构概览](./DataStructuresAndAlgorithms/ListOverview/list_overview.md)
 
+- [LeetCode 203. 移除链表元素]()
+
 ### 栈
 
 - [栈（Stack）数据结构概览](./DataStructuresAndAlgorithms/StackOverview/stack_overview.md)
@@ -112,7 +114,7 @@ Java 核心知识点梳理。
 
 - [队列实现栈（Java）](./DataStructuresAndAlgorithms/QueueStack/queue_stack.md)
 
-- [栈的应用：括号匹配]()
+- [LeetCode 20. 括号匹配]()
 
 ### 队列
 
