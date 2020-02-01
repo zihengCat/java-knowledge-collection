@@ -4,7 +4,7 @@ import io.ziheng.hashtable.Map;
 
 public class HashMap<K, V> implements Map<K, V> {
     /**
-     * Map.Entry Implementation ->
+     * {@code Map.Entry} Implementation ->
      * Singly LinkedList Node
      */
     private class Node<K, V> implements Map.Entry<K, V> {
@@ -75,9 +75,9 @@ public class HashMap<K, V> implements Map<K, V> {
 
         /* Test -> Map.remove() */
         for (int i = 0; i < 100; ++i) {
-            //System.out.printf("{%d = %d}" + System.lineSeparator(),
-            //    i, map.getKeyIndex(i)
-            //);
+            System.out.printf("{%d=%d}" + System.lineSeparator(),
+                i, map.getKeyIndex(i)
+            );
             map.remove(i);
         }
         System.out.println("Map.size(): " + map.size());
@@ -112,7 +112,7 @@ public class HashMap<K, V> implements Map<K, V> {
     private Node<K, V>[] table;
 
     /* 哈希桶数组配额 */
-    private int threshold;
+    private int capacity;
 
     /* 哈希表存放元素数量 */
     private int size;
@@ -133,7 +133,7 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @SuppressWarnings("unchecked")
     public HashMap(int initialCapacity) {
-        if (initialCapacity < 0) {
+        if (initialCapacity <= 0) {
             throw new IllegalArgumentException(
                 "[ERROR]: Illegal initial capacity: " +
                 initialCapacity
@@ -142,8 +142,8 @@ public class HashMap<K, V> implements Map<K, V> {
         if (initialCapacity > MAXIMUM_CAPACITY) {
             initialCapacity = MAXIMUM_CAPACITY;
         }
-        this.threshold = tableSizeFor(initialCapacity);
-        this.table = (Node<K, V>[])new Node[threshold];
+        this.capacity = tableSizeFor(initialCapacity);
+        this.table = (Node<K, V>[])new Node[capacity];
         this.size = 0;
     }
     /**
@@ -208,7 +208,7 @@ public class HashMap<K, V> implements Map<K, V> {
     @Override
     public void clear() {
         if (table != null && size > 0) {
-            for (int i = 0; i < threshold; ++i) {
+            for (int i = 0; i < capacity; ++i) {
                 freeNode(table[i]);
                 table[i] = null;
             }
@@ -234,19 +234,15 @@ public class HashMap<K, V> implements Map<K, V> {
         if (table != null && size > 0) {
             Node<K,V> currentNode;
             V nodeValue;
-            for (int i = 0; i < threshold; ++i) {
-                if ((currentNode = table[i]) != null &&
-                   ((nodeValue = currentNode.getValue()) == value ||
-                    (nodeValue != null && value.equals(nodeValue)))) {
-                    return true;
-                }
-                if ((currentNode = currentNode.getNext()) != null) {
-                    do {
-                        if ((nodeValue = currentNode.getValue()) == value ||
-                            (nodeValue != null && value.equals(nodeValue))) {
-                            return true;
-                        }
-                    } while ((currentNode = currentNode.getNext()) != null);
+            for (int i = 0; i < capacity; ++i) {
+                currentNode = table[i];
+                while (currentNode != null) {
+                    nodeValue = currentNode.getValue();
+                    if ((value == nodeValue) ||
+                        (nodeValue != null && value.equals(nodeValue))) {
+                        return true;
+                    }
+                    currentNode = currentNode.getNext();
                 }
             }
         }
@@ -260,13 +256,31 @@ public class HashMap<K, V> implements Map<K, V> {
     }
     /* ---------------- Private Operations ---------------- */
     /**
-     * 哈希表扩容操作（扩容2倍）。
+     * 哈希表扩容操作（扩容 2 倍）。
+     *
      * @param void
      * @return {@code Node<K,V>[]}
-     */
+     */ 
+    @SuppressWarnings("unchecked")
     private Node<K,V>[] resize() {
-        // TODO
-        return null;
+        Node<K, V>[] oldTable = table;
+        int oldcapacity = capacity;
+        this.capacity <<= 1;
+        Node<K, V>[] newTable = (Node<K, V>[])new Node[capacity];
+        this.table = newTable;
+        for (int i = 0; i < oldcapacity; ++i) {
+            Node<K, V> currentNode = oldTable[i];
+            while (currentNode != null) {
+                Node<K, V> delNode = currentNode;
+                K key = currentNode.getKey();
+                V value = currentNode.getValue();
+                size--;
+                putVal(hash(key), key, value);
+                currentNode = currentNode.getNext();
+                freeNode(delNode);
+            }
+        }
+        return newTable;
     }
     private void freeNode(Node<K, V> node) {
         if (node == null) {
@@ -324,20 +338,19 @@ public class HashMap<K, V> implements Map<K, V> {
         int len = tab.length;
         Node<K,V> node;
         int index;
-        /* 如果哈希桶数组为空：新建数组 */
+        /**
+         * 如果哈希桶数组为空 -> 新建数组
+         */
         if (tab == null || len == 0) {
-            System.out.println("resize()");
-            // len = (tab = resize()).length;
-        }
-        /* 哈希桶目标位置为空：直接插入新节点 */
-        if ((node = tab[index = (len - 1) & hash]) == null) {
-            tab[index] = new Node<K,V>(hash, key, value, null);
+            resize();
         }
         /**
-         * 哈希桶目标位置不为空 ->
-         * 哈希冲突，使用拉链法插入新节点
+         * 哈希桶目标索引位置为空 -> 直接插入新节点
+         * 哈希桶目标索引位置不为空 -> 哈希冲突，使用拉链法插入新节点
          */
-        else {
+        if ((node = tab[index = (len - 1) & hash]) == null) {
+            tab[index] = new Node<K, V>(hash, key, value, null);
+        } else {
             Node<K,V> currentNode;
             K nodeKey;
             /**
@@ -371,9 +384,8 @@ public class HashMap<K, V> implements Map<K, V> {
             }
         }
         size++;
-        if (size >= threshold) {
-            //System.out.println("resize()");
-            // resize();
+        if (size >= (capacity >> 1)) {
+            resize();
         }
         return null;
     }
@@ -418,11 +430,11 @@ public class HashMap<K, V> implements Map<K, V> {
      * @param void
      * @return int
      */
-    public int getThreshold() {
-        if (threshold != table.length) {
-            throw new RuntimeException("[ERROR]: In threshold");
+    public int getcapacity() {
+        if (capacity != table.length) {
+            throw new RuntimeException("[ERROR]: In capacity");
         }
-        return threshold;
+        return capacity;
     }
     /**
      * 哈希散列函数，计算键的哈希值。
