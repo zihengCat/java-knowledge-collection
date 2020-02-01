@@ -1,7 +1,14 @@
 package io.ziheng.hashtable;
-public interface Map<K,V> {
-
-    /* Normal Operations */
+public interface Map<K, V> {
+    /**
+     * Map Entry -> key-value pair
+     */
+    public interface Entry<K, V> {
+        K getKey();
+        V getValue();
+        V setValue(V value);
+        // boolean equals(Entry<K,V> entry);
+    }
     int size();
     boolean isEmpty();
     boolean containsKey(K key);
@@ -10,17 +17,7 @@ public interface Map<K,V> {
     V put(K key, V value);
     V remove(K key);
     void clear();
-
-    /* Test Operations */
     int getKeyHash(K key);
     int getKeyIndex(K key);
-
-    /* Map Entry: key-value pair */
-    public interface Entry<K,V> {
-        K getKey();
-        V getValue();
-        V setValue(V value);
-        // boolean equals(Entry<K,V> entry);
-    }
 }
 /* EOF */

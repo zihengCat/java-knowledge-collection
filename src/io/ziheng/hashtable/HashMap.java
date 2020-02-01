@@ -2,27 +2,62 @@ package io.ziheng.hashtable;
 
 import io.ziheng.hashtable.Map;
 
-public class HashMap<K,V> implements Map<K,V> {
+public class HashMap<K, V> implements Map<K, V> {
+    /**
+     * Map.Entry Implementation ->
+     * Singly LinkedList Node
+     */
+    private class Node<K, V> implements Map.Entry<K, V> {
+        private int hash;
+        private K key;
+        private V value;
+        private Node<K, V> next;
+        public Node(int hash, K key, V value, Node<K,V> next) {
+            this.hash = hash;
+            this.key = key;
+            this.value = value;
+            this.next = next;
+        }
+        public int getHash() {
+            return hash;
+        }
+        public int setHash(int newHash) {
+            int oldHash = hash;
+            this.hash = newHash;
+            return oldHash;
+        }
+        public Node<K, V> getNext() {
+            return next;
+        }
+        public void setNext(Node<K, V> next) {
+            this.next = next;
+        }
+        @Override
+        public K getKey(){
+            return key;
+        }
+        @Override
+        public V getValue() {
+            return value;
+        }
+        @Override
+        public V setValue(V newValue) {
+            V oldValue = this.value;
+            this.value = newValue;
+            return oldValue;
+        }
+        @Override
+        public String toString() {
+            return String.format(
+                "%s=%s", key.toString(), value.toString()
+            );
+        }
+    }
     public static void main(String[] args) {
-        testHashMap(new HashMap<Integer,Integer>());
+        testHashMap(new HashMap<Integer, Integer>());
     }
     /* 测试代码 */
-    public static void testHashMap(Map<Integer,Integer> map) {
-        /*
-        HashMap<String,String> hashMap = new HashMap<String,String>();
-        System.out.println(hashMap.getThreshold());
-        hashMap.put("1", "Java");
-        hashMap.put("2", "C++");
-        hashMap.put("3", "Python");
-        hashMap.put("4", "Golang");
-        System.out.println(hashMap.get("2"));
-        hashMap.put("2", "C/C++");
-        System.out.println(hashMap.get("2"));
-        System.out.println("HashMap.size(): " + hashMap.size());
-        System.out.println("HashMap.remove(): " + hashMap.remove("4"));
-        System.out.println("HashMap.size(): " + hashMap.size());
-        */
-
+    public static void testHashMap(Map<Integer, Integer> map) {
         /* Test -> Map.put() */
         System.out.println("Map.size(): " + map.size());
         for (int i = 0; i < 100; ++i) {
@@ -40,9 +75,9 @@ public class HashMap<K,V> implements Map<K,V> {
 
         /* Test -> Map.remove() */
         for (int i = 0; i < 100; ++i) {
-            System.out.printf("{%d = %d}" + System.lineSeparator(),
-                i, map.getKeyIndex(i)
-            );
+            //System.out.printf("{%d = %d}" + System.lineSeparator(),
+            //    i, map.getKeyIndex(i)
+            //);
             map.remove(i);
         }
         System.out.println("Map.size(): " + map.size());
@@ -56,23 +91,33 @@ public class HashMap<K,V> implements Map<K,V> {
         System.out.println("Map.getKeyIndex(80): " + map.getKeyIndex(80));
         System.out.println("Map.remove(64): " + map.remove(64));
         System.out.println("Map.get(64): " + map.get(64));
+
+        /* Test -> Map.clear() */
+        map.put(1, 1);
+        map.put(2, 1);
+        map.put(3, 1);
+        System.out.println("Map.size(): " + map.size());
+        map.clear();
+        System.out.println("Map.size(): " + map.size());
+
     }
 
-    /* 数组默认长度 */
+    /* 哈希桶数组默认长度 */
     private static final int DEFAULT_CAPACITY = 1 << 4;
 
-    /* 数组最大长度 */
+    /* 哈希桶数组最大长度 */
     private static final int MAXIMUM_CAPACITY = 1 << 30;
 
     /* 哈希桶数组 */
-    private Node<K,V>[] table;
+    private Node<K, V>[] table;
 
-    /* 桶数组下限长度 */
+    /* 哈希桶数组配额 */
     private int threshold;
 
-    /* 哈希表实际存放键值对数量 */
+    /* 哈希表存放元素数量 */
     private int size;
 
+    /* ---------------- Public Operations ---------------- */
     /**
      * 无参（默认容量）构造。
      *
@@ -98,16 +143,16 @@ public class HashMap<K,V> implements Map<K,V> {
             initialCapacity = MAXIMUM_CAPACITY;
         }
         this.threshold = tableSizeFor(initialCapacity);
-        this.table = (Node<K,V>[])new Node[threshold];
+        this.table = (Node<K, V>[])new Node[threshold];
         this.size = 0;
     }
-    /* ---------------- Public Operations ---------------- */
     /**
      * 返回哈希表存放元素数量。
      *
      * @param void
      * @return int
      */
+    @Override
     public int size() {
         return size;
     }
@@ -117,6 +162,7 @@ public class HashMap<K,V> implements Map<K,V> {
      * @param void
      * @return int
      */
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
@@ -126,8 +172,9 @@ public class HashMap<K,V> implements Map<K,V> {
      * @param key
      * @return V
      */
+    @Override
     public V get(K key) {
-         Node<K,V> node = getNode(hash(key), key);
+         Node<K, V> node = getNode(hash(key), key);
          return node == null ? null : node.getValue();
     }
     /**
@@ -137,6 +184,7 @@ public class HashMap<K,V> implements Map<K,V> {
      * @param value
      * @return V
      */
+    @Override
     public V put(K key, V value) {
         return putVal(hash(key), key, value);
     }
@@ -146,8 +194,9 @@ public class HashMap<K,V> implements Map<K,V> {
      * @param key
      * @return V
      */
+    @Override
     public V remove(K key) {
-        Node<K,V> node = removeNode(hash(key), key);
+        Node<K, V> node = removeNode(hash(key), key);
         return node == null ? null : node.getValue();
     }
     /**
@@ -156,9 +205,11 @@ public class HashMap<K,V> implements Map<K,V> {
      * @param void
      * @return void
      */
+    @Override
     public void clear() {
         if (table != null && size > 0) {
-            for (int i = 0; i < table.length; ++i) {
+            for (int i = 0; i < threshold; ++i) {
+                freeNode(table[i]);
                 table[i] = null;
             }
             size = 0;
@@ -183,7 +234,7 @@ public class HashMap<K,V> implements Map<K,V> {
         if (table != null && size > 0) {
             Node<K,V> currentNode;
             V nodeValue;
-            for (int i = 0; i < table.length; ++i) {
+            for (int i = 0; i < threshold; ++i) {
                 if ((currentNode = table[i]) != null &&
                    ((nodeValue = currentNode.getValue()) == value ||
                     (nodeValue != null && value.equals(nodeValue)))) {
@@ -215,6 +266,15 @@ public class HashMap<K,V> implements Map<K,V> {
      */
     private Node<K,V>[] resize() {
         // TODO
+        return null;
+    }
+    private void freeNode(Node<K, V> node) {
+        if (node == null) {
+            return;
+        }
+        node.setHash(-1);
+        node.setValue(null);
+        node.setNext(null);
     }
     private Node<K,V> removeNode(int hash, K key) {
         Node<K,V>[] tab;
@@ -273,18 +333,22 @@ public class HashMap<K,V> implements Map<K,V> {
         if ((node = tab[index = (len - 1) & hash]) == null) {
             tab[index] = new Node<K,V>(hash, key, value, null);
         }
-        /* 哈希桶目标位置不为空：哈希冲突，使用拉链法插入新节点 */
+        /**
+         * 哈希桶目标位置不为空 ->
+         * 哈希冲突，使用拉链法插入新节点
+         */
         else {
             Node<K,V> currentNode;
             K nodeKey;
-            /* 哈希相同：更新节点 */
+            /**
+             * 哈希相同 -> 更新节点
+             * 哈希不同 -> 链至尾部
+             */
             if (node.getHash() == hash &&
                ((nodeKey = node.getKey()) == key ||
                 (key != null && key.equals(nodeKey)))) {
                 currentNode = node;
-            }
-            /* 哈希不同：链至尾部 */
-            else {
+            } else {
                 for (int binCount = 0; ; ++binCount) {
                     currentNode = node.getNext();
                     if (currentNode == null) {
@@ -306,8 +370,9 @@ public class HashMap<K,V> implements Map<K,V> {
                 return oldValue;
             }
         }
-        if (++size >= threshold) {
-            System.out.println("resize()");
+        size++;
+        if (size >= threshold) {
+            //System.out.println("resize()");
             // resize();
         }
         return null;
@@ -320,17 +385,19 @@ public class HashMap<K,V> implements Map<K,V> {
      * @return {@code Node<K,V>}
      */
     private Node<K,V> getNode(int hash, K key) {
-        Node<K,V>[] tab;
-        Node<K,V> first;
-        Node<K,V> e;
+        Node<K, V>[] tab;
+        Node<K, V> first;
+        Node<K, V> e;
         int n;
         K k;
         if ((tab = table) != null && (n = tab.length) > 0 &&
             (first = tab[(n - 1) & hash]) != null) {
-            /* always check first node */
+            /**
+             * always check first node
+             */
             if (first.getHash() == hash &&
                 ((k = first.getKey()) == key ||
-                 (key != null && key.equals(k)))) {
+                (key != null && key.equals(k)))) {
                 return first;
             }
             if ((e = first.getNext()) != null) {
@@ -358,7 +425,7 @@ public class HashMap<K,V> implements Map<K,V> {
         return threshold;
     }
     /**
-     * 散列函数，计算键哈希值。
+     * 哈希散列函数，计算键的哈希值。
      *
      * @param key
      * @return int
@@ -367,8 +434,9 @@ public class HashMap<K,V> implements Map<K,V> {
         if (key == null) {
             return 0;
         } else {
-            int h = key.hashCode();
-            return h ^ (h >>> 16);
+            int hash = key.hashCode();
+            /* 扰动 */
+            return hash ^ (hash >>> 16);
         }
     }
     /**
@@ -386,47 +454,6 @@ public class HashMap<K,V> implements Map<K,V> {
         n |= n >>> 16;
         return (n < 0) ? 1 :
             (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : (n + 1);
-    }
-    /**
-     * Map.Entry Implementation: Singly LinkedList Node
-     */
-    private class Node<K,V> implements Map.Entry<K,V> {
-        private int hash;
-        private K key;
-        private V value;
-        private Node<K,V> next;
-        public Node(int hash, K key, V value, Node<K,V> next) {
-            this.hash = hash;
-            this.key = key;
-            this.value = value;
-            this.next = next;
-        }
-        public int getHash() {
-            return hash;
-        }
-        public Node<K,V> getNext() {
-            return next;
-        }
-        public void setNext(Node<K,V> next) {
-            this.next = next;
-        }
-        public K getKey(){
-            return key;
-        }
-        public V getValue() {
-            return value;
-        }
-        public V setValue(V newValue) {
-            V oldValue = this.value;
-            this.value = newValue;
-            return oldValue;
-        }
-        @Override
-        public String toString() {
-            return String.format(
-                "%s=%s", key.toString(), value.toString()
-            );
-        }
     }
 }
 /* EOF */
