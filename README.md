@@ -94,11 +94,13 @@ Java 核心知识点梳理。
 
 - [哈希表（HashTable）概览](./DataStructuresAndAlgorithms/HashTableOverview/hash_table_overview.md)
 
+- [哈希表实现（Java）](./DataStructuresAndAlgorithms/HashTable/hash_table.md)
+
 ### 字符串
 
 ...
 
-### 线性表
+### 链表
 
 - [线性表（List）数据结构概览](./DataStructuresAndAlgorithms/ListOverview/list_overview.md)
 
