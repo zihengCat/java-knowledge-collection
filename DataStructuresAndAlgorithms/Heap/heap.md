@@ -82,7 +82,7 @@ public class HeapTest {
 ```
 > 代码清单：最大堆测试代码
 
-## 二叉堆实现代码
+## 二叉堆操作接口（Interface）
 
 堆的常用操作接口如下表所示：
 
@@ -97,7 +97,7 @@ public class HeapTest {
 
 > 表：堆操作接口表
 
-按照接口表将堆常用操作写成 Java 接口，代码如下：
+按照接口表将堆常用操作转译为 Java 接口，代码如下：
 
 ```java
 public interface HeapOperation<E> {
@@ -110,6 +110,8 @@ public interface HeapOperation<E> {
 }
 ```
 > 代码清单：堆操作 Java 接口
+
+## 二叉堆数据字段（Fieds）
 
 为了实现简单，使用 ***定长数组（Array）*** 作为二叉堆的底层存储结构；使用 ***范型（Generic Type）*** 保障堆内存放元素的灵活性；另外注意，堆结构要求堆内存放元素具备 ***可比较性（Comparability）*** ，反映到代码层面，即：范型需要实现 Java `Comparable<T>` 比较接口。
 
@@ -132,11 +134,14 @@ implements HeapOperation<E> {
 ```
 > 代码清单：二叉堆数据字段
 
+## 二叉堆构造函数（Constructor）
+
 二叉堆构造函数中，接收一枚堆容量配额整型参数`initialCapacity`，以该配额初始化定长数组。注意初始化数组时不能直接创建范型对象数组，使用**反射 + 强制类型转换**间接创建。
 
 ```java
 /**
  * 默认无参构造函数。
+ *
  * @param void
  */
 public MaxHeap() {
@@ -144,6 +149,7 @@ public MaxHeap() {
 }
 /**
  * 默认无参构造函数。
+ *
  * @param initialCapacity
  */
 @SuppressWarnings("unchecked")
@@ -163,11 +169,14 @@ public MaxHeap(int initialCapacity) {
 ```
 > 代码清单：二叉堆构造函数
 
-我们选择将数组索引`0`位置不留空正常排放元素，并为二叉堆添加几个辅助功能函数。
+## 二叉堆辅助函数（Supported Functions）
+
+我们选择不放空数组索引`0`位置，而是正常排放元素，以此为二叉堆添加几个辅助功能函数。
 
 ```java
 /**
  * 数组越界访问检查。
+ *
  * @param index
  * @return void
  */
@@ -178,6 +187,7 @@ private void checkIndex(int index) {
 }
 /**
  * 获取传入节点的父节点索引（根节点无父节点）。
+ *
  * @param index
  * @return int
  */
@@ -192,6 +202,7 @@ private int getParentNode(int index) {
 }
 /**
  * 获取传入节点的左子节点索引。
+ *
  * @param index
  * @return int
  */
@@ -201,6 +212,7 @@ private int getLeftNode(int index) {
 }
 /**
  * 获取传入节点的右子节点索引。
+ *
  * @param index
  * @return int
  */
@@ -210,6 +222,7 @@ private int getRightNode(int index) {
 }
 /**
  * 交换节点元素。
+ *
  * @param i
  * @param j
  * @return void
@@ -223,6 +236,7 @@ private void swapNode(int i, int j) {
 }
 /**
  * 释放节点。
+ *
  * @param index
  * @return void
  */
