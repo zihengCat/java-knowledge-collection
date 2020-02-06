@@ -116,7 +116,9 @@ public interface HeapOperation<E> {
 ```java
 import java.lang.Comparable;
 import java.lang.reflect.Array;
-public class MaxHeap<E extends Comparable<E>> {
+import HeapOperation;
+public class MaxHeap<E extends Comparable<E>>
+implements HeapOperation<E> {
     /* 默认堆容量 */
     private static final int DEFAULT_CAPACITY = 8;
     /* 底层数组 */
@@ -161,5 +163,74 @@ public MaxHeap(int initialCapacity) {
 ```
 > 代码清单：二叉堆构造函数
 
+我们选择将数组索引`0`位置不留空正常排放元素，并为二叉堆添加几个辅助功能函数。
+
+```java
+/**
+ * 数组越界访问检查。
+ * @param index
+ * @return void
+ */
+private void checkIndex(int index) {
+    if (index < 0 || index >= this.capacity) {
+        throw new IndexOutOfBoundsException();
+    }
+}
+/**
+ * 获取传入节点的父节点索引（根节点无父节点）。
+ * @param index
+ * @return int
+ */
+private int getParentNode(int index) {
+    checkIndex(index);
+    if (index == 0) {
+        throw new RuntimeException(
+            "[ERROR]: root node does not have parentNode."
+        );
+    }
+    return (index - 1) / 2;
+}
+/**
+ * 获取传入节点的左子节点索引。
+ * @param index
+ * @return int
+ */
+private int getLeftNode(int index) {
+    checkIndex(index);
+    return index * 2 + 1;
+}
+/**
+ * 获取传入节点的右子节点索引。
+ * @param index
+ * @return int
+ */
+private int getRightNode(int index) {
+    checkIndex(index);
+    return index * 2 + 2;
+}
+/**
+ * 交换节点元素。
+ * @param i
+ * @param j
+ * @return void
+ */
+private void swapNode(int i, int j) {
+    checkIndex(i);
+    checkIndex(j);
+    E element = elementData[i];
+    elementData[i] = elementData[j];
+    elementData[j] = element;
+}
+/**
+ * 释放节点。
+ * @param index
+ * @return void
+ */
+private void freeNode(int index) {
+    checkIndex(index);
+    elementData[index] = null;
+}
+```
+> 代码清单：二叉堆辅助函数
 
 <!-- EOF -->
