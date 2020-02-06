@@ -128,7 +128,7 @@ Java 核心知识点梳理。
 
 - [栈实现队列（Java）](./DataStructuresAndAlgorithms/StackQueue/stack_queue.md)
 
-### 二叉树
+### 树
 
 - [树（Tree）数据结构概览](./DataStructuresAndAlgorithms/TreeOverview/tree_overview.md)
 
@@ -140,7 +140,7 @@ Java 核心知识点梳理。
 
 ### 堆
 
-- [堆（Heap）数据结构概览](./DataStructuresAndAlgorithms/Heap/heap.md)
+- [二叉堆（Heap）数据结构及其 Java 实现](./DataStructuresAndAlgorithms/Heap/heap.md)
 
 ## 操作系统
 
