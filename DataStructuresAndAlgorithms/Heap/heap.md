@@ -84,6 +84,33 @@ public class HeapTest {
 
 ## 二叉堆实现代码
 
+堆的常用操作接口如下表所示：
+
+| 接口         | 说明             |
+| :---------- | :--------------- |
+| `add()`     | 向堆中添加一个新元素 |
+| `peek()`    | 查看堆顶元素 |
+| `extract()` | 移除堆顶元素 |
+| `size()`    | 获取堆存放元素数量 |
+| `isEmpty()` | 判断堆是否为空 |
+| `clear()`   | 清空堆中所有元素 |
+
+> 表：堆操作接口表
+
+按照接口表将堆常用操作写成 Java 接口，代码如下：
+
+```java
+public interface HeapOperation<E> {
+    void add(E e);
+    E peek();
+    E extract();
+    int size();
+    boolean isEmpty();
+    void clear();
+}
+```
+> 代码清单：堆操作 Java 接口
+
 为了实现简单，使用 ***定长数组（Array）*** 作为二叉堆的底层存储结构；使用 ***范型（Generic Type）*** 保障堆内存放元素的灵活性；另外注意，堆结构要求堆内存放元素具备 ***可比较性（Comparability）*** ，反映到代码层面，即：范型需要实现 Java `Comparable<T>` 比较接口。
 
 ```java
@@ -102,5 +129,37 @@ public class MaxHeap<E extends Comparable<E>> {
 /* EOF */
 ```
 > 代码清单：二叉堆数据字段
+
+二叉堆构造函数中，接收一枚堆容量配额整型参数`initialCapacity`，以该配额初始化定长数组。注意初始化数组时不能直接创建范型对象数组，使用**反射 + 强制类型转换**间接创建。
+
+```java
+/**
+ * 默认无参构造函数。
+ * @param void
+ */
+public MaxHeap() {
+    this(DEFAULT_CAPACITY);
+}
+/**
+ * 默认无参构造函数。
+ * @param initialCapacity
+ */
+@SuppressWarnings("unchecked")
+public MaxHeap(int initialCapacity) {
+    if (initialCapacity <= 0) {
+        throw new IllegalArgumentException(
+            "[ERROR]: Initial capacity must be greater than zero."
+        );
+    }
+    this.elementData = (E[])Array.newInstance(
+        Comparable.class,
+        initialCapacity
+    );
+    this.capacity = initialCapacity;
+    this.size = 0;
+}
+```
+> 代码清单：二叉堆构造函数
+
 
 <!-- EOF -->
