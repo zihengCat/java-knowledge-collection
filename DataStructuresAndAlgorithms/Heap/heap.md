@@ -48,7 +48,7 @@ import MaxHeap;
 /* 导入随机数标准库 */
 import java.util.Random;
 /* 测试类 */
-public class TestHeap {
+public class HeapTest {
     public static void main(String[] args) {
         testHeap();
     }
