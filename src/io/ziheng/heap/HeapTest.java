@@ -1,5 +1,5 @@
 package io.ziheng.heap;
-import io.ziheng.tree.MaxHeap;
+import io.ziheng.heap.MaxHeap;
 import java.util.Random;
 public class HeapTest {
     public static void main(String[] args) {
