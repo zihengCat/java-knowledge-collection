@@ -84,7 +84,7 @@ public class HeapTest {
 
 ## 二叉堆实现代码
 
-为了实现简单，使用**定长数组（Array）**作为二叉堆的底层存储结构；使用**范型（Generic Type）**保障堆内存放元素的灵活性；另外注意，堆结构要求堆内存放元素具备**可比较性（Comparability）**，反映到代码层面，便是范型需要实现 Java `Comparable<T>` 比较接口。
+为了实现简单，使用***定长数组（Array）***作为二叉堆的底层存储结构；使用***范型（Generic Type）***保障堆内存放元素的灵活性；另外注意，堆结构要求堆内存放元素具备***可比较性（Comparability）***，反映到代码层面，即范型需要实现 Java `Comparable<T>` 比较接口。
 
 ```java
 import java.lang.Comparable;
