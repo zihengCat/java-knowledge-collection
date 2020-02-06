@@ -35,7 +35,7 @@ rightNode(i) = 2 * i + 1
 
 ## 二叉堆测试代码（TDD）
 
-秉持测试驱动开发（TDD）的原则，我们先编写二叉堆测试代码。
+秉持测试驱动开发（TDD）的原则，我们先编写二叉堆测试代码。测试代码执行时，使用`java -ea`开启断言测试。
 
 测试流程：
 
@@ -44,8 +44,6 @@ rightNode(i) = 2 * i + 1
 3. 顺序移除堆中元素
 4. 检查元素出堆顺序
 5. 测试`heapify()`
-
-测试代码执行时，使用`java -ea`开启断言测试。
 
 ```java
 /* 导入最大堆实现类 */
@@ -83,5 +81,26 @@ public class HeapTest {
 /* EOF */
 ```
 > 代码清单：最大堆测试代码
+
+## 二叉堆实现代码
+
+为了实现简单，使用**定长数组（Array）**作为二叉堆的底层存储结构；使用**范型（Generic Type）**保障堆内存放元素的灵活性；另外注意，堆结构要求堆内存放元素具备**可比较性（Comparability）**，反映到代码层面，便是范型需要实现 Java `Comparable<T>` 比较接口。
+
+```java
+import java.lang.Comparable;
+import java.lang.reflect.Array;
+public class MaxHeap<E extends Comparable<E>> {
+    /* 默认堆容量 */
+    private static final int DEFAULT_CAPACITY = 8;
+    /* 底层数组 */
+    private E[] elementData;
+    /* 数组堆容量 */
+    private int capacity;
+    /* 堆内存放元素数量 */
+    private int size;
+}
+/* EOF */
+```
+> 代码清单：二叉堆数据字段
 
 <!-- EOF -->
