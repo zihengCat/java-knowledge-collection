@@ -136,7 +136,7 @@ implements HeapOperation<E> {
 
 ## 二叉堆构造函数（Constructor）
 
-二叉堆构造函数中，接收一枚堆容量配额整型参数`initialCapacity`，以该配额初始化定长数组。注意初始化数组时不能直接创建范型对象数组，使用**反射 + 强制类型转换**间接创建。
+二叉堆构造函数中，接收一枚堆容量配额`initialCapacity`整型参数，以该配额初始化定长数组。注意初始化数组时不能直接创建范型对象数组，使用**反射 + 强制类型转换**间接创建。
 
 ```java
 /**
@@ -246,5 +246,42 @@ private void freeNode(int index) {
 }
 ```
 > 代码清单：二叉堆辅助函数
+
+## 二叉堆添加新元素（Sift Up）
+
+向二叉堆中添加新元素的具体流程如下：
+
+1. 向二叉堆树末端（对应数组尾索引）添加一个新节点；
+2. 执行`siftUp()`操作使新节点「上浮」：比较「新节点」与「其父节点」的值，依据堆类型（最大堆/最小堆）进行节点交换，迭代上溯直至根节点。
+
+```java
+/**
+ * 向堆中添加一个新元素。
+ *
+ * @param element
+ * @return void
+ */
+@Override
+public void add(E element) {
+    elementData[size] = element;
+    size++;
+    siftUpNode(size - 1);
+}
+/**
+ * 堆节点上浮（sift up）。
+ *
+ * @param index
+ * @return void
+ */
+private void siftUpNode(int index) {
+    checkIndex(index);
+    while (index > 0 && elementData[getParentNode(index)]
+        .compareTo(elementData[index]) < 0) {
+        swapNode(index, getParentNode[index]);
+        index = getParentNode(index);
+    }
+}
+```
+> 代码清单：二叉堆添加新元素
 
 <!-- EOF -->
