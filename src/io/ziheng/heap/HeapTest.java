@@ -1,11 +1,13 @@
 package io.ziheng.heap;
-import io.ziheng.heap.MaxHeap;
+//import io.ziheng.heap.MaxHeap;
+import io.ziheng.tree.MaxHeap;
 import java.util.Random;
 public class HeapTest {
     public static void main(String[] args) {
         testHeap();
     }
     public static void testHeap() {
+        System.out.println((-1 - 1) / 2);
         int capacity = 1000000;
         Random random = new Random();
         MaxHeap<Integer> maxHeap = new MaxHeap<Integer>(capacity);

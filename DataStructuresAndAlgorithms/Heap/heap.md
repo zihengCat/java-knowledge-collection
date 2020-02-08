@@ -89,8 +89,8 @@ public class HeapTest {
 | 接口         | 说明             |
 | :---------- | :--------------- |
 | `add()`     | 向堆中添加一个新元素 |
-| `peek()`    | 查看堆顶元素 |
 | `extract()` | 移除堆顶元素 |
+| `peek()`    | 查看堆顶元素 |
 | `size()`    | 获取堆存放元素数量 |
 | `isEmpty()` | 判断堆是否为空 |
 | `clear()`   | 清空堆中所有元素 |
@@ -193,11 +193,6 @@ private void checkIndex(int index) {
  */
 private int getParentNode(int index) {
     checkIndex(index);
-    if (index == 0) {
-        throw new RuntimeException(
-            "[ERROR]: root node does not have parentNode."
-        );
-    }
     return (index - 1) / 2;
 }
 /**
@@ -249,10 +244,10 @@ private void freeNode(int index) {
 
 ## 二叉堆添加新元素（Sift Up）
 
-向二叉堆中添加新元素的具体流程如下：
+向二叉堆中添加新元素`add()`具体流程如下：
 
 1. 向二叉堆树末端（对应数组尾索引）添加一个新节点；
-2. 执行`siftUp()`操作使新节点「上浮」：比较「新节点」与「其父节点」的值，依据堆类型（最大堆/最小堆）进行节点交换，迭代上溯直至根节点。
+2. 执行`siftUp()`操作使新节点「上浮」：比较「新节点」与「其父节点」的值，依据堆类型（最大堆/最小堆）进行节点交换，迭代上溯直至满足堆的定义或抵达根节点。
 
 ```java
 /**
@@ -282,6 +277,188 @@ private void siftUpNode(int index) {
     }
 }
 ```
-> 代码清单：二叉堆添加新元素
+> 代码清单：二叉堆添加新元素（Sift Up）
+
+## 二叉堆移除堆顶元素（Sift Down）
+
+移除二叉堆堆顶元素`extract()`具体流程如下：
+
+1. 暂存堆顶根节点元素。
+2. 交换二叉堆树堆顶根节点与树末端（对应数组尾索引）节点
+3. 移除二叉堆树末端节点
+4. 执行`siftDown()`操作使根节点「下沉」：比较「根节点」与「其左右子节点」的值，依据堆类型（最大堆/最小堆）与左右子节点之一进行交换，迭代下降直至满足堆的定义或抵达叶子节点。
+
+```java
+/**
+ * 查看堆顶元素。
+ *
+ * @param void
+ * @return E
+ */
+@Override
+public E peek() {
+    if (size == 0) {
+        return null;
+    }
+    return elementData[0];
+}
+/**
+ * 移除堆顶元素。
+ *
+ * @param void
+ * @return E
+ */
+@Override
+public E extract() {
+    E element = peek();
+    swapNode(0, size - 1);
+    freeNode(size - 1);
+    size--;
+    siftDownNode(0);
+    return element;
+}
+/**
+ * 堆节点下沉（sift down）。
+ *
+ * @param void
+ * @return E
+ */
+private void siftDownNode(int index) {
+    checkIndex(index);
+    while (getLeftNode(index) < size) {
+        int leftNodeIndex = getLeftNode(index);
+        int rightNodeIndex = getRightNode(index)
+        int maxNodeIndex = leftNodeIndex;
+        if (rightNodeIndex < size &&
+            elementData[rightNodeIndex].compareTo(
+            elementData[leftNodeIndex]) > 0) {
+            maxNodeIndex = rightNodeIndex;
+        }
+        if (elementData[index].compareTo(
+            elementData[maxNodeIndex]) >= 0) {
+            break;
+        } else {
+            swapNode(index, maxNodeIndex);
+            index = maxNodeIndex;
+        }
+    }
+}
+```
+> 代码清单：二叉堆移除堆顶元素（Sift Down）
+
+## 二叉堆堆化函数（Heapify）
+
+二叉堆堆化`heapify()`操作用于将一枚数组组织成为一个二叉堆，其实现如下：
+
+```java
+/**
+ * 以数组构造堆。
+ *
+ * @param arr
+ * @return maxHeap
+ */
+public static <E extends Comparable<E>> MaxHeap<E> heapify(E[] arr) {
+    if (arr == null || arr.length == 0) {
+        return null;
+    }
+    int initialCapacity = arr.length;
+    MaxHeap<E> maxHeap = new MaxHeap<E>(initialCapacity);
+    for (int i = 0; i < arr.length; ++i) {
+        maxHeap.add(arr[i]);
+    }
+    return maxHeap;
+}
+/**
+ * 数组构造函数。
+ *
+ * @param arr
+ */
+@SuppressWarnings("unchecked")
+public MaxHeap(E[] arr) {
+    if (arr == null || arr.length == 0) {
+        throw new IllegalArgumentException();
+    }
+    int initialCapacity = arr.length;
+    this.elementData = (E[])Array.newInstance(
+        Comparable.class,
+        initialCapacity
+    );
+    this.capacity = initialCapacity;
+    this.size = initialCapacity;
+    for (int i = 0; i < initialCapacity; ++i) {
+        elementData[i] = arr[i];
+    }
+    heapifyInternal();
+}
+/**
+ * 堆化（Heapify）操作。
+ *
+ * @param void
+ * @return void
+ */
+private void heapifyInternal() {
+    for (int i = getParentNode(size - 1); i >= 0; i--) {
+        siftDownNode(i);
+    }
+}
+```
+> 代码清单：二叉堆`heapify()`操作
+
+## 二叉堆其他函数（Others）
+
+二叉堆的其他函数实现起来都比较简单。
+
+```java
+/**
+ * 获取二叉堆存放元素数量。
+ *
+ * @param void
+ * @return int
+ */
+public int size() {
+    return size;
+}
+/**
+ * 判断二叉堆是否为空。
+ *
+ * @param void
+ * @return boolean
+ */
+public boolean isEmpty() {
+    return size == 0;
+}
+/**
+ * 清空二叉堆。
+ *
+ * @param void
+ * @return void
+ */
+public void clear() {
+    for (int i = 0; i < capacity; ++i) {
+        freeNode(i);
+    }
+    size = 0;
+}
+/**
+ * 二叉堆字符串化。
+ *
+ * @param void
+ * @return String
+ */
+@Override
+public String toString() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append('[');
+    for (int i = 0; i < capacity; ++i) {
+        stringBuilder.append(
+            elementData[i] == null ? "null" : elementData[i].toString()
+        );
+        stringBuilder.append(", ");
+    }
+    stringBuilder.append(']');
+    return stringBuilder.toString();
+}
+```
+> 代码清单：二叉堆其他函数（Others）
 
 <!-- EOF -->
