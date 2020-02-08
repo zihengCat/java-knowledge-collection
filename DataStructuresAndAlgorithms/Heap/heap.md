@@ -415,6 +415,7 @@ private void heapifyInternal() {
  * @param void
  * @return int
  */
+@Override
 public int size() {
     return size;
 }
@@ -424,6 +425,7 @@ public int size() {
  * @param void
  * @return boolean
  */
+@Override
 public boolean isEmpty() {
     return size == 0;
 }
@@ -433,6 +435,7 @@ public boolean isEmpty() {
  * @param void
  * @return void
  */
+@Override
 public void clear() {
     for (int i = 0; i < capacity; ++i) {
         freeNode(i);
