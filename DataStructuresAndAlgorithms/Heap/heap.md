@@ -348,7 +348,7 @@ private void siftDownNode(int index) {
 
 ## 二叉堆堆化函数（Heapify）
 
-二叉堆堆化`heapify()`操作用于将一枚数组组织成为一个二叉堆，其实现如下：
+二叉堆堆化`heapify()`操作用于将一枚数组`arr`组织成为一个二叉堆，运用`siftUp()`与`siftDown()`操作即可快速完成，具体实现如下：
 
 ```java
 /**
