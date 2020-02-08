@@ -272,7 +272,7 @@ private void siftUpNode(int index) {
     checkIndex(index);
     while (index > 0 && elementData[getParentNode(index)]
         .compareTo(elementData[index]) < 0) {
-        swapNode(index, getParentNode[index]);
+        swapNode(index, getParentNode(index));
         index = getParentNode(index);
     }
 }
@@ -327,7 +327,7 @@ private void siftDownNode(int index) {
     checkIndex(index);
     while (getLeftNode(index) < size) {
         int leftNodeIndex = getLeftNode(index);
-        int rightNodeIndex = getRightNode(index)
+        int rightNodeIndex = getRightNode(index);
         int maxNodeIndex = leftNodeIndex;
         if (rightNodeIndex < size &&
             elementData[rightNodeIndex].compareTo(
