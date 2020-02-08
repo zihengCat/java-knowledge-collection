@@ -1,5 +1,5 @@
 package io.ziheng.heap;
-public interface HeapOperation<E> {
+public interface HeapOperator<E> {
     void add(E e);
     E peek();
     E extract();

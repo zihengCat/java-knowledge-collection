@@ -1,11 +1,11 @@
 package io.ziheng.heap;
 
-import io.ziheng.heap.HeapOperation;
+import io.ziheng.heap.HeapOperator;
 
 import java.lang.Comparable;
 import java.lang.reflect.Array;
 
-public class MaxHeap<E extends Comparable<E>> implements HeapOperation<E> {
+public class MaxHeap<E extends Comparable<E>> implements HeapOperator<E> {
 
     private static final int DEFAULT_CAPACITY = 8;
     private E[] elementData;
@@ -63,6 +63,9 @@ public class MaxHeap<E extends Comparable<E>> implements HeapOperation<E> {
 
     @Override
     public void add(E element) {
+        if (size + 1 > capacity) {
+            grow();
+        }
         elementData[size] = element;
         size++;
         siftUpNode(size - 1);
@@ -186,6 +189,23 @@ public class MaxHeap<E extends Comparable<E>> implements HeapOperation<E> {
     private void freeNode(int index) {
         checkIndex(index);
         elementData[index] = null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void grow() {
+        int oldCapacity = this.capacity;
+        E[] oldElementData = this.elementData;
+        int newCapacity = oldCapacity * 2;
+        E[] newElementData = (E[])Array.newInstance(
+            Comparable.class,
+            newCapacity
+        );
+        for (int i = 0; i < oldCapacity; ++i) {
+            newElementData[i] = oldElementData[i];
+            oldElementData[i] = null;
+        }
+        this.capacity = newCapacity;
+        this.elementData = newElementData;
     }
 
 }

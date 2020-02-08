@@ -39,11 +39,11 @@ rightNode(i) = 2 * i + 1
 
 测试流程：
 
-1. 建立最大堆
-2. 向堆中添加随机元素
-3. 顺序移除堆中元素
-4. 检查元素出堆顺序
-5. 测试`heapify()`
+1. 建立最大堆。
+2. 向堆中添加随机元素。
+3. 顺序移除堆中元素。
+4. 检查元素出堆顺序。
+5. 测试`heapify()`。
 
 ```java
 /* 导入最大堆实现类 */
@@ -119,8 +119,7 @@ public interface HeapOperation<E> {
 import java.lang.Comparable;
 import java.lang.reflect.Array;
 import HeapOperation;
-public class MaxHeap<E extends Comparable<E>>
-implements HeapOperation<E> {
+public class MaxHeap<E extends Comparable<E>> implements HeapOperation<E> {
     /* 默认堆容量 */
     private static final int DEFAULT_CAPACITY = 8;
     /* 底层数组 */
@@ -246,7 +245,7 @@ private void freeNode(int index) {
 
 向二叉堆中添加新元素`add()`具体流程如下：
 
-1. 向二叉堆树末端（对应数组尾索引）添加一个新节点；
+1. 向二叉堆树末端（对应数组尾索引）添加一个新节点。
 2. 执行`siftUp()`操作使新节点「上浮」：比较「新节点」与「其父节点」的值，依据堆类型（最大堆/最小堆）进行节点交换，迭代上溯直至满足堆的定义或抵达根节点。
 
 ```java
@@ -284,8 +283,8 @@ private void siftUpNode(int index) {
 移除二叉堆堆顶元素`extract()`具体流程如下：
 
 1. 暂存堆顶根节点元素。
-2. 交换二叉堆树堆顶根节点与树末端（对应数组尾索引）节点
-3. 移除二叉堆树末端节点
+2. 交换二叉堆树堆顶根节点与树末端（对应数组尾索引）节点。
+3. 移除二叉堆树末端节点。
 4. 执行`siftDown()`操作使根节点「下沉」：比较「根节点」与「其左右子节点」的值，依据堆类型（最大堆/最小堆）与左右子节点之一进行交换，迭代下降直至满足堆的定义或抵达叶子节点。
 
 ```java

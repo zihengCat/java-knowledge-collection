@@ -1,13 +1,11 @@
 package io.ziheng.queue;
 
 import io.ziheng.queue.Queue;
-
-import java.lang.annotation.Inherited;
-
 import io.ziheng.queue.ArrayQueue;
 import io.ziheng.queue.CircularQueue;
 //import io.ziheng.queue.LinkedQueue;
 import io.ziheng.queue.StackQueue;
+import io.ziheng.queue.PriorityQueue;
 
 public class QueueTest {
     public static void main(String[] args) {
@@ -15,6 +13,7 @@ public class QueueTest {
         //testQueue(new LinkedQueue<Integer>());
         testQueue(new CircularQueue<Integer>(128));
         testQueue(new StackQueue<Integer>());
+        testQueue(new PriorityQueue<Integer>());
     }
     public static void testQueue(Queue<Integer> queue) {
         System.out.println("---------------------------------------");
