@@ -14,5 +14,6 @@ public interface List<E> {
     E get(int index);
     E set(int index, E element);
     String toString();
+    boolean equals(Object obj);
 }
 /* EOF */

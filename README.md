@@ -94,10 +94,11 @@ Java 核心知识点梳理。
 
 - [哈希表（HashTable）概览](./DataStructuresAndAlgorithms/HashTableOverview/hash_table_overview.md)
 
-- [哈希表实现（Java）](./DataStructuresAndAlgorithms/HashTable/hash_table.md)
-
+- [哈希表数据结构 Java 实现](./DataStructuresAndAlgorithms/HashTable/hash_table.md)
 
 ### 数组
+
+- [动态数组（ArrayList）数据结构及其 Java 实现](./DataStructuresAndAlgorithms/ArrayList/array_list.md)
 
 #### 双指针
 
@@ -136,6 +137,8 @@ Java 核心知识点梳理。
 - [链表实现队列（Java）](./DataStructuresAndAlgorithms/LinkedQueue/linked_queue.md)
 
 - [栈实现队列（Java）](./DataStructuresAndAlgorithms/StackQueue/stack_queue.md)
+
+- [优先队列（PriorityQueue）数据结构 Java 实现](./DataStructuresAndAlgorithms/PriorityQueue/priority_queue.md)
 
 ### 树
 
