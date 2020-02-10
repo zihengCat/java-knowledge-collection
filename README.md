@@ -96,15 +96,18 @@ Java 核心知识点梳理。
 
 - [哈希表实现（Java）](./DataStructuresAndAlgorithms/HashTable/hash_table.md)
 
-### 字符串
-
-...
 
 ### 数组
+
+#### 双指针
 
 - [LeetCode 283. Move Zeroes]()
 
 - [LeetCode 027. Remove Element]()
+
+#### 字符串
+
+...
 
 ### 链表
 
@@ -122,7 +125,7 @@ Java 核心知识点梳理。
 
 - [队列实现栈（Java）](./DataStructuresAndAlgorithms/QueueStack/queue_stack.md)
 
-- [LeetCode 20. 括号匹配]()
+- [LeetCode 020. Valid Parentheses]()
 
 ### 队列
 
