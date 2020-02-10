@@ -100,6 +100,12 @@ Java 核心知识点梳理。
 
 ...
 
+### 数组
+
+- [LeetCode 283. Move Zeroes]()
+
+- [LeetCode 027. Remove Element]()
+
 ### 链表
 
 - [线性表（List）数据结构概览](./DataStructuresAndAlgorithms/ListOverview/list_overview.md)
