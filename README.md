@@ -90,16 +90,6 @@ Java 核心知识点梳理。
 
 - [计数排序 - Java 实现](./DataStructuresAndAlgorithms/CountSort/count_sort.md)
 
-### 哈希表
-
-- [哈希表（HashTable）概览](./DataStructuresAndAlgorithms/HashTableOverview/hash_table_overview.md)
-
-- [哈希表数据结构 Java 实现](./DataStructuresAndAlgorithms/HashTable/hash_table.md)
-
-#### LeetCode
-
-- [LeetCode 001. Two Sum]()
-
 ### 数组
 
 - [动态数组（ArrayList）数据结构及其 Java 实现](./DataStructuresAndAlgorithms/ArrayList/array_list.md)
@@ -157,6 +147,16 @@ Java 核心知识点梳理。
 ### 堆
 
 - [二叉堆（Heap）数据结构及其 Java 实现](./DataStructuresAndAlgorithms/Heap/heap.md)
+
+### 哈希表
+
+- [哈希表（HashTable）概览](./DataStructuresAndAlgorithms/HashTableOverview/hash_table_overview.md)
+
+- [哈希表数据结构 Java 实现](./DataStructuresAndAlgorithms/HashTable/hash_table.md)
+
+#### LeetCode
+
+- [LeetCode 001. Two Sum]()
 
 ## 操作系统
 
