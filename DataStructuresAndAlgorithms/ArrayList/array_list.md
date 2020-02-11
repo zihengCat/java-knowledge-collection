@@ -25,7 +25,11 @@
 
 # 动态数组（ArrayList）数据结构 Java 实现
 
-使用 Java 程序设计语言实现动态数组（ArrayList）数据结构。
+使用 Java 程序设计语言实现动态数组（ArrayList）数据结构。实现思路参考 Java 语言标准库`ArrayList`。
+
+![DataStructuresAndAlgorithms-ArrayList-1-DianamicArray][DataStructuresAndAlgorithms-ArrayList-1-DianamicArray]
+
+> 图：动态数组 ArrayList 示意图
 
 # 动态数组测试代码（TDD）
 
@@ -82,5 +86,7 @@ public class ArrayListTest {
 /* EOF */
 ```
 > 代码清单：动态数组测试代码
+
+[DataStructuresAndAlgorithms-ArrayList-1-DianamicArray]: ../../images/DataStructuresAndAlgorithms-ArrayList-1-DianamicArra.jpg
 
 <!-- EOF -->
