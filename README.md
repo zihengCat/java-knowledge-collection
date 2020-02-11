@@ -154,8 +154,6 @@ Java 核心知识点梳理。
 
 - [哈希表数据结构 Java 实现](./DataStructuresAndAlgorithms/HashTable/hash_table.md)
 
-#### LeetCode
-
 - [LeetCode 001. Two Sum]()
 
 ## 操作系统
