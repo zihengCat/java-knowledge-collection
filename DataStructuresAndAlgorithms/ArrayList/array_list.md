@@ -87,6 +87,6 @@ public class ArrayListTest {
 ```
 > 代码清单：动态数组测试代码
 
-[DataStructuresAndAlgorithms-ArrayList-1-DianamicArray]: ../../images/DataStructuresAndAlgorithms-ArrayList-1-DianamicArra.jpg
+[DataStructuresAndAlgorithms-ArrayList-1-DianamicArray]: ../../images/DataStructuresAndAlgorithms-ArrayList-1-DianamicArray.jpg
 
 <!-- EOF -->
