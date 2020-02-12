@@ -90,13 +90,13 @@ Java 核心知识点梳理。
 
 - [计数排序 - Java 实现](./DataStructuresAndAlgorithms/CountSort/count_sort.md)
 
-# 回溯（Backtrcking）
+### 回溯剪枝（Backtrcking）
 
 - [LeetCode 017. Letter Combinations of a Phone Number]()
 
-# 动态规划（Dynamic Programming）
+### 动态规划（Dynamic Programming）
 
-...
+- [LeetCode 070. Climbing Stairs]()
 
 ### 数组
 
