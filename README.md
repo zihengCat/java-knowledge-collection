@@ -74,7 +74,7 @@ Java 核心知识点梳理。
 
 ## 数据结构与算法
 
-### 排序（Sorting）
+### 排序
 
 - [冒泡排序 - Java 实现](./DataStructuresAndAlgorithms/BubbleSort/bubble_sort.md)
 
@@ -90,13 +90,15 @@ Java 核心知识点梳理。
 
 - [计数排序 - Java 实现](./DataStructuresAndAlgorithms/CountSort/count_sort.md)
 
-### 回溯剪枝（Backtrcking）
+### 回溯剪枝
 
 - [LeetCode 017. Letter Combinations of a Phone Number]()
 
-### 动态规划（Dynamic Programming）
+### 动态规划
 
 - [LeetCode 070. Climbing Stairs]()
+
+- [LeetCode 343. Integer Break]()
 
 ### 数组
 
