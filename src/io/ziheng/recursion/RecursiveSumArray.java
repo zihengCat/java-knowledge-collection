@@ -1,4 +1,4 @@
-package io.ziheng.leetcode;
+package io.ziheng.recursion;
 public class RecursiveSumArray {
     public static void main(String[] args) {
         int[] arr = new int[]{1, 2, 3, 4, 10, };
@@ -23,3 +23,4 @@ public class RecursiveSumArray {
         return sumNum;
     }
 }
+/* EOF */

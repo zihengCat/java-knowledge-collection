@@ -2,6 +2,10 @@ package io.ziheng.list.leetcode;
 
 import io.ziheng.list.leetcode.ListNode;
 
+/**
+ * LeetCode 203. Remove Linked List Elements
+ * https://leetcode.com/problems/remove-linked-list-elements/
+ */
 public class RemoveLinkedListElements {
 
     public ListNode removeElements(ListNode head, int val) {
