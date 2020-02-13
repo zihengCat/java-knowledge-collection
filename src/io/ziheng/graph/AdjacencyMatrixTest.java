@@ -1,6 +1,7 @@
 package io.ziheng.graph;
 
 import io.ziheng.graph.AdjacencyMatrix;
+import java.util.Arrays;
 
 public class AdjacencyMatrixTest {
     public static void main(String[] args) {
@@ -22,7 +23,10 @@ public class AdjacencyMatrixTest {
             }
         );
         assert adjA.toString().equals(adjB.toString());
-        System.out.println(adjA);
+        System.out.println(
+            Arrays.toString(adjA.getAdjacentVertex(6))
+        );
+        System.out.println(adjA.degree(0));
     }
 }
 /* EOF */
