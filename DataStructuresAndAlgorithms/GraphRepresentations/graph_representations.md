@@ -7,7 +7,7 @@
 
 ![1-AdjacencyMatrix][1-AdjacencyMatrix]
 
-> 图：图（Graph）的领接矩阵表示
+> 图：图（Graph）的领接矩阵表示法
 
 
 
