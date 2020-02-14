@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import io.ziheng.graph.Graph;
+
 /**
  * 邻接矩阵实现类
  */
-public class AdjacencyMatrix {
+public class AdjacencyMatrix implements Graph {
     /**
      * 图中顶点个数
      */
@@ -90,15 +92,17 @@ public class AdjacencyMatrix {
      * @param void
      * @return int
      */
+    @Override
     public int getVertexNum() {
         return vertexNum;
     }
     /**
-     * 获取图中边的个数。
+     * 获取图中边的条数。
      *
      * @param void
      * @return int
      */
+    @Override
     public int getEdgeNum() {
         return edgeNum;
     }
@@ -109,6 +113,7 @@ public class AdjacencyMatrix {
      * @param vertexB
      * @return boolean
      */
+    @Override
     public boolean hasEdge(int vertexA, int vertexB) {
         vaildateVertex(vertexA, this.vertexNum);
         vaildateVertex(vertexB, this.vertexNum);
@@ -120,6 +125,7 @@ public class AdjacencyMatrix {
      * @param vertex
      * @return int[]
      */
+    @Override
     public int[] getAdjacentVertex(int vertex) {
         vaildateVertex(vertex, this.vertexNum);
         List<Integer> resultList = new ArrayList<>();
@@ -140,6 +146,7 @@ public class AdjacencyMatrix {
      * @param vertex
      * @return int
      */
+    @Override
     public int degree(int vertex) {
         vaildateVertex(vertex, this.vertexNum);
         int degreeNum = 0;
