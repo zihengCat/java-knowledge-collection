@@ -1,19 +1,23 @@
 package io.ziheng.graph;
 
 import io.ziheng.graph.Graph;
+import io.ziheng.graph.lookup.LookUpTable;
+import io.ziheng.graph.lookup.LinkedListLookUpTable;
+import io.ziheng.graph.lookup.RedBlackTreeSetLookUpTable;
 
 import java.io.File;
-import java.util.List;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class AdjacencyList implements Graph {
+
     private int vertexNum;
     private int edgeNum;
-    private List<Integer>[] adjacencyList;
+    private LookUpTable<Integer>[] adjacencyList;
+
     private AdjacencyList() {
         // ...
     }
+
     @SuppressWarnings("unchecked")
     public static AdjacencyList buildWith(int[][] adjMatrix) {
         if (adjMatrix == null ||
@@ -26,9 +30,11 @@ public class AdjacencyList implements Graph {
         AdjacencyList adj = new AdjacencyList();
         adj.vertexNum = adjMatrix[0][0];
         adj.edgeNum = adjMatrix[0][1];
-        adj.adjacencyList = (List<Integer>[])new List[adj.vertexNum];
+        adj.adjacencyList =
+            (LookUpTable<Integer>[])new LookUpTable[adj.vertexNum];
         for (int i = 0; i < adj.vertexNum; i++) {
-            adj.adjacencyList[i] = new LinkedList<Integer>();
+            adj.adjacencyList[i] = new LinkedListLookUpTable<Integer>();
+            //adj.adjacencyList[i] = new RedBlackTreeSetLookUpTable<Integer>();
         }
         for (int i = 1; i < adjMatrix.length; i++) {
             int vertexA = adjMatrix[i][0];
@@ -48,9 +54,11 @@ public class AdjacencyList implements Graph {
             Scanner scanner = new Scanner(file);
             adj.vertexNum = scanner.nextInt();
             adj.edgeNum = scanner.nextInt();
-            adj.adjacencyList = (List<Integer>[])new List[adj.vertexNum];
+            adj.adjacencyList =
+                (LookUpTable<Integer>[])new LookUpTable[adj.vertexNum];
             for (int i = 0; i < adj.vertexNum; i++) {
-                adj.adjacencyList[i] = new LinkedList<Integer>();
+                //adj.adjacencyList[i] = new LinkedListLookUpTable<Integer>();
+                adj.adjacencyList[i] = new RedBlackTreeSetLookUpTable<Integer>();
             }
             for (int i = 0; i < adj.edgeNum; i++) {
                 int vertexA = scanner.nextInt();
@@ -85,8 +93,11 @@ public class AdjacencyList implements Graph {
     public int[] getAdjacentVertex(int vertex) {
         vaildateVertex(vertex, this.vertexNum);
         int[] resultList = new int[adjacencyList[vertex].size()];
-        for (int i = 0; i < resultList.length; i++) {
-            resultList[i] = adjacencyList[vertex].get(i);
+        int i = 0;
+        for (LookUpTable.Iterator<Integer> iterator = adjacencyList[vertex].iterator();
+            iterator.hasNext(); /* ... */ ) {
+            resultList[i] = iterator.next();
+            i++;
         }
         return resultList;
     }
@@ -112,9 +123,10 @@ public class AdjacencyList implements Graph {
         stringBuilder.append(System.lineSeparator());
         for (int i = 0; i < this.vertexNum; i++) {
             stringBuilder.append(String.format("%d: ", i));
-            for (int j = 0; j < adjacencyList[i].size(); j++) {
+            for (LookUpTable.Iterator<Integer> iterator = adjacencyList[i].iterator();
+                iterator.hasNext(); /* ... */ ) {
                 stringBuilder.append(String.format(
-                    "%d ", adjacencyList[i].get(j)
+                    "%d ", iterator.next()
                 ));
             }
             stringBuilder.append(System.lineSeparator());

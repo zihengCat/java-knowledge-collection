@@ -1,8 +1,8 @@
 package io.ziheng.graph;
 
+import io.ziheng.graph.Graph;
 import io.ziheng.graph.AdjacencyMatrix;
 import io.ziheng.graph.AdjacencyList;
-import io.ziheng.graph.Graph;
 
 import java.util.Arrays;
 

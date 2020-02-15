@@ -18,6 +18,15 @@
 
 > 图：图（Graph）邻接表表示法
 
+| 查找表 | 查找顶点 | 遍历顺序 |
+| :---- | :----- | :------ |
+| 动态数组 | `O(V)` | 插入顺序 |
+| 链表    | `O(V)` | 插入顺序 |
+| 平衡树 | `O(logV)` | 自然顺序 |
+| 哈希表 | `O(1)` | 无序 |
+
+> 图：图（Graph）邻接表查找表比较
+
 [1-AdjacencyMatrix]: ../../images/DataStructuresAndAlgorithms-GraphRepresentations-1-AdjacencyMatrix.png
 
 [2-AdjacencyList]: ../../images/DataStructuresAndAlgorithms-GraphRepresentations-2-AdjacencyList.png
