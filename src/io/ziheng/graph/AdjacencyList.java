@@ -6,7 +6,16 @@ import io.ziheng.graph.lookup.LinkedListLookUpTable;
 import io.ziheng.graph.lookup.RedBlackTreeSetLookUpTable;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class AdjacencyList implements Graph {
 
@@ -106,12 +115,150 @@ public class AdjacencyList implements Graph {
         vaildateVertex(vertex, this.vertexNum);
         return adjacencyList[vertex].size();
     }
+    @Override
+    public boolean hasCycle() {
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("hasCycleState", false);
+        boolean[] visited = new boolean[vertexNum];
+        for (int i = 0; i < vertexNum; i++) {
+            visited[i] = false;
+        }
+        for (int i = 0; i < vertexNum; i++) {
+            if (!visited[i]) {
+                hasCycle0(i, i, visited, map);
+            }
+        }
+        return map.get("hasCycleState");
+    }
+    private void hasCycle0(
+        int currentVertex, int parentVertex, boolean[] visited, Map<String, Boolean> map) {
+        visited[currentVertex] = true;
+        for (int adjVertex : getAdjacentVertex(currentVertex)) {
+            if (!visited[adjVertex]) {
+                hasCycle0(adjVertex, currentVertex, visited, map);
+            } else {
+                if (adjVertex != parentVertex) {
+                    map.replace("hasCycleState", true);
+                }
+            }
+        }
+    }
+    @Override
+    public int[] findAPath(int sourceVertex, int destinationVertex) {
+        vaildateVertex(sourceVertex, this.vertexNum);
+        vaildateVertex(destinationVertex, this.vertexNum);
+        List<Integer> resultList = new LinkedList<Integer>();
+        int[] visited = new int[vertexNum];
+        for (int i = 0; i < vertexNum; i++) {
+            visited[i] = -1;
+        }
+        findAPath0(sourceVertex, destinationVertex, sourceVertex, visited);
+        //System.out.println(Arrays.toString(visited));
+        if (visited[destinationVertex] != -1) {
+            for (int currentVertex = destinationVertex;
+                currentVertex != sourceVertex;
+                currentVertex = visited[currentVertex]) {
+                resultList.add(currentVertex);
+            }
+            resultList.add(sourceVertex);
+            Collections.reverse(resultList);
+        }
+        return toIntArray(resultList);
+    }
+    private void findAPath0(
+        int currentVertex, int destinationVertex, int parentVertex, int[] visited) {
+        visited[currentVertex] = parentVertex;
+        if (currentVertex == destinationVertex) {
+            return;
+        }
+        for (int adjVertex : getAdjacentVertex(currentVertex)) {
+            if (visited[adjVertex] == -1) {
+                findAPath0(adjVertex, destinationVertex, currentVertex, visited);
+            }
+        }
+    }
+    @Override
+    public boolean isConnected(int vertexA, int vertexB) {
+        vaildateVertex(vertexA, this.vertexNum);
+        vaildateVertex(vertexB, this.vertexNum);
+        List<Integer> resultList = new LinkedList<Integer>();
+        boolean[] visited = new boolean[this.vertexNum];
+        for (int i = 0; i < visited.length; i++) {
+            visited[i] = false;
+        }
+        depthFirstSearch0(vertexA, visited, resultList);
+        return resultList.contains(vertexB);
+    }
+    @Override
+    public int[] depthFirstSearch() {
+        List<Integer> resultList = new LinkedList<Integer>();
+        boolean[] visited = new boolean[this.vertexNum];
+        for (int i = 0; i < visited.length; i++) {
+            visited[i] = false;
+        }
+        for (int i = 0; i < this.vertexNum; i++) {
+            if (!visited[i]) {
+                depthFirstSearch0(i, visited, resultList);
+            }
+        }
+        return toIntArray(resultList);
+    }
+    private void depthFirstSearch0(
+        int vertex, boolean[] visited, List<Integer> resultList) {
+        visited[vertex] = true;
+        resultList.add(vertex);
+        for (int v : getAdjacentVertex(vertex)) {
+            if (!visited[v]) {
+                depthFirstSearch0(v, visited, resultList);
+            }
+        }
+    }
+    @Override
+    public int[] breadthFirstSearch() {
+        List<Integer> resultList = new LinkedList<Integer>();
+        Boolean[] visited = new Boolean[vertexNum];
+        setArray(visited, false);
+        for (int i = 0; i < vertexNum; i++) {
+            if (!visited[i]) {
+                breadthFirstSearch0(i, visited, resultList);
+            }
+        }
+        return toIntArray(resultList);
+    }
+    private void breadthFirstSearch0(
+        int vertex, Boolean[] visited, List<Integer> resultList) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(vertex);
+        visited[vertex] = true;
+        while (!queue.isEmpty()) {
+            int currentVertex = queue.poll();
+            resultList.add(currentVertex);
+            for (int adjVertex : getAdjacentVertex(currentVertex)) {
+                if (!visited[adjVertex]) {
+                    queue.offer(adjVertex);
+                    visited[adjVertex] = true;
+                }
+            }
+        }
+    }
     private static void vaildateVertex(int vertex, int vertexNum) {
         if (vertex < 0 || vertex >= vertexNum) {
             throw new IllegalArgumentException(
                 "[ERROR]: vertex " + vertex + " is invalid!"
             );
         }
+    }
+    private static <T> void setArray(T[] arr, T val) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = val;
+        }
+    }
+    private int[] toIntArray(List<Integer> list) {
+        int[] resultArray = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            resultArray[i] = list.get(i);
+        }
+        return resultArray;
     }
     @Override
     public String toString() {

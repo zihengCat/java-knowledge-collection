@@ -2,6 +2,7 @@ package io.ziheng.graph;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -156,6 +157,46 @@ public class AdjacencyMatrix implements Graph {
             }
         }
         return degreeNum;
+    }
+    @Override
+    public boolean isConnected(int vertexA, int vertexB) {
+        vaildateVertex(vertexA, this.vertexNum);
+        vaildateVertex(vertexB, this.vertexNum);
+        List<Integer> resultList = new LinkedList<Integer>();
+        boolean[] visited = new boolean[this.vertexNum];
+        for (int i = 0; i < visited.length; i++) {
+            visited[i] = false;
+        }
+        depthFirstSearch0(vertexA, visited, resultList);
+        return resultList.contains(vertexB);
+    }
+    @Override
+    public int[] depthFirstSearch() {
+        List<Integer> resultList = new LinkedList<Integer>();
+        boolean[] visited = new boolean[this.vertexNum];
+        for (int i = 0; i < visited.length; i++) {
+            visited[i] = false;
+        }
+        for (int i = 0; i < this.vertexNum; i++) {
+            if (!visited[i]) {
+                depthFirstSearch0(i, visited, resultList);
+            }
+        }
+        int[] resultArray = new int[resultList.size()];
+        for (int i = 0; i < resultList.size(); i++) {
+            resultArray[i] = resultList.get(i);
+        }
+        return resultArray;
+    }
+    private void depthFirstSearch0(
+        int vertex, boolean[] visited, List<Integer> resultList) {
+        visited[vertex] = true;
+        resultList.add(vertex);
+        for (int v : getAdjacentVertex(vertex)) {
+            if (!visited[v]) {
+                depthFirstSearch0(v, visited, resultList);
+            }
+        }
     }
     /**
      * 验证传入顶点的合法性。

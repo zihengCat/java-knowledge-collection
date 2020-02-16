@@ -168,9 +168,9 @@ Java 核心知识点梳理。
 
 - [图（Graph）的基本表示](./DataStructuresAndAlgorithms/GraphRepresentations/graph_representations.md)
 
-- [图（Graph）的遍历 - 深度优先遍历（BFS）]()
+- [图（Graph）的遍历 - 深度优先遍历（Depth-First-Search）](./DataStructuresAndAlgorithms/GraphDepthFirstSearch/graph_depth_first_search.md)
 
-- [图（Graph）的遍历 - 广度优先遍历（DFS）]()
+- 图（Graph）的遍历 - 广度优先遍历（BFS）
 
 ### 哈希表
 

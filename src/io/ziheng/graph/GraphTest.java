@@ -11,6 +11,90 @@ public class GraphTest {
     public static void main(String[] args) {
         testGraphAdjacencyMatrix();
         testGraphAdjacencyList();
+        testGraphDepthFirstSearch();
+        testGraphBreadthFirstSearch();
+        testGraphFindAPath();
+        testGraphHasCycle();
+    }
+    public static void testGraphHasCycle() {
+        int[][] graph = new int[][] {
+            {7, 5, },
+            {0, 1, },
+            {0, 2, },
+            {1, 3, },
+            {1, 4, },
+            //{2, 3, },
+            {2, 6, },
+        };
+        Graph adjList = AdjacencyList.buildWith(graph);
+        System.out.println(
+            "AdjacencyList.hasCycle(): " + adjList.hasCycle()
+        );
+    }
+    public static void testGraphFindAPath() {
+        int[][] graph = new int[][] {
+            {7, 6, },
+            {0, 1, },
+            {0, 2, },
+            {1, 3, },
+            {1, 4, },
+            {2, 3, },
+            {2, 6, },
+        };
+        Graph adjList = AdjacencyList.buildWith(graph);
+        System.out.println(
+            "AdjacencyList.findAPath(0, 6): " +
+            Arrays.toString(adjList.findAPath(0, 6))
+        );
+        System.out.println(
+            "AdjacencyList.findAPath(2, 5): " +
+            Arrays.toString(adjList.findAPath(2, 5))
+        );
+    }
+    public static void testGraphBreadthFirstSearch() {
+        int[][] graph = new int[][] {
+            {7, 6, },
+            {0, 1, },
+            {0, 2, },
+            {1, 3, },
+            {1, 4, },
+            {2, 3, },
+            {2, 6, },
+        };
+        Graph adjList = AdjacencyList.buildWith(graph);
+        System.out.println(
+            "AdjacencyList BFS: " +
+            Arrays.toString(adjList.breadthFirstSearch())
+        );
+    }
+    public static void testGraphDepthFirstSearch() {
+        int[][] graph = new int[][] {
+            {7, 6, },
+            {0, 1, },
+            {0, 2, },
+            {1, 3, },
+            {1, 4, },
+            {2, 3, },
+            {2, 6, },
+        };
+        Graph adjMatrix = AdjacencyMatrix.buildWith(graph);
+        Graph adjList = AdjacencyList.buildWith(graph);
+        System.out.println(
+            "AdjacencyMatrix DFS: " +
+            Arrays.toString(adjMatrix.depthFirstSearch())
+        );
+        System.out.println(
+            "AdjacencyList DFS: " +
+            Arrays.toString(adjList.depthFirstSearch())
+        );
+        System.out.println(
+            "isConnected(1, 5): " +
+            adjList.isConnected(1, 5)
+        );
+        System.out.println(
+            "isConnected(1, 5): " +
+            adjMatrix.isConnected(1, 5)
+        );
     }
 
     public static void testGraphAdjacencyList() {
