@@ -170,7 +170,7 @@ Java 核心知识点梳理。
 
 - [图（Graph）的遍历 - 深度优先遍历（Depth-First-Search）](./DataStructuresAndAlgorithms/GraphDepthFirstSearch/graph_depth_first_search.md)
 
-- 图（Graph）的遍历 - 广度优先遍历（BFS）
+- [图（Graph）的遍历 - 广度优先遍历（Breadth-First-Search）](./DataStructuresAndAlgorithms/GraphBreadthFirstSearch/graph_breadth_first_search.md)
 
 ### 哈希表
 
