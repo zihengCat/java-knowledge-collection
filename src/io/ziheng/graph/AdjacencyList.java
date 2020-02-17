@@ -144,6 +144,53 @@ public class AdjacencyList implements Graph {
         }
     }
     @Override
+    public int[] findShortestPath(int sourceVertex, int destinationVertex) {
+        vaildateVertex(sourceVertex, this.vertexNum);
+        vaildateVertex(destinationVertex, this.vertexNum);
+        List<Integer> resultList = new LinkedList<Integer>();
+        Integer[] visited = new Integer[vertexNum];
+        setArray(visited, -1);
+        findShortestPath0(
+            sourceVertex,
+            destinationVertex,
+            sourceVertex,
+            visited
+        );
+        System.out.println(Arrays.toString(visited));
+        if (visited[destinationVertex] != -1) {
+            for (int currentVertex = destinationVertex;
+                currentVertex != sourceVertex;
+                currentVertex = visited[currentVertex]) {
+                resultList.add(currentVertex);
+            }
+            resultList.add(sourceVertex);
+            Collections.reverse(resultList);
+        }
+        return toIntArray(resultList);
+    }
+    private void findShortestPath0(
+        int sourceVertex,
+        int destinationVertex,
+        int parentVertex,
+        Integer[] visited) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(sourceVertex);
+        visited[sourceVertex] = parentVertex;
+        while (!queue.isEmpty()) {
+            int currentVertex = queue.poll();
+            for (int adjVertex : getAdjacentVertex(currentVertex)) {
+                if (visited[adjVertex] == -1) {
+                    visited[adjVertex] = currentVertex;
+                    if (adjVertex == destinationVertex) {
+                        return;
+                    }
+                    queue.offer(adjVertex);
+                }
+            }
+        }
+    }
+
+    @Override
     public int[] findAPath(int sourceVertex, int destinationVertex) {
         vaildateVertex(sourceVertex, this.vertexNum);
         vaildateVertex(destinationVertex, this.vertexNum);

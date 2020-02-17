@@ -72,5 +72,13 @@ public interface Graph {
      * @return int[]
      */
     int[] findAPath(int sourceVertex, int destinationVertex);
+    /**
+     * 寻找图中两顶点间的最短路径。
+     *
+     * @param sourceVertex
+     * @param destinationVertex
+     * @return int[]
+     */
+    int[] findShortestPath(int sourceVertex, int destinationVertex);
 }
 /* EOF */

@@ -14,6 +14,7 @@ public class GraphTest {
         testGraphDepthFirstSearch();
         testGraphBreadthFirstSearch();
         testGraphFindAPath();
+        testGraphFindShortestPath();
         testGraphHasCycle();
     }
     public static void testGraphHasCycle() {
@@ -29,6 +30,26 @@ public class GraphTest {
         Graph adjList = AdjacencyList.buildWith(graph);
         System.out.println(
             "AdjacencyList.hasCycle(): " + adjList.hasCycle()
+        );
+    }
+    public static void testGraphFindShortestPath() {
+        int[][] graph = new int[][] {
+            {7, 6, },
+            {0, 1, },
+            {0, 2, },
+            {1, 3, },
+            {1, 4, },
+            {2, 3, },
+            {2, 6, },
+        };
+        Graph adjList = AdjacencyList.buildWith(graph);
+        System.out.println(
+            "AdjacencyList.findShortestPath(0, 6): " +
+            Arrays.toString(adjList.findShortestPath(0, 6))
+        );
+        System.out.println(
+            "AdjacencyList.findShortestPath(0, 5): " +
+            Arrays.toString(adjList.findShortestPath(0, 5))
         );
     }
     public static void testGraphFindAPath() {
