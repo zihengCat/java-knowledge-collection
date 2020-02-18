@@ -16,6 +16,6 @@
 
 ...
 
-[1-HamiltonProblem]: ../../images/DataStructuresAndAlgorithms-GraphHamiltonianCycleAndPath-1-HamiltonProblem.png
+[1-HamiltonProblem]: ../../images/DataStructuresAndAlgorithms- HamiltonianCircuitAndGraph-1-HamiltonProblem.png
 
 <!-- EOF -->
