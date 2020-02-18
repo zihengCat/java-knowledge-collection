@@ -80,5 +80,13 @@ public interface Graph {
      * @return int[]
      */
     int[] findShortestPath(int sourceVertex, int destinationVertex);
+    /**
+     * 寻找图中两顶点间的最短路径的长度。
+     *
+     * @param sourceVertex
+     * @param destinationVertex
+     * @return int
+     */
+    int findShortestPathLength(int sourceVertex, int destinationVertex);
 }
 /* EOF */

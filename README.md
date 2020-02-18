@@ -172,6 +172,12 @@ Java 核心知识点梳理。
 
 - [图（Graph）的遍历 - 广度优先遍历（Breadth-First-Search）](./DataStructuresAndAlgorithms/GraphBreadthFirstSearch/graph_breadth_first_search.md)
 
+- LeetCode 785. Is Graph Bipartite
+
+- LeetCode 695. Max Area of Island
+
+- LeetCode 773. Sliding Puzzle
+
 ### 哈希表
 
 - [哈希表（HashTable）概览](./DataStructuresAndAlgorithms/HashTableOverview/hash_table_overview.md)

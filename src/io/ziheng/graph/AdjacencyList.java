@@ -6,16 +6,14 @@ import io.ziheng.graph.lookup.LinkedListLookUpTable;
 import io.ziheng.graph.lookup.RedBlackTreeSetLookUpTable;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class AdjacencyList implements Graph {
 
@@ -156,7 +154,7 @@ public class AdjacencyList implements Graph {
             sourceVertex,
             visited
         );
-        System.out.println(Arrays.toString(visited));
+        //System.out.println(Arrays.toString(visited));
         if (visited[destinationVertex] != -1) {
             for (int currentVertex = destinationVertex;
                 currentVertex != sourceVertex;
@@ -189,7 +187,10 @@ public class AdjacencyList implements Graph {
             }
         }
     }
-
+    @Override
+    public int findShortestPathLength(int sourceVertex, int destinationVertex) {
+        return findShortestPath(sourceVertex, destinationVertex).length - 1;
+    }
     @Override
     public int[] findAPath(int sourceVertex, int destinationVertex) {
         vaildateVertex(sourceVertex, this.vertexNum);
@@ -229,34 +230,48 @@ public class AdjacencyList implements Graph {
         vaildateVertex(vertexA, this.vertexNum);
         vaildateVertex(vertexB, this.vertexNum);
         List<Integer> resultList = new LinkedList<Integer>();
-        boolean[] visited = new boolean[this.vertexNum];
-        for (int i = 0; i < visited.length; i++) {
-            visited[i] = false;
-        }
+        Boolean[] visited = new Boolean[vertexNum];
+        setArray(visited, false);
         depthFirstSearch0(vertexA, visited, resultList);
         return resultList.contains(vertexB);
     }
     @Override
     public int[] depthFirstSearch() {
         List<Integer> resultList = new LinkedList<Integer>();
-        boolean[] visited = new boolean[this.vertexNum];
-        for (int i = 0; i < visited.length; i++) {
-            visited[i] = false;
-        }
-        for (int i = 0; i < this.vertexNum; i++) {
+        Boolean[] visited = new Boolean[vertexNum];
+        setArray(visited, false);
+        for (int i = 0; i < vertexNum; i++) {
             if (!visited[i]) {
-                depthFirstSearch0(i, visited, resultList);
+                //depthFirstSearch0(i, visited, resultList);
+                depthFirstSearch1(i, visited, resultList);
             }
         }
         return toIntArray(resultList);
     }
     private void depthFirstSearch0(
-        int vertex, boolean[] visited, List<Integer> resultList) {
+        int vertex, Boolean[] visited, List<Integer> resultList) {
         visited[vertex] = true;
         resultList.add(vertex);
         for (int v : getAdjacentVertex(vertex)) {
             if (!visited[v]) {
                 depthFirstSearch0(v, visited, resultList);
+            }
+        }
+    }
+    private void depthFirstSearch1(
+        int vertex, Boolean[] visited, List<Integer> resultList) {
+        Deque<Integer> stack = new LinkedList<>();
+        stack.push(vertex);
+        visited[vertex] = true;
+        resultList.add(vertex);
+        while (!stack.isEmpty()) {
+            int currentVertex = stack.pop();
+            for (int adjVertex : getAdjacentVertex(currentVertex)) {
+                if (!visited[adjVertex]) {
+                    stack.push(adjVertex);
+                    visited[adjVertex] = true;
+                    resultList.add(adjVertex);
+                }
             }
         }
     }

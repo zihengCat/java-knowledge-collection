@@ -48,6 +48,10 @@ public class GraphTest {
             Arrays.toString(adjList.findShortestPath(0, 6))
         );
         System.out.println(
+            "AdjacencyList.findShortestPathLength(0, 6): " +
+            adjList.findShortestPathLength(0, 6)
+        );
+        System.out.println(
             "AdjacencyList.findShortestPath(0, 5): " +
             Arrays.toString(adjList.findShortestPath(0, 5))
         );
