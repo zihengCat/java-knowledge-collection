@@ -172,6 +172,10 @@ Java 核心知识点梳理。
 
 - [图（Graph）的遍历 - 广度优先遍历（Breadth-First-Search）](./DataStructuresAndAlgorithms/GraphBreadthFirstSearch/graph_breadth_first_search.md)
 
+- 桥（Bridge）与割点（Cut-Vertex）
+
+- [哈密尔顿图（Hamiltonian Graph）与哈密尔顿回路（Hamiltonian Circuit）](./DataStructuresAndAlgorithms/HamiltonianCircuitAndGraph/hamiltonian_circuit_and_graph.md)
+
 - LeetCode 785. Is Graph Bipartite
 
 - LeetCode 695. Max Area of Island
