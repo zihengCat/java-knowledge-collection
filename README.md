@@ -4,7 +4,7 @@ Java 核心知识点梳理。
 
 # 目录（TOC）
 
-## Java
+## Java Core
 
 ### 基础
 
@@ -59,6 +59,8 @@ Java 核心知识点梳理。
 #### 并发容器系列
 
 ...
+
+## Java Web
 
 ### Servlet
 
@@ -160,7 +162,7 @@ Java 核心知识点梳理。
 
 ### 堆
 
-- [二叉堆（Heap）数据结构及其 Java 实现](./DataStructuresAndAlgorithms/Heap/heap.md)
+- [堆（Heap）数据结构及二叉堆 Java 实现](./DataStructuresAndAlgorithms/Heap/heap.md)
 
 ### 图
 
