@@ -22,6 +22,29 @@ public interface Graph {
      */
     boolean hasEdge(int vertexA, int vertexB);
     /**
+     * 移除图中的一条边。
+     *
+     * @param vertexA
+     * @param vertexB
+     * @return void
+     */
+    void removeEdge(int vertexA, int vertexB);
+    /**
+     * 添加图中的一条边。
+     *
+     * @param vertexA
+     * @param vertexB
+     * @return boolean
+     */
+    boolean addEdge(int vertexA, int vertexB);
+    /**
+     * 清空图中所有的边。
+     *
+     * @param void
+     * @return void
+     */
+    void clearEdges();
+    /**
      * 获取图中给定顶点的相邻顶点。
      *
      * @param vertex
@@ -58,6 +81,13 @@ public interface Graph {
      */
     boolean isConnected(int vertexA, int vertexB);
     /**
+     * 获取图中连通分量个数。
+     *
+     * @param void
+     * @return int
+     */
+    int connectedComponents();
+    /**
      * 检测图中是否有环。
      *
      * @param void
@@ -88,5 +118,28 @@ public interface Graph {
      * @return int
      */
     int findShortestPathLength(int sourceVertex, int destinationVertex);
+    /**
+     * 寻找哈密尔顿回路。
+     *
+     * @param void
+     * @return int[]
+     */
+    int[] hamiltonianCircuit();
+    /**
+     * 寻找给定顶点的哈密尔顿路径。
+     *
+     * @param vertex
+     * @return int[]
+     */
+    int[] hamiltonianPath(int vertex);
+
+    /**
+     * 深拷贝克隆接口。
+     *
+     * @param void
+     * @return Object
+     * @throws CloneNotSupportedException
+     */
+    Object clone() throws CloneNotSupportedException;
 }
 /* EOF */

@@ -32,6 +32,10 @@ public class SlidingPuzzle {
          *  [4, 5, 0,]]
          */
         String finalState = "123450";
+        // 如果初始盘面已为最终盘面 -> 提前返回
+        if (initialState.equals(finalState)) {
+            return 0;
+        }
         // BFS
         Queue<String> queue = new LinkedList<>();
         Map<String, Integer> visited = new HashMap<>();

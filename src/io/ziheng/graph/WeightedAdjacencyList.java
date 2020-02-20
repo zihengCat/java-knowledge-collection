@@ -1,81 +1,81 @@
 package io.ziheng.graph;
 
-import io.ziheng.graph.Graph;
-import io.ziheng.graph.lookup.LookUpTable;
-import io.ziheng.graph.lookup.LinkedListLookUpTable;
-import io.ziheng.graph.lookup.RedBlackTreeSetLookUpTable;
+import io.ziheng.graph.WeightedGraph;
 
 import java.lang.Cloneable;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Comparator;
 import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.HashMap;
 
-public class AdjacencyList implements Graph, Cloneable {
+public class WeightedAdjacencyList implements WeightedGraph, Cloneable {
 
     private int vertexNum;
     private int edgeNum;
-    private LookUpTable<Integer>[] adjacencyList;
+    private Map<Integer, Integer>[] adjacencyMap;
 
-    private AdjacencyList() {
+    private WeightedAdjacencyList() {
         // ...
     }
 
     @SuppressWarnings("unchecked")
-    public static AdjacencyList buildWith(int[][] adjMatrix) {
+    public static WeightedAdjacencyList buildWith(int[][] adjMatrix) {
         if (adjMatrix == null ||
             adjMatrix.length == 0 ||
-            adjMatrix[0].length != 2 ||
+            // 顶点, 边, 权值
+            adjMatrix[0].length != 3 ||
             adjMatrix[0][0] < 0 ||
             adjMatrix[0][1] < 0) {
             return null;
         }
-        AdjacencyList adj = new AdjacencyList();
+        WeightedAdjacencyList adj = new WeightedAdjacencyList();
         adj.vertexNum = adjMatrix[0][0];
         adj.edgeNum = adjMatrix[0][1];
-        adj.adjacencyList =
-            (LookUpTable<Integer>[])new LookUpTable[adj.vertexNum];
+        adj.adjacencyMap =
+            (Map<Integer, Integer>[])new Map[adj.vertexNum];
         for (int i = 0; i < adj.vertexNum; i++) {
-            adj.adjacencyList[i] = new LinkedListLookUpTable<Integer>();
-            //adj.adjacencyList[i] = new RedBlackTreeSetLookUpTable<Integer>();
+            adj.adjacencyMap[i] = new TreeMap<Integer, Integer>();
         }
         for (int i = 1; i < adjMatrix.length; i++) {
             int vertexA = adjMatrix[i][0];
             int vertexB = adjMatrix[i][1];
+            int weightedValue = adjMatrix[i][2];
             vaildateVertex(vertexA, adj.vertexNum);
             vaildateVertex(vertexB, adj.vertexNum);
-            adj.adjacencyList[vertexA].add(vertexB);
-            adj.adjacencyList[vertexB].add(vertexA);
+            adj.adjacencyMap[vertexA].put(vertexB, weightedValue);
+            adj.adjacencyMap[vertexB].put(vertexA, weightedValue);
         }
         return adj;
     }
     @SuppressWarnings("unchecked")
-    public static AdjacencyList buildWith(String fileName) {
+    public static WeightedAdjacencyList buildWith(String fileName) {
         try {
-            AdjacencyList adj = new AdjacencyList();
+            WeightedAdjacencyList adj = new WeightedAdjacencyList();
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
             adj.vertexNum = scanner.nextInt();
             adj.edgeNum = scanner.nextInt();
-            adj.adjacencyList =
-                (LookUpTable<Integer>[])new LookUpTable[adj.vertexNum];
+            adj.adjacencyMap =
+                (Map<Integer, Integer>[])new Map[adj.vertexNum];
             for (int i = 0; i < adj.vertexNum; i++) {
-                //adj.adjacencyList[i] = new LinkedListLookUpTable<Integer>();
-                adj.adjacencyList[i] = new RedBlackTreeSetLookUpTable<Integer>();
+                adj.adjacencyMap[i] = new TreeMap<Integer, Integer>();
             }
             for (int i = 0; i < adj.edgeNum; i++) {
                 int vertexA = scanner.nextInt();
                 int vertexB = scanner.nextInt();
+                int weightedValue = scanner.nextInt();
                 vaildateVertex(vertexA, adj.vertexNum);
                 vaildateVertex(vertexB, adj.vertexNum);
-                adj.adjacencyList[vertexA].add(vertexB);
-                adj.adjacencyList[vertexB].add(vertexA);
+                adj.adjacencyMap[vertexA].put(vertexB, weightedValue);
+                adj.adjacencyMap[vertexB].put(vertexA, weightedValue);
             }
             scanner.close();
             return adj;
@@ -83,6 +83,116 @@ public class AdjacencyList implements Graph, Cloneable {
             e.printStackTrace();
         }
         return null;
+    }
+    /****************** Weighted Graph Operations *******************/
+    @Override
+    public List<Map<String, Integer>> primMinimumSpanningTree() {
+        List<Map<String, Integer>> minimumSpanningTreeList = new LinkedList<>();
+        /**
+         * 图不连通（连通分量 != 1）无法计算最小生成树
+         */
+        if (connectedComponents() != 1) {
+            return minimumSpanningTreeList;
+        }
+        /**
+         * 切分图：V{0}, V{1...N}
+         */
+        Boolean[] cutVertices = new Boolean[vertexNum];
+        setArray(cutVertices, false);
+        cutVertices[0] = true;
+        /**
+         * 迭代遍历切分图
+         */
+        for (int i = 1; i < vertexNum; i++) {
+            Map<String, Integer> minEdge = new HashMap<>();
+            minEdge.put("vertexA", -1);
+            minEdge.put("vertexB", -1);
+            minEdge.put("weight", Integer.MAX_VALUE);
+            /**
+             * 在切分图另一部分寻找最小权值边
+             */
+            for (int currentVertex = 0; currentVertex < vertexNum; currentVertex++) {
+                if (cutVertices[currentVertex]) {
+                    for (int adjVertex : getAdjacentVertex(currentVertex)) {
+                        if (!cutVertices[adjVertex] &&
+                            getWeight(currentVertex, adjVertex) < minEdge.get("weight")) {
+                            minEdge.replace("vertexA", currentVertex);
+                            minEdge.replace("vertexB", adjVertex);
+                            minEdge.replace("weight", getWeight(currentVertex, adjVertex));
+                        }
+                    }
+                }
+            }
+            /**
+             * 最小权值边两顶点加入切分图中。
+             */
+            minimumSpanningTreeList.add(minEdge);
+            cutVertices[minEdge.get("vertexA")] = true;
+            cutVertices[minEdge.get("vertexB")] = true;
+        }
+        return minimumSpanningTreeList;
+    }
+    @Override
+    public List<Map<String, Integer>> kruskalMinimumSpanningTree() {
+        List<Map<String, Integer>> minimumSpanningTreeList = new LinkedList<>();
+        /**
+         * 图不连通（连通分量 != 1）无法计算最小生成树
+         */
+        if (connectedComponents() != 1) {
+            return minimumSpanningTreeList;
+        }
+        List<Map<String, Integer>> edgesList = new LinkedList<>();
+        /**
+         * 遍历图中所有边，按照权值排序。
+         */
+        for (int vertex = 0; vertex < vertexNum; vertex++) {
+            for (int adjVertex : getAdjacentVertex(vertex)) {
+                if (vertex < adjVertex) {
+                    Map<String, Integer> map = new HashMap<>();
+                    map.put("vertexA", vertex);
+                    map.put("vertexB", adjVertex);
+                    map.put("weight", getWeight(vertex, adjVertex));
+                    edgesList.add(map);
+                }
+            }
+        }
+        Collections.sort(edgesList,
+            new Comparator<Map<String, Integer>>() {
+                @Override
+                public int compare(
+                    Map<String, Integer> o1,
+                    Map<String, Integer> o2) {
+                    return o1.get("weight") - o2.get("weight");
+                }
+            }
+        );
+        /**
+         * 构造一个初始状态为 N 个顶点而无边的非连通图
+         */
+        WeightedGraph weightedGraphWithoutEdges = null;
+        try {
+            weightedGraphWithoutEdges = (WeightedAdjacencyList)this.clone();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        weightedGraphWithoutEdges.clearEdges();
+        /**
+         * 选择权值最小的边，
+         * 若该边依附的顶点落在不同的连通分量上，则将该边加入到非连通图中，
+         * 否则舍去此边，
+         * 以此类推，直至所有顶点都处于同一个连通分量上。
+         * 该连通分量即为当前图的最小生成树 MST。
+         */
+        for (Map<String, Integer> weightedEdge : edgesList) {
+            int vertexA = weightedEdge.get("vertexA");
+            int vertexB = weightedEdge.get("vertexB");
+            int weight = weightedEdge.get("weight");
+            if (!weightedGraphWithoutEdges.isConnected(vertexA, vertexB)) {
+                minimumSpanningTreeList.add(weightedEdge);
+                weightedGraphWithoutEdges.addEdge(vertexA, vertexB, weight);
+            }
+        }
+        return minimumSpanningTreeList;
     }
     @Override
     public int getVertexNum() {
@@ -93,25 +203,37 @@ public class AdjacencyList implements Graph, Cloneable {
         return edgeNum;
     }
     @Override
+    public int getWeight(int vertexA, int vertexB) {
+        if (hasEdge(vertexA, vertexB)) {
+            return adjacencyMap[vertexA].get(vertexB);
+        }
+        return -1;
+    }
+    @Override
     public boolean hasEdge(int vertexA, int vertexB) {
         vaildateVertex(vertexA, this.vertexNum);
         vaildateVertex(vertexB, this.vertexNum);
-        return adjacencyList[vertexA].contains(vertexB);
+        return adjacencyMap[vertexA].containsKey(vertexB);
     }
     @Override
     public void removeEdge(int vertexA, int vertexB) {
         vaildateVertex(vertexA, vertexNum);
         vaildateVertex(vertexB, vertexNum);
-        adjacencyList[vertexA].remove(vertexB);
-        adjacencyList[vertexB].remove(vertexA);
+        adjacencyMap[vertexA].remove(vertexB);
+        adjacencyMap[vertexB].remove(vertexA);
     }
     @Override
     public boolean addEdge(int vertexA, int vertexB) {
+        // Unsupported Operation
+        return false;
+    }
+    @Override
+    public boolean addEdge(int vertexA, int vertexB, int weight) {
         vaildateVertex(vertexA, vertexNum);
         vaildateVertex(vertexB, vertexNum);
         if (!hasEdge(vertexA, vertexB)) {
-            adjacencyList[vertexA].add(vertexB);
-            adjacencyList[vertexB].add(vertexA);
+            adjacencyMap[vertexA].put(vertexB, weight);
+            adjacencyMap[vertexB].put(vertexA, weight);
             return true;
         }
         return false;
@@ -119,17 +241,16 @@ public class AdjacencyList implements Graph, Cloneable {
     @Override
     public void clearEdges() {
         for (int i = 0; i < vertexNum; i++) {
-            adjacencyList[i].clear();
+            adjacencyMap[i].clear();
         }
     }
     @Override
     public int[] getAdjacentVertex(int vertex) {
-        vaildateVertex(vertex, this.vertexNum);
-        int[] resultList = new int[adjacencyList[vertex].size()];
+        vaildateVertex(vertex, vertexNum);
+        int[] resultList = new int[adjacencyMap[vertex].size()];
         int i = 0;
-        for (LookUpTable.Iterator<Integer> iterator = adjacencyList[vertex].iterator();
-            iterator.hasNext(); /* ... */ ) {
-            resultList[i] = iterator.next();
+        for (int adjVertex : adjacencyMap[vertex].keySet()) {
+            resultList[i] = adjVertex;
             i++;
         }
         return resultList;
@@ -137,7 +258,7 @@ public class AdjacencyList implements Graph, Cloneable {
     @Override
     public int degree(int vertex) {
         vaildateVertex(vertex, this.vertexNum);
-        return adjacencyList[vertex].size();
+        return adjacencyMap[vertex].size();
     }
     @Override
     public boolean hasCycle() {
@@ -274,8 +395,8 @@ public class AdjacencyList implements Graph, Cloneable {
     }
     @Override
     public boolean isConnected(int vertexA, int vertexB) {
-        vaildateVertex(vertexA, this.vertexNum);
-        vaildateVertex(vertexB, this.vertexNum);
+        vaildateVertex(vertexA, vertexNum);
+        vaildateVertex(vertexB, vertexNum);
         List<Integer> resultList = new LinkedList<Integer>();
         Boolean[] visited = new Boolean[vertexNum];
         setArray(visited, false);
@@ -461,10 +582,9 @@ public class AdjacencyList implements Graph, Cloneable {
         stringBuilder.append(System.lineSeparator());
         for (int i = 0; i < this.vertexNum; i++) {
             stringBuilder.append(String.format("%d: ", i));
-            for (LookUpTable.Iterator<Integer> iterator = adjacencyList[i].iterator();
-                iterator.hasNext(); /* ... */ ) {
+            for (Map.Entry<Integer, Integer> entry : adjacencyMap[i].entrySet()) {
                 stringBuilder.append(String.format(
-                    "%d ", iterator.next()
+                    "{%d->%d=%d} ", i, entry.getKey(), entry.getValue()
                 ));
             }
             stringBuilder.append(System.lineSeparator());
@@ -474,20 +594,18 @@ public class AdjacencyList implements Graph, Cloneable {
     @SuppressWarnings("unchecked")
     @Override
     public Object clone() throws CloneNotSupportedException {
-        AdjacencyList adj = new AdjacencyList();
+        WeightedAdjacencyList adj = new WeightedAdjacencyList();
         adj.vertexNum = this.vertexNum;
         adj.edgeNum = this.edgeNum;
-        LookUpTable<Integer>[] adjacencyListClone =
-            (LookUpTable<Integer>[])new LookUpTable[adj.vertexNum];
+        Map<Integer, Integer>[] adjacencyMapClone =
+            (Map<Integer, Integer>[])new Map[adj.vertexNum];
         for (int i = 0; i < vertexNum; i++) {
-            adjacencyListClone[i] = new RedBlackTreeSetLookUpTable<>();
-            for (LookUpTable.Iterator<Integer> iterator =
-                    adjacencyList[i].iterator();
-                iterator.hasNext(); /* ... */ ) {
-                adjacencyListClone[i].add(iterator.next());
+            adjacencyMapClone[i] = new TreeMap<Integer, Integer>();
+            for (Map.Entry<Integer, Integer> entry : adjacencyMap[i].entrySet()) {
+                adjacencyMapClone[i].put(entry.getKey(), entry.getValue());
             }
         }
-        adj.adjacencyList = adjacencyListClone;
+        adj.adjacencyMap = adjacencyMapClone;
         return adj;
     }
 }

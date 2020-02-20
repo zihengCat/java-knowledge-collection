@@ -6,13 +6,17 @@
 
 > 图：哈密尔顿问题
 
-- 哈密尔顿路径（Hamiltonian Path）：通过图中每个顶点一次且仅一次（exactly once）的路径。
+- 哈密尔顿路径（Hamiltonian Path）：从一个顶点出发，通过图中每个顶点一次且仅一次（exactly once）的路径。
 
 - 哈密尔顿回路（Hamiltonian Circuit）：其中有一条哈密尔顿路径是环路。
 
 - 哈密尔顿图（Hamiltonian Graph）：存在哈密尔顿回路的图。
 
-# 暴力回溯解法
+# 求解哈密尔顿路径（回溯法）
+
+...
+
+# 优化手段
 
 ...
 
