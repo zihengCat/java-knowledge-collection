@@ -178,6 +178,12 @@ Java 核心知识点梳理。
 
 - [哈密尔顿图（Hamiltonian Graph）与哈密尔顿回路（Hamiltonian Circuit）](./DataStructuresAndAlgorithms/HamiltonianCircuitAndGraph/hamiltonian_circuit_and_graph.md)
 
+- [欧拉路径（Euler Path）与欧拉回路（Euler Circuit）](./DataStructuresAndAlgorithms/EulerPathAndCircuit/euler_path_and_circuit.md)
+
+- [带权图（Weighted Graph）及其实现](./DataStructuresAndAlgorithms/EulerPathAndCircuit/euler_path_and_circuit.md)
+
+- [带权图（Weighted Graph）的最小生成树](./DataStructuresAndAlgorithms/MinimumSpanningTreeOfWeightedGraph/minimum_spanning_tree_of_weighted_graph.md)
+
 - LeetCode 785. Is Graph Bipartite
 
 - LeetCode 695. Max Area of Island
@@ -191,6 +197,10 @@ Java 核心知识点梳理。
 - [哈希表数据结构 Java 实现](./DataStructuresAndAlgorithms/HashTable/hash_table.md)
 
 - [LeetCode 001. Two Sum]()
+
+### 位运算
+
+- 状态压缩
 
 ## 操作系统
 
