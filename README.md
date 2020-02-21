@@ -182,7 +182,9 @@ Java 核心知识点梳理。
 
 - [带权图（Weighted Graph）及其实现](./DataStructuresAndAlgorithms/EulerPathAndCircuit/euler_path_and_circuit.md)
 
-- [带权图（Weighted Graph）的最小生成树](./DataStructuresAndAlgorithms/MinimumSpanningTreeOfWeightedGraph/minimum_spanning_tree_of_weighted_graph.md)
+- [带权图（Weighted Graph）的最小生成树（Minimum Spanning Tree）](./DataStructuresAndAlgorithms/MinimumSpanningTreeOfWeightedGraph/minimum_spanning_tree_of_weighted_graph.md)
+
+- [带权图（Weighted Graph）的最短路径（Shortest Path）](./DataStructuresAndAlgorithms/WeightedGraphShortestPath/weighted_graph_shortest_path.md)
 
 - LeetCode 785. Is Graph Bipartite
 

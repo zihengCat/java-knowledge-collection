@@ -52,5 +52,16 @@ public interface WeightedGraph extends Graph {
      * @return {@code List<Map<String, Integer>>}
      */
     List<Map<String, Integer>> primMinimumSpanningTree();
+    /**
+     * 使用 Dijkstra 算法寻找最短路径。
+     * - 时间复杂度（迭代）：{@code O(E*V^2)}
+     * - 时间复杂度（优先队列）：{@code O(E*logE)}
+     * - 时间复杂度（索引堆）：{@code O(E*logV)}
+     *
+     * @param sourceVertex
+     * @param destinationVertex
+     * @return {@code int[]}
+     */
+    int[] dijkstraShortestPath(int sourceVertex, int destinationVertex);
 }
 /* EOF */

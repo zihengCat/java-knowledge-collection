@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.HashMap;
 
@@ -85,6 +86,102 @@ public class WeightedAdjacencyList implements WeightedGraph, Cloneable {
         return null;
     }
     /****************** Weighted Graph Operations *******************/
+    private class Pair<L, R> {
+        private L left;
+        private R right;
+        public Pair(L left, R right) {
+            this.left = left;
+            this.right = right;
+        }
+        public L getLeft() {
+            return left;
+        }
+        public R getRight() {
+            return right;
+        }
+    }
+    @Override
+    public int[] dijkstraShortestPath(int sourceVertex, int destinationVertex) {
+        vaildateVertex(sourceVertex, vertexNum);
+        vaildateVertex(destinationVertex, vertexNum);
+        Integer[] previous = new Integer[vertexNum];
+        // 源头顶点到图中各顶点的最短路径
+        Integer[] dis = new Integer[vertexNum];
+        // 记录哪些顶点已经确定了最短路径
+        Boolean[] visited = new Boolean[vertexNum];
+        setArray(previous, -1);
+        setArray(dis, Integer.MAX_VALUE);
+        setArray(visited, false);
+        previous[sourceVertex] = sourceVertex;
+        // 源头顶点到自身的最短路径已经确定 -> 0
+        dis[sourceVertex] = 0;
+        // 不能设为 true
+        //visited[sourceVertex] = true;
+        while (true) {
+            /**
+             * Step 1. 寻找最短路径
+             * 优化点：优先队列
+             */
+            int currentMinimalDistance = Integer.MAX_VALUE;
+            int currentMinimalVertex = -1;
+            PriorityQueue<Pair<Integer, Integer>> priorityQueue = new PriorityQueue<>(
+                new Comparator<Pair<Integer, Integer>>() {
+                    @Override
+                    public int compare(
+                        Pair<Integer, Integer> o1,
+                        Pair<Integer, Integer> o2) {
+                        return o1.getRight() - o2.getRight();
+                    }
+                }
+            );
+            // 遍历顶点寻找最短路径
+            for (int vertex = 0; vertex < vertexNum; vertex++) {
+                if (!visited[vertex] && dis[vertex] < currentMinimalDistance) {
+                    currentMinimalDistance = dis[vertex];
+                    currentMinimalVertex = vertex;
+                }
+            }
+            // 所有顶点都已找到最短路径 -> 退出
+            if (currentMinimalVertex == -1) {
+                break;
+            }
+            /**
+             * Step 2. 确认最短路径
+             */
+            visited[currentMinimalVertex] = true;
+            /**
+             * Step 3. 更新最短路径
+             */
+            for (int adjVertex : getAdjacentVertex(currentMinimalVertex)) {
+                if (!visited[adjVertex]) {
+                    if (dis[currentMinimalVertex]
+                        + getWeight(currentMinimalVertex, adjVertex)
+                        < dis[adjVertex]) {
+                        dis[adjVertex] = dis[currentMinimalVertex] +
+                            getWeight(currentMinimalVertex, adjVertex);
+                        previous[adjVertex] = currentMinimalVertex;
+                    }
+                }
+            }
+        }
+        //int[] resultArray = new int[dis.length];
+        //for (int i = 0; i < resultArray.length; i++) {
+        //    resultArray[i] = dis[i];
+        //}
+        return dijkstraShortestPath0(sourceVertex, destinationVertex, previous);
+    }
+    private int[] dijkstraShortestPath0(
+        int sourceVertex, int destinationVertex, Integer[] previous) {
+        List<Integer> resultList = new LinkedList<>();
+        int currentVertex = destinationVertex;
+        while (currentVertex != sourceVertex) {
+            resultList.add(currentVertex);
+            currentVertex = previous[currentVertex];
+        }
+        resultList.add(sourceVertex);
+        Collections.reverse(resultList);
+        return toIntArray(resultList);
+    }
     @Override
     public List<Map<String, Integer>> primMinimumSpanningTree() {
         List<Map<String, Integer>> minimumSpanningTreeList = new LinkedList<>();

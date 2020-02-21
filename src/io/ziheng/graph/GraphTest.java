@@ -24,6 +24,22 @@ public class GraphTest {
         // ...
         testWeightedGraph();
         testWeightedGraphMinimumSpanningTree();
+        testWeightedGraphShortestPath();
+    }
+    public static void testWeightedGraphShortestPath() {
+        int[][] wGraph = new int[][] {
+            {4, 5, 0, },
+            {0, 1, 10, },
+            {0, 2, 2, },
+            {0, 3, 3, },
+            {1, 2, 4, },
+            {1, 3, 5, },
+        };
+        WeightedGraph weightedGraph = WeightedAdjacencyList.buildWith(wGraph);
+        System.out.println(
+            "WeightedGraph.dijkstraShortestPath(1, 0): " +
+            Arrays.toString(weightedGraph.dijkstraShortestPath(1, 0))
+        );
     }
     public static void testWeightedGraphMinimumSpanningTree() {
         int[][] weightedGraph = new int[][] {
