@@ -3,10 +3,70 @@ package io.ziheng.tree;
 import io.ziheng.tree.TreeNode;
 
 import java.util.Queue;
+import java.util.Random;
+import java.util.List;
 import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class BinaryTreeTest {
     public static void main(String[] args) {
+        testBinarySearchTree();
+        testBinarySearchTreeRemoveMinAndMax();
+        testBinarySearchTreeRemoveNode();
+    }
+    public static void testBinarySearchTreeRemoveNode() {
+        Integer [] arr = new Integer[]{5, 3, 6, 8, 4, 2, 7, };
+        BinarySearchTree<Integer> binarySearchTree =
+            BinarySearchTree.buildWith(arr);
+        binarySearchTree.travelsalTree();
+        binarySearchTree.remove(3);
+        binarySearchTree.remove(5);
+        binarySearchTree.remove(6);
+        binarySearchTree.travelsalTree();
+    }
+    public static void testBinarySearchTreeRemoveMinAndMax() {
+        BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
+        Random random = new Random();
+        int capacity = 10000;
+        for (int i = 0; i < capacity; i++) {
+            binarySearchTree.add(random.nextInt(Integer.MAX_VALUE));
+        }
+        assert binarySearchTree.size() == capacity;
+        List<Integer> list = new ArrayList<>();
+        while (!binarySearchTree.isEmpty()) {
+            list.add(binarySearchTree.removeMin());
+        }
+        assert list.size() == capacity;
+        for (int i = 1; i < capacity; i++) {
+            assert list.get(i) > list.get(i - 1);
+        }
+        System.out.println("Test result: OK");
+    }
+    public static void testBinarySearchTree() {
+        BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
+        int[] arr = new int[]{5, 3, 6, 8, 4, 2, 7, };
+        /**
+         *          5
+         *        /   \
+         *       3     6
+         *      /  \    \
+         *     2    4    8
+         *              /
+         *             7
+         */
+        for (int i : arr) {
+            binarySearchTree.add(i);
+        }
+        /**
+         * PreOrder:  [5, 3, 2, 4, 6, 8,]
+         * InOrder:   [2, 3, 4, 5, 6, 8,]
+         * PostOrder: [2, 4, 3, 8, 6, 5,]
+         */
+        assert binarySearchTree.contains(5) == true;
+        assert binarySearchTree.contains(55) == false;
+        binarySearchTree.travelsalTree();
+    }
+    public static void main2(String[] args) {
         /*
         TreeNode<Integer> root = new TreeNode<Integer>(null, null, null);
         TreeNode<Integer> node1 = new TreeNode<Integer>(1, null, null);
