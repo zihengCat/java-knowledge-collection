@@ -8,7 +8,7 @@ import java.util.Queue;
  * LeetCode 559. Maximum Depth of N-ary Tree
  * https://leetcode.com/problems/maximum-depth-of-n-ary-tree/
  */
-public class MaximumDepthOfNaryTree {
+public class MaximumDepthOfNAryTree {
     private class Node {
         public int val;
         public List<Node> children;

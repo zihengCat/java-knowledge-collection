@@ -162,6 +162,10 @@ Java 核心知识点梳理。
 
 - [二分搜索树（Binary Search Tree）数据结构概览及其实现](./DataStructuresAndAlgorithms/BinarySearchTree/binary_search_tree.md)
 
+- [AVL 树概览及其实现](./DataStructuresAndAlgorithms/AVLTree/avl_tree.md)
+
+- [红黑树（Red Black Tree）概览及其实现](./DataStructuresAndAlgorithms/RedBlackTree/red_black_tree.md)
+
 ### 堆
 
 - [堆（Heap）数据结构及二叉堆 Java 实现](./DataStructuresAndAlgorithms/Heap/heap.md)

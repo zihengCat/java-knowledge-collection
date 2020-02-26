@@ -1,6 +1,8 @@
 package io.ziheng.tree;
 
 import io.ziheng.tree.TreeNode;
+import io.ziheng.tree.BinarySearchTree;
+import io.ziheng.tree.AVLTree;
 
 import java.util.Queue;
 import java.util.Random;
@@ -11,11 +13,46 @@ import java.util.ArrayList;
 public class BinaryTreeTest {
     public static void main(String[] args) {
         testBinarySearchTree();
-        testBinarySearchTreeRemoveMinAndMax();
         testBinarySearchTreeRemoveNode();
+        testBinarySearchTreeRemoveMinAndMax();
+        testAVLTree();
+        testAVLTreeRemoveNode();
+    }
+    public static void testAVLTree() {
+        AVLTree<Integer> avlTree = new AVLTree<>();
+        Random random = new Random();
+        int capacity = 1000000;
+        long startTime = System.nanoTime();
+        for (int i = 0; i < capacity; i++) {
+            avlTree.add(random.nextInt(Integer.MAX_VALUE));
+        }
+        assert avlTree.size() == capacity;
+        List<Integer> list = new ArrayList<>();
+        while (!avlTree.isEmpty()) {
+            list.add(avlTree.removeMin());
+        }
+        assert list.size() == capacity;
+        for (int i = 1; i < capacity; i++) {
+            assert list.get(i) > list.get(i - 1);
+        }
+        long endTime = System.nanoTime();
+        System.out.println(
+            "Test result: OK, time: " +
+            (endTime - startTime) / (1000 * 1000 * 1000 * 1.0)
+        );
+    }
+    public static void testAVLTreeRemoveNode() {
+        Integer[] arr = new Integer[]{5, 3, 6, 8, 4, 2, 7, };
+        AVLTree<Integer> avlTree = AVLTree.buildWith(arr);
+        avlTree.travelsalTree();
+        avlTree.remove(3);
+        avlTree.remove(5);
+        avlTree.remove(6);
+        avlTree.travelsalTree();
     }
     public static void testBinarySearchTreeRemoveNode() {
-        Integer [] arr = new Integer[]{5, 3, 6, 8, 4, 2, 7, };
+        Integer[] arr = new Integer[]{5, 3, 6, 8, 4, 2, 7, };
+        //AVLTree<Integer> avlTree = AVLTree.buildWith(arr);
         BinarySearchTree<Integer> binarySearchTree =
             BinarySearchTree.buildWith(arr);
         binarySearchTree.travelsalTree();
@@ -27,7 +64,8 @@ public class BinaryTreeTest {
     public static void testBinarySearchTreeRemoveMinAndMax() {
         BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
         Random random = new Random();
-        int capacity = 10000;
+        int capacity = 1000000;
+        long startTime = System.nanoTime();
         for (int i = 0; i < capacity; i++) {
             binarySearchTree.add(random.nextInt(Integer.MAX_VALUE));
         }
@@ -40,7 +78,11 @@ public class BinaryTreeTest {
         for (int i = 1; i < capacity; i++) {
             assert list.get(i) > list.get(i - 1);
         }
-        System.out.println("Test result: OK");
+        long endTime = System.nanoTime();
+        System.out.println(
+            "Test result: OK, time: " +
+            (endTime - startTime) / (1000 * 1000 * 1000 * 1.0)
+        );
     }
     public static void testBinarySearchTree() {
         BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
