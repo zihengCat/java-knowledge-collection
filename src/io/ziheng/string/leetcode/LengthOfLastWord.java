@@ -1,4 +1,4 @@
-package io.ziheng.array.leetcode;
+package io.ziheng.string.leetcode;
 
 import java.util.List;
 import java.util.ArrayList;
