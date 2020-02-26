@@ -15,9 +15,9 @@ public class InsertionSort {
             return;
         }
         for (int i = left + 1; i <= right; ++i) {
-            for (int j = i - 1; j >= left; --j) {
-                if (arr[j] > arr[j + 1]) {
-                    swap(arr, j, j + 1);
+            for (int j = i; j > left; --j) {
+                if (arr[j] < arr[j - 1]) {
+                    swap(arr, j, j - 1);
                 } else {
                     break;
                 }
@@ -34,5 +34,7 @@ public class InsertionSort {
 /* EOF */
 ```
 > 代码清单：插入排序 - Java 实现
+
+
 
 <!-- EOF -->
