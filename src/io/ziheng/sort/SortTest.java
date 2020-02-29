@@ -9,7 +9,6 @@ import io.ziheng.sort.QuickSort;
 import java.util.Arrays;
 import java.util.Random;
 
-
 public class SortTest {
     public static void main(String[] args) {
         System.out.println("SelectionSort(): ");
