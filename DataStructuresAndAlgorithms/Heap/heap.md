@@ -65,7 +65,7 @@ public class HeapTest {
         Random random = new Random();
         MaxHeap<Integer> maxHeap = new MaxHeap<Integer>(capacity);
         for (int i = 0; i < capacity; ++i) {
-            maxHeap.add(
+            maxHeap.insert(
                 random.nextInt(Integer.MAX_VALUE)
             );
         }
@@ -93,7 +93,7 @@ public class HeapTest {
 
 | 接口         | 说明             |
 | :---------- | :--------------- |
-| `add()`     | 向堆中添加一个新元素 |
+| `insert()`  | 向堆中添加一个新元素 |
 | `extract()` | 移除堆顶元素 |
 | `peek()`    | 查看堆顶元素 |
 | `size()`    | 获取堆存放元素数量 |
@@ -106,13 +106,14 @@ public class HeapTest {
 
 ```java
 public interface HeapOperation<E> {
-    void add(E e);
+    void insert(E e);
     E peek();
     E extract();
     int size();
     boolean isEmpty();
     void clear();
 }
+/* EOF */
 ```
 > 代码清单：堆操作 Java 接口
 
@@ -248,10 +249,10 @@ private void freeNode(int index) {
 
 ## 二叉堆添加新元素（Sift Up）
 
-向二叉堆中添加新元素`add()`具体流程如下：
+向二叉堆中添加新元素`insert()`具体流程如下：
 
-1. 向二叉堆树末端（对应数组尾索引）添加一个新节点。
-2. 执行`siftUp()`操作使新节点「上浮」：比较「新节点」与「其父节点」的值，依据堆类型（最大堆/最小堆）进行节点交换，迭代上溯直至满足堆的定义或抵达根节点。
+1. 向二叉堆树尾端（对应数组尾索引位置）添加一个新节点。
+2. 执行`siftUp()`操作使新节点「上浮」：比较「新节点」与「其父节点」的值，依据堆类型（最大堆/最小堆）进行节点交换，迭代上溯直至满足堆定义或抵达根节点。
 
 ```java
 /**
@@ -261,7 +262,7 @@ private void freeNode(int index) {
  * @return void
  */
 @Override
-public void add(E element) {
+public void insert(E element) {
     elementData[size] = element;
     size++;
     siftUpNode(size - 1);
@@ -368,7 +369,7 @@ public static <E extends Comparable<E>> MaxHeap<E> heapify(E[] arr) {
     int initialCapacity = arr.length;
     MaxHeap<E> maxHeap = new MaxHeap<E>(initialCapacity);
     for (int i = 0; i < arr.length; ++i) {
-        maxHeap.add(arr[i]);
+        maxHeap.insert(arr[i]);
     }
     return maxHeap;
 }

@@ -56,13 +56,13 @@ public class MaxHeap<E extends Comparable<E>> implements HeapOperator<E> {
         int initialCapacity = arr.length;
         MaxHeap<E> maxHeap = new MaxHeap<E>(initialCapacity);
         for (int i = 0; i < arr.length; ++i) {
-            maxHeap.add(arr[i]);
+            maxHeap.insert(arr[i]);
         }
         return maxHeap;
     }
 
     @Override
-    public void add(E element) {
+    public void insert(E element) {
         if (size + 1 > capacity) {
             grow();
         }

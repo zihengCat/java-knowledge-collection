@@ -5,6 +5,7 @@ import io.ziheng.sort.InsertionSort;
 import io.ziheng.sort.BubbleSort;
 import io.ziheng.sort.MergeSort;
 import io.ziheng.sort.QuickSort;
+import io.ziheng.sort.HeapSort;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -21,6 +22,8 @@ public class SortTest {
         testSort(new MergeSort());
         System.out.println("QuickSort(): ");
         testSort(new QuickSort());
+        System.out.println("HeapSort(): ");
+        testSort(new HeapSort());
     }
     public static void testSort(Sort sorter) {
         Random random = new Random();

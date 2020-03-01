@@ -224,9 +224,17 @@ Java 核心知识点梳理。
 
 - [红黑树（Red Black Tree）概览及其实现](./DataStructuresAndAlgorithms/RedBlackTree/red_black_tree.md)
 
+- LeetCode 112. Path Sum
+
+- LeetCode 113. Path Sum II
+
+- LeetCode 437. Path Sum III
+
 ### 堆
 
-- [堆（Heap）数据结构及二叉堆 Java 实现](./DataStructuresAndAlgorithms/Heap/heap.md)
+- [堆（Heap）数据结构与二叉堆 Java 实现](./DataStructuresAndAlgorithms/Heap/heap.md)
+
+- [索引堆（Index Heap）结构及其 Java 实现]()
 
 ### 图
 

@@ -7,6 +7,19 @@ public class MergeSort implements Sort {
     public void sort(int[] arr) {
         mergeSort(arr);
     }
+    /**
+     * 归并排序法。
+     * 
+     * 算法思路：
+     * 将数组分为左右两部分，
+     * 对两部分分别排序，合并排序后的数组分区，递归进行。
+     *
+     * 时间复杂度：O(n * log(n))
+     * 空间复杂度：O(n)
+     *
+     * @param arr
+     * @return void
+     */
     public static void mergeSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;

@@ -2,6 +2,8 @@ package io.ziheng.heap;
 
 import io.ziheng.heap.HeapOperator;
 import io.ziheng.heap.MaxHeap;
+import io.ziheng.heap.MinHeap;
+
 import java.util.Random;
 
 public class HeapTest {
@@ -13,7 +15,7 @@ public class HeapTest {
         Random random = new Random();
         HeapOperator<Integer> maxHeap = new MaxHeap<Integer>();
         for (int i = 0; i < capacity; ++i) {
-            maxHeap.add(
+            maxHeap.insert(
                 random.nextInt(Integer.MAX_VALUE)
             );
         }

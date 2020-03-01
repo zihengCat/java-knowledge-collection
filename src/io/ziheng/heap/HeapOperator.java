@@ -1,8 +1,8 @@
 package io.ziheng.heap;
 public interface HeapOperator<E> {
-    void add(E e);
-    E peek();
+    void insert(E e);
     E extract();
+    E peek();
     int size();
     boolean isEmpty();
     void clear();
