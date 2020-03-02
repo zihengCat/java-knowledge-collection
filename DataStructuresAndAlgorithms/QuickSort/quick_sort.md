@@ -12,36 +12,26 @@
 import java.util.Arrays;
 public class QuickSort {
     public static void main(String[] args) {
-        int[] arr = new int[]{2, 3, 1, 6, 8, 9, 5, 0, 4, 7};
+        int[] arr = new int[]{2, 3, 1, 6, 8, 9, 5, 0, 4, 7, };
         quickSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
     }
     public static void quickSort(int[] arr, int left, int right) {
-        /* 处理异常情况 */
-        if (arr == null || arr.length < 2 ||
-        /* 递归退出条件 */
-            left >= right) {
+        if (arr == null || arr.length < 2
+            || left >= right) {
             return;
         }
-        /* 分割排序 */
         int index = partition(arr, left, right);
-        /* 排序左部分 */
         quickSort(arr, left, index - 1);
-        /* 排序右部分 */
         quickSort(arr, index + 1, right);
     }
     private static int partition(int[] arr, int left, int right) {
-        /* 取基准点 */
         int pivot = arr[left];
-        /* 左指针 */
         int pLeft = left;
-        /* 右指针 */
         int pRight = right;
-        /* 左右指针前后遍历，
-           找到大于（小于）基准点的值，交换 */
         while (pLeft < pRight) {
-            while (arr[pRight] >= pivot && pLeft < pRight) {
-                pRight--;
+            while (arr[pRight] > pivot && pLeft < pRight) {
+                pRight++l
             }
             while (arr[pLeft] <= pivot && pLeft < pRight) {
                 pLeft++;
@@ -50,12 +40,9 @@ public class QuickSort {
                 swap(arr, pLeft, pRight);
             }
         }
-        /* 将基准值放置到合适位置 */
-        swap(arr, pLeft, left);
-        /* 返回基准值索引下标 */
+        swap(arr, left, pLeft);
         return pLeft;
     }
-    /* 数组元素交换函数 */
     private static void swap(int[] arr, int i, int j) {
         int tmp = arr[i];
         arr[i] = arr[j];
@@ -68,8 +55,8 @@ public class QuickSort {
 
 算法复杂度分析：
 
-- 时间复杂度：最优情况`O(n*logn)`，最坏情况`O(n^2)`，平均情况`O(n*logn)`。
+- 时间复杂度：最优情况`O(n * log(n))`，最坏情况`O(n^2)`，平均情况`O(n * log(n))`。
 
-- 空间复杂度：最优情况`O(logn)`，最坏情况`O(n)`，平均情况`O(logn)`。
+- 空间复杂度：最优情况`O(log(n))`，最坏情况`O(n)`，平均情况`O(log(n))`。
 
 <!-- EOF -->
