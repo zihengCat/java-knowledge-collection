@@ -58,8 +58,10 @@ public static int number = 6;
 
 类变量`number`在准备阶段后的值为`0`而不是`6`。因为此时还没有开始执行任何 Java 方法。而将变量`number`赋值为`6`是在程序编译后执行`putstatic`指令，存放于类的构造器`<clinit>()`方法中，所以`number`赋值为`6`的操作将在**初始化阶段**进行。
 
-但是，如果变量前加上`final`关键字，则会在编译期就将其结果放入常量池中，即准备阶段后此时`number`值为`6`。
+```java
+public static final int number = 6;
+```
 
-
+但是，如果变量加上`final`关键字修饰，则在编译期间就会为`number`生成 ConstantValue 属性将其结果放入常量池中，在准备阶段 JVM 虚拟机根据 ConstantValue 属性直接将`number`赋值为`6`，即：准备阶段后此时`number`值为`6`。
 
 <!-- EOF -->
