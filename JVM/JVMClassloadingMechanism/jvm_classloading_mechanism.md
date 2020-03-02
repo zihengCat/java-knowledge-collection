@@ -128,9 +128,9 @@ public static final int number = 6;
 
 - **应用程序类加载器（Application ClassLoader）**：负责加载用户指定路径`classpath`下的类。开发者可以直接使用该类加载器，如果没有自定义类加载器，则其为 Java 程序中默认的类加载器。
 
-- **线程上下文类加载器（Thread Context ClassLoader）**：线程上下文类加载器在默认情况下就是应用程序类加载器。
+- **线程上下文类加载器（Thread Context ClassLoader）**：通过`Thread`类`setContextClassLoader()`方法设置。如果创建线程时未设置，则从父线程中继承；如果在应用程序全局范围内都没有设置过，则默认为应用程序类加载器。为了实现 SPI（服务提供者接口）而设置的类加载器。
 
-Java 类加载器形成的层级结构也被称为 Java 类加载器的**双亲委派模型**。类加载器之间的关系不是靠继承而是使用组合的方式实现。
+Java 类加载器形成的层级结构也被称为**双亲委派模型**。类加载器之间的关系不是靠继承而是使用组合的方式实现。
 
 如果一个类加载器收到加载类的请求，首先将请求委托给其父加载器，依次向上直至顶端的启动类加载器，此时当父类加载器在其搜索范围内找不到请求类时（即：当前类加载器无法完成类加载），子类加载器才会尝试自己加载该类。
 
@@ -156,11 +156,11 @@ Java 设计者提出的双亲委派约束模型意义总结：
 
 破坏双亲委派模型的情况：
 
-- JDBC
+- SPI（Service Provider Interface）：JNDI、JDBC、JCE、JAXB 与 JBI 等。
 
-- Tomcat
+- Tomcat：使用`WebappClassLoader`加载自己目录下的类文件，不传递给父类加载器。隔离不同`webapp`下的 `class`和`lib`，实现相同资源共享，实现热部署。
 
-- OSGI（Open Service Gateway Initiative）
+- OSGI（Open Service Gateway Initiative）：动态改变构造，模块化编程与热插拔。
 
 [JVM-ClassloadingMechanism-1-ClassloadingFlow]: ../../images/JVM-ClassloadingMechanism-1-ClassloadingFlow.png
 
