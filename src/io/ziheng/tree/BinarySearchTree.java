@@ -42,6 +42,26 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return size == 0;
     }
 
+    public void clear() {
+        clearResursively(root);
+        root = null;
+        size = 0;
+    }
+    /**
+     * 后序遍历。
+     *
+     * @param root
+     * @return void
+     */
+    private void clearResursively(TreeNode<E> root) {
+        if (root == null) {
+            return;
+        }
+        clearResursively(root.left);
+        clearResursively(root.right);
+        freeNode(root);
+    }
+
     public boolean contains(E element) {
         //return containsRecursively(root, element);
         return containsIteratively(root, element);
@@ -79,8 +99,14 @@ public class BinarySearchTree<E extends Comparable<E>> {
         root = addRecursively(root, element);
         //root = addIteratively(root, element);
     }
+
+    public void insert(E element) {
+        add(element);
+    }
+
     private TreeNode<E> addIteratively(TreeNode<E> root, E element) {
         if (root == null) {
+            size++;
             return new TreeNode<E>(element, null, null);
         }
         TreeNode<E> parentNode = root;
@@ -98,6 +124,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         } else if (element.compareTo(parentNode.element) > 0) {
             parentNode.right = new TreeNode<E>(element, null, null);
         }
+        size++;
         return root;
     }
     private TreeNode<E> addRecursively(TreeNode<E> root, E element) {
@@ -146,16 +173,14 @@ public class BinarySearchTree<E extends Comparable<E>> {
                 size--;
                 return rightNode;
             }
-            // 有左右子树 -> Hibbard Deletion（前驱/后继节点取代当前节点）
-            // root.left != null && root.right != null
-            else {
-                //TreeNode<E> previousSuccessorNode =
-                //    findMaximumRecursively(root.left);
-                //previousSuccessorNode.left = removeMaxRecursively(root.left);
-                //previousSuccessorNode.right = root.right;
-                //freeNode(root);
-                //return previousSuccessorNode;
-
+            // 左右子树 -> Hibbard Deletion（寻找前驱/后继节点取代当前节点）
+            else { /* root.left != null && root.right != null */
+                // TreeNode<E> previousSuccessorNode =
+                //     findMaximumRecursively(root.left);
+                // previousSuccessorNode.left = removeMaxRecursively(root.left);
+                // previousSuccessorNode.right = root.right;
+                // freeNode(root);
+                // return previousSuccessorNode;
                 TreeNode<E> nextSuccessorNode =
                     findMinimumRecursively(root.right);
                 swapNode(root, nextSuccessorNode);
@@ -186,8 +211,26 @@ public class BinarySearchTree<E extends Comparable<E>> {
     public E removeMin() {
         E ret = findMinimum();
         root = removeMinRecursively(root);
+        //removeMinIteratively(root);
         return ret;
     }
+
+    private void removeMinIteratively(TreeNode<E> root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode<E> parentNode = root;
+        TreeNode<E> currentNode = root;
+        // Find minimum
+        while (currentNode.left != null) {
+            parentNode = currentNode;
+            currentNode = currentNode.left;
+        }
+        parentNode.left = currentNode.right;
+        freeNode(currentNode);
+        size--;
+    }
+
     private TreeNode<E> removeMinRecursively(TreeNode<E> root) {
         if (root.left == null) {
             TreeNode<E> rightNode = root.right;
@@ -203,6 +246,15 @@ public class BinarySearchTree<E extends Comparable<E>> {
             return null;
         }
         return findMinimumRecursively(root).element;
+    }
+    private TreeNode<E> findMinimumIteratively(TreeNode<E> root) {
+        if (root == null) {
+            return root;
+        }
+        while (root.left != null) {
+            root = root.left;
+        }
+        return root;
     }
     private TreeNode<E> findMinimumRecursively(TreeNode<E> root) {
         if (root.left == null) {

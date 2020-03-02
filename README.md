@@ -24,6 +24,8 @@ Java 核心知识点梳理。
 
 - [JVM 内存区域](./JVM/03.JVM-Memory-Areas/jvm_memory_areas.md)
 
+- [JVM 类加载机制](./JVM/JVM-Classloading-Mechanism/jvm_classloading_mechanism.md)
+
 ### 并发
 
 - [Java 并发编程概览](./Concurrency/01.Overview/overview.md)
@@ -263,6 +265,10 @@ Java 核心知识点梳理。
 - LeetCode 695. Max Area of Island
 
 - LeetCode 773. Sliding Puzzle
+
+### 并查集
+
+- [并查集（Union Find）数据结构概览]()
 
 ### 哈希表
 
