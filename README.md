@@ -24,7 +24,7 @@ Java 核心知识点梳理。
 
 - [JVM 内存区域](./JVM/03.JVM-Memory-Areas/jvm_memory_areas.md)
 
-- [JVM 类加载机制](./JVM/JVM-Classloading-Mechanism/jvm_classloading_mechanism.md)
+- [JVM 类加载机制](./JVM/JVMClassloadingMechanism/jvm_classloading_mechanism.md)
 
 ### 并发
 
