@@ -154,7 +154,7 @@ Java 核心知识点梳理。
 
 ### 回溯剪枝
 
-- [LeetCode 017. Letter Combinations of a Phone Number]()
+- [LeetCode 017. Letter Combinations of a Phone Number](./src/io/ziheng/recursion/backtracking/leetcode/LetterCombinationsOfAPhoneNumber.java)
 
 ### 动态规划
 

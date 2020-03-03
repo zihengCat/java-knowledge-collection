@@ -1,9 +1,9 @@
-package io.ziheng.recursion.backtrcking.leetcode;
+package io.ziheng.recursion.backtracking.leetcode;
 
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * LeetCode 17. Letter Combinations of a Phone Number
@@ -11,12 +11,16 @@ import java.util.Map;
  */
 public class LetterCombinationsOfAPhoneNumber {
     public static void main(String[] args) {
-        List<String> result = new LetterCombinationsOfAPhoneNumber().letterCombinations("234");
+        List<String> result = new LetterCombinationsOfAPhoneNumber()
+            .letterCombinations("234");
+        System.out.println(result);
+        result = new LetterCombinationsOfAPhoneNumber()
+            .letterCombinationsIteratively("234");
         System.out.println(result);
     }
     private List<String> resultList = new LinkedList<>();
     /**
-     * 号码与字母映射。
+     * 号码与字母映射表。
      */
     private static final Map<Character, String> lettersMap = new HashMap<>();
     static {
@@ -38,15 +42,36 @@ public class LetterCombinationsOfAPhoneNumber {
         findCombination(digits, 0, "");
         return resultList;
     }
+    public List<String> letterCombinationsIteratively(String digits) {
+        if (digits == null || digits.length() == 0) {
+            return new LinkedList<>();
+        }
+        List<String> resultList = new LinkedList<>();
+        resultList.add("");
+        for (int i = 0; i < digits.length(); i++) {
+            resultList = combine(lettersMap.get(digits.charAt(i)), resultList);
+        }
+        return resultList;
+    }
+    private List<String> combine(String letter, List<String> lastResult) {
+        List<String> resultList = new LinkedList<>();
+        for (int i = 0; i < letter.length(); i++) {
+            for (String s : lastResult) {
+                resultList.add(s + letter.charAt(i));
+            }
+        }
+        return resultList;
+    }
     /**
-     * ...
+     * 递归回溯法。
+     *
      * @param digis 原始字符串
-     * @param index 索引
+     * @param index 字符索引
      * @param s {@code digits[0... index - 1]}的解
      * @return void
      */
     private void findCombination(String digits, int index, String s) {
-        System.out.printf("%d: %s\n", index, s);
+        // 递归退出：无字符
         if (index == digits.length()) {
             resultList.add(s);
             return;

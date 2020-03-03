@@ -2,11 +2,11 @@
 
 ##  什么是 AQS
 
-AQS 全名 AbstractQueuedSynchronizer，类如其名，抽象队列同步器，是 Java 并发编程中实现同步器的一个框架。**AQS 定义了一套多线程访问共享资源的同步器框架**，JUC 中许多同步类实现都依赖于它，如：`ReentrantLock`、`Semaphore`、`CountDownLatch`等。
+AQS 全名 AbstractQueuedSynchronizer，类如其名：抽象队列同步器。AQS 是 Java 并发编程中实现同步器的一个框架，**AQS 定义了一套多线程访问共享资源的同步器框架**，就如同一套基础设施，JUC 中许多同步类实现都依赖于 AQS 实现了自己的上层逻辑，如：`ReentrantLock`、`Semaphore`、`CountDownLatch`等。
 
 ![Concurrency-AQS-1][Concurrency-AQS-1]
 
-> 图：AQS 结构
+> 图：AQS 结构概览
 
 AQS 内部维护了一个`volatile int state`（代表共享资源）整数和一个 FIFO 线程等待双向队列（多线程争用资源被阻塞时放入队列）。
 

@@ -75,7 +75,7 @@ public static final int number = 6;
 解析主要针对类或接口、字段、类方法、接口方法四类符号引用，他们和常量池中的类型对应关系如下表。
 
 | 符号引用 | 常量类型（常量池） |
-| ------- | --------------- |
+| :------ | :-------------- |
 | 类或接口 | `CONSTANT_Class_info` |
 | 字段    | `CONSTANT_Fieldref_info` |
 | 类方法  | `CONSTANT_Methodref_info` |
@@ -103,7 +103,7 @@ public static final int number = 6;
 
 当用户程序代码执行完毕后，JVM 便开始销毁创建的`Class`对象，最后负责运行的 JVM 也退出内存。
 
-# JVM 虚拟机结束生命周期
+# JVM 生命周期结束
 
 在以下几种情况下，JVM 虚拟机结束生命周期。
 
@@ -160,7 +160,7 @@ Java 设计者提出的双亲委派约束模型意义总结：
 
 - Tomcat：使用`WebappClassLoader`加载自己目录下的类文件，不传递给父类加载器。隔离不同`webapp`下的 `class`和`lib`，实现相同资源共享，实现热部署。
 
-- OSGI（Open Service Gateway Initiative）：动态改变构造，模块化编程与热插拔。
+- OSGI（Open Service Gateway Initiative）：动态改变构造、模块化编程与热插拔。
 
 [JVM-ClassloadingMechanism-1-ClassloadingFlow]: ../../images/JVM-ClassloadingMechanism-1-ClassloadingFlow.png
 
