@@ -63,7 +63,10 @@ public class LetterCombinationsOfAPhoneNumber {
         return resultList;
     }
     /**
-     * 递归回溯法。
+     * 递归回溯法（暴力解法）。
+     *
+     * 时间复杂度：O(2^n)
+     * 空间复杂度：O(n)
      *
      * @param digis 原始字符串
      * @param index 字符索引

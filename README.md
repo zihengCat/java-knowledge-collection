@@ -156,6 +156,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 017. Letter Combinations of a Phone Number](./src/io/ziheng/recursion/backtracking/leetcode/LetterCombinationsOfAPhoneNumber.java)
 
+- [LeetCode 079. Word Search](./src/io/ziheng/recursion/backtracking/leetcode/WordSearch.java)
+
 ### 动态规划
 
 - [斐波那契数列]()

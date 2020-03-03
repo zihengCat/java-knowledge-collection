@@ -1,4 +1,4 @@
-package io.ziheng.recursion.backtrcking.leetcode;
+package io.ziheng.recursion.backtracking.leetcode;
 
 import java.util.List;
 import java.util.LinkedList;
