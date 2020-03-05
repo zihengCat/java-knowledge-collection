@@ -299,4 +299,10 @@ Java 核心知识点梳理。
 
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
+<!--
+- 时刻学习
+- 积极主动
+- 事事有回复
+- 慎重承诺，使命必达
+--
 <!-- EOF -->
