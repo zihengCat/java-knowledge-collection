@@ -26,7 +26,10 @@ Java 核心知识点梳理。
 
 - [JVM 类加载机制](./JVM/JVMClassloadingMechanism/jvm_classloading_mechanism.md)
 
+
 ### 并发
+
+- [Java 内存模型（JMM）](./Concurrency/JavaMemoryModel/java_memory_model.md)
 
 - [Java 并发编程概览](./Concurrency/01.Overview/overview.md)
 
@@ -34,7 +37,11 @@ Java 核心知识点梳理。
 
 - [Java 线程池](./Concurrency/ThreadPool/thread_pool.md)
 
-### 集合容器
+#### 并发容器系列
+
+...
+
+### 集合
 
 #### List 系列
 
@@ -58,10 +65,6 @@ Java 核心知识点梳理。
 
 - [Java LinkedHashSet 源码分析](./Collections/LinkedHashSet/linkedhashset.md)
 
-#### 并发容器系列
-
-...
-
 ## Java Web
 
 ### Servlet
@@ -70,7 +73,7 @@ Java 核心知识点梳理。
 
 ### Spring
 
-...
+- Spring Bean 生命周期
 
 ## 设计模式
 
@@ -160,7 +163,7 @@ Java 核心知识点梳理。
 
 ### 动态规划
 
-- [斐波那契数列]()
+- [斐波那契数列](./DataStructuresAndAlgorithms/FibonacciSequence/fibonacci_sequence.md)
 
 - [背包问题]()
 
