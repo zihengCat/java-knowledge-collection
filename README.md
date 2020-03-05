@@ -29,7 +29,7 @@ Java 核心知识点梳理。
 
 ### 并发
 
-- [Java 内存模型（JMM）](./Concurrency/JavaMemoryModel/java_memory_model.md)
+- [Java 内存模型（JMM）](./JVM/JavaMemoryModel/java_memory_model.md)
 
 - [Java 并发编程概览](./Concurrency/01.Overview/overview.md)
 
