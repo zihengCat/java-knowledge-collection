@@ -6,7 +6,7 @@
 
 - 传输控制协议 TCP （Transmission Control Protoco）：面向连接，提供可靠传输，带有拥塞控制，面向字节流（将应用层下传的数据报文看作字节流，按字节流组织大小不等的数据块），一对一（点对点）全双工通信。
 
-- 用户数据报协议 UDP （User Datagram Protoco）：无连接，尽最大可能交付，无拥塞控制，面向数据报文（对于应用下传的数据报文不做拆分与合并，仅添加 UDP 报文头），支持一对一、一对多、多对一和多对多的交互通信。
+- 用户数据报协议 UDP （User Datagram Protoco）：无连接，尽最大可能交付，无拥塞控制，面向数据报文（对于应用下传的数据报文不做拆分合并，仅添加 UDP 报文头），支持一对一、一对多、多对一和多对多的交互通信。
 
 # UDP 报文首部
 
@@ -40,6 +40,6 @@ UDP 报文首部字段只有 8 个字节，包括源端口、目的端口、长�
 
 [Network-TransportLayer-UDPHeader]: ../../images/Network-TransportLayer-UDPHeader.jpg
 
-[Network-TransportLayer-TCPHeader]: ../../images/Network-TransportLayer-TCPHeader.jpg
+[Network-TransportLayer-TCPHeader]: ../../images/Network-TransportLayer-TCPHeader.png
 
 <!-- EOF -->
