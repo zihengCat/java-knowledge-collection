@@ -128,7 +128,9 @@ TCP 使用**超时重传**机制来实现可靠传输：如果一个已经发送
 
 如果网络出现拥塞，分组将会丢失，此时发送方会继续重传，从而导致网络拥塞程度更高。因此当出现拥塞时，应当控制发送方的速率。这一点和流量控制很像，但是出发点不同。流量控制是为了让接收方能来得及接收，而拥塞控制是为了降低整个网络的拥塞程度。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/51e2ed95-65b8-4ae9-8af3-65602d452a25.jpg" width="500"/> </div><br>
+![Network-TransportLayer-TCPCongestionControl][Network-TransportLayer-TCPCongestionControl]
+
+> 图：TCP 拥塞控制
 
 TCP 主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、快重传、快恢复。
 
@@ -140,7 +142,9 @@ TCP 主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、�
 
 - 虽然 TCP 的窗口基于字节，但是这里设窗口的大小单位为报文段。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/910f613f-514f-4534-87dd-9b4699d59d31.png" width="800"/> </div><br>
+![Network-TransportLayer-TCPCWNDState][Network-TransportLayer-TCPCWNDState]
+
+> 图：TCP `cwnd`状态变化
 
 ## 1. 慢开始与拥塞避免
 
@@ -160,7 +164,9 @@ TCP 主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、�
 
 慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/f61b5419-c94a-4df1-8d4d-aed9ae8cc6d5.png" width="600"/> </div><br>
+![Network-TransportLayer-TCPFastRetransmit][Network-TransportLayer-TCPFastRetransmit]
+
+> 图：TCP 快重传
 
 [Network-TransportLayer-UDPHeader]: ../../images/Network-TransportLayer-UDPHeader.jpg
 
@@ -171,5 +177,11 @@ TCP 主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、�
 [Network-TransportLayer-TCPFourWayHandshake]: ../../images/Network-TransportLayer-TCPFourWayHandshake.jpg
 
 [Network-TransportLayer-TCPSlidingWindow]: ../../images/Network-TransportLayer-TCPSlidingWindow.jpg
+
+[Network-TransportLayer-TCPCongestionControl]: ../../images/Network-TransportLayer-TCPCongestionControl.jpg
+
+[Network-TransportLayer-TCPCWNDState]: ../../images/Network-TransportLayer-TCPCWNDState.png
+
+[Network-TransportLayer-TCPFastRetransmit]: ../../images/Network-TransportLayer-TCPFastRetransmit.png
 
 <!-- EOF -->
