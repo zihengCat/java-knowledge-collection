@@ -1,10 +1,14 @@
 # 自平衡二分搜索树：红黑树（Red-black Tree）
 
+![DataStructuresAndAlgorithms-RedBlackTree-RBTreeExample][DataStructuresAndAlgorithms-RedBlackTree-RBTreeExample]
+
+> 图：红黑树示例
+
 红黑树具有如下性质：
 
 1. 每个节点非红即黑。
 2. 根节点为黑色。
-3. 叶子节点（最后`NULL`节点）为黑色。
+3. 叶子节点（最后`NIL`节点）为黑色。
 4. 如果一个节点为红色，则其子节点为黑色。
 5. 从任意节点到叶子节点，经过的黑色节点数目相同。
 
@@ -88,7 +92,7 @@
 
 红黑树对应到 2-3 树的两类节点中，其根节点均是黑色。
 
-- 性质 3：叶子节点（最后`NULL`节点）为黑色。
+- 性质 3：叶子节点（最后`NIL`节点）为黑色。
 
 红黑树定义。如果树为空树，也满足第二条性质。
 
@@ -100,5 +104,13 @@
 
 2-3 树是绝对平衡树，从任意节点到叶子节点所经过的节点数目都相同，对应到红黑树中即为性质5。
 
+# 红黑树操作
+
+当我们对一棵平衡二叉搜索树进行插入、删除操作时，很可能会让这棵树失衡（最坏可能导致所有祖先结点失衡，但是父结点和非祖先结点都不可能失衡），为了达到平衡，需要对树进行平衡维持。而红黑树能够达到自平衡，靠的就是**左旋、右旋、变色**操作。
+
+
+
+
+[DataStructuresAndAlgorithms-RedBlackTree-RBTreeExample]: ../../images/DataStructuresAndAlgorithms-RedBlackTree-RBTreeExample.png
 
 <!-- EOF -->
