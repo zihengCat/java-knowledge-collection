@@ -16,6 +16,10 @@ Java 核心知识点梳理。
 
 - [Java 动态代理](./Advanced/DynamicProxy/dynamic_proxy.md)
 
+### 框架
+
+...
+
 ### JVM
 
 - [Java 虚拟机 JVM 概览](./JVM/01.Overview/overview.md)
@@ -25,7 +29,6 @@ Java 核心知识点梳理。
 - [JVM 内存区域](./JVM/03.JVM-Memory-Areas/jvm_memory_areas.md)
 
 - [JVM 类加载机制](./JVM/JVMClassloadingMechanism/jvm_classloading_mechanism.md)
-
 
 ### 并发
 
@@ -135,7 +138,13 @@ Java 核心知识点梳理。
 
 ## 数据库
 
-...
+### MySQL
+
+- [MySQL 概览](./Databases/MySQLOverview/mysql_overview.md)
+
+### Redis
+
+- [Redis 概览](./Databases/RedisOverview/redis_overview.md)
 
 ## 数据结构与算法
 
