@@ -16,10 +16,6 @@ Java 核心知识点梳理。
 
 - [Java 动态代理](./Advanced/DynamicProxy/dynamic_proxy.md)
 
-### 框架
-
-...
-
 ### JVM
 
 - [Java 虚拟机 JVM 概览](./JVM/01.Overview/overview.md)
@@ -77,6 +73,10 @@ Java 核心知识点梳理。
 ### Spring
 
 - Spring Bean 生命周期
+
+## 框架
+
+...
 
 ## 设计模式
 
