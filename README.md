@@ -4,6 +4,23 @@ Java 核心知识点梳理。
 
 # 目录（TOC）
 
+<!-- TOC -->
+  * [Java Core](#Java-Core)
+    * [Java 基础](#基础)
+    * [Java 进阶](#进阶)
+    * [JVM 虚拟机](#JVM)
+    * [Java 并发](#并发)
+    * [Java 集合](#集合)
+  * [Java 框架](#框架)
+  * [设计模式](#设计模式)
+  * [数据库](#数据库)
+  * [操作系统](#操作系统)
+  * [计算机网络](#计算机网络)
+  * [计算机组成原理](#计算机组成原理)
+  * [数据结构与算法](#数据结构与算法)
+  * [LeetCode 题解](#LeetCode-题解)
+<!-- TOC -->
+
 ## Java Core
 
 ### 基础
@@ -36,10 +53,6 @@ Java 核心知识点梳理。
 
 - [Java 线程池](./Concurrency/ThreadPool/thread_pool.md)
 
-#### 并发容器系列
-
-...
-
 ### 集合
 
 #### List 系列
@@ -64,7 +77,7 @@ Java 核心知识点梳理。
 
 - [Java LinkedHashSet 源码分析](./Collections/LinkedHashSet/linkedhashset.md)
 
-## Java Web
+## 框架
 
 ### Servlet
 
@@ -73,10 +86,6 @@ Java 核心知识点梳理。
 ### Spring
 
 - Spring Bean 生命周期
-
-## 框架
-
-...
 
 ## 设计模式
 
@@ -146,6 +155,18 @@ Java 核心知识点梳理。
 
 - [Redis 概览](./Databases/RedisOverview/redis_overview.md)
 
+## 计算机网络
+
+- [计算机网络 - 传输层（Transport Layer）](./Network/TransportLayer/TransportLayer.md)
+
+## 操作系统
+
+...
+
+## 计算机组成原理
+
+...
+
 ## 数据结构与算法
 
 ### 排序
@@ -176,29 +197,17 @@ Java 核心知识点梳理。
 
 - [背包问题]()
 
-- [LeetCode 070. Climbing Stairs]()
-
-- [LeetCode 343. Integer Break]()
-
 ### 数组
 
 - [动态数组（ArrayList）数据结构及其 Java 实现](./DataStructuresAndAlgorithms/ArrayList/array_list.md)
 
-#### 双指针
+### 字符串
 
-- [LeetCode 283. Move Zeroes]()
-
-- [LeetCode 027. Remove Element]()
-
-#### 字符串
-
-- [LeetCode 344. Reverse String]()
+...
 
 ### 链表
 
 - [线性表（List）数据结构概览](./DataStructuresAndAlgorithms/ListOverview/list_overview.md)
-
-- [LeetCode 203. 移除链表元素]()
 
 ### 栈
 
@@ -209,8 +218,6 @@ Java 核心知识点梳理。
 - [链表实现栈（Java）](./DataStructuresAndAlgorithms/LinkedStack/linked_stack.md)
 
 - [队列实现栈（Java）](./DataStructuresAndAlgorithms/QueueStack/queue_stack.md)
-
-- [LeetCode 020. Valid Parentheses]()
 
 ### 队列
 
@@ -268,12 +275,6 @@ Java 核心知识点梳理。
 
 - [带权图（Weighted Graph）的最短路径（Shortest Path）](./DataStructuresAndAlgorithms/WeightedGraphShortestPath/weighted_graph_shortest_path.md)
 
-- LeetCode 785. Is Graph Bipartite
-
-- LeetCode 695. Max Area of Island
-
-- LeetCode 773. Sliding Puzzle
-
 ### 并查集
 
 - [并查集（Union Find）数据结构概览]()
@@ -284,13 +285,23 @@ Java 核心知识点梳理。
 
 - [哈希表数据结构 Java 实现](./DataStructuresAndAlgorithms/HashTable/hash_table.md)
 
-- [LeetCode 001. Two Sum]()
-
 ### 位运算
 
 - 状态压缩
 
 ## LeetCode 题解
+
+### Array
+
+- [LeetCode 905. Sort Array By Parity](./src/io/ziheng/array/leetcode/SortArrayByParity.java)
+
+- [LeetCode 922. Sort Array By Parity II](./src/io/ziheng/array/leetcode/SortArrayByParityII.java)
+
+### Stack
+
+- [LeetCode 20. Valid Parentheses](./src/io/ziheng/stack/leetcode/ValidParentheses.java)
+
+- [LeetCode 1047. Remove All Adjacent Duplicates In String](./src/io/ziheng/stack/leetcode/RemoveAllAdjacentDuplicatesInString.java)
 
 ### Tree
 
@@ -299,14 +310,6 @@ Java 核心知识点梳理。
 - [LeetCode 113. Path Sum II](./src/io/ziheng/tree/leetcode/PathSumII.java)
 
 - [LeetCode 437. Path Sum III](./src/io/ziheng/tree/leetcode/PathSumIII.java)
-
-## 计算机网络
-
-- [计算机网络 - 传输层（Transport Layer）](./Network/TransportLayer/TransportLayer.md)
-
-## 操作系统
-
-...
 
 # 许可协议（License）
 
