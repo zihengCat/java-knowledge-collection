@@ -240,12 +240,6 @@ Java 核心知识点梳理。
 
 - [红黑树（Red Black Tree）概览及其实现](./DataStructuresAndAlgorithms/RedBlackTree/red_black_tree.md)
 
-- LeetCode 112. Path Sum
-
-- LeetCode 113. Path Sum II
-
-- LeetCode 437. Path Sum III
-
 ### 堆
 
 - [堆（Heap）数据结构与二叉堆 Java 实现](./DataStructuresAndAlgorithms/Heap/heap.md)
@@ -296,6 +290,16 @@ Java 核心知识点梳理。
 
 - 状态压缩
 
+## LeetCode 题解
+
+### Tree
+
+- [LeetCode 112. Path Sum](./src/io/ziheng/tree/leetcode/PathSum.java)
+
+- [LeetCode 113. Path Sum II](./src/io/ziheng/tree/leetcode/PathSumII.java)
+
+- [LeetCode 437. Path Sum III](./src/io/ziheng/tree/leetcode/PathSumIII.java)
+
 ## 计算机网络
 
 - [计算机网络 - 传输层（Transport Layer）](./Network/TransportLayer/TransportLayer.md)
@@ -313,5 +317,5 @@ Java 核心知识点梳理。
 - 积极主动
 - 事事有回复
 - 慎重承诺，使命必达
---
+-->
 <!-- EOF -->
