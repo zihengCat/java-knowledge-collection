@@ -59,27 +59,31 @@ Java 核心知识点梳理。
 
 #### List 系列
 
-- [Java ArrayList 源码分析](./Collections/ArrayList/arraylist.md)
+- [ArrayList 源码分析](Collections/ArrayList/arraylist.md)
 
-- [Java LinkedList 源码分析](./Collections/LinkedList/linkedlist.md)
+- [LinkedList 源码分析](Collections/LinkedList/linkedlist.md)
 
-#### Deque 系列
+#### Queue 系列
 
-- [Java ArrayDeque 源码分析](./Collections/ArrayDeque/arraydeque.md)
+- [ArrayDeque 源码分析](Collections/ArrayDeque/arraydeque.md)
+
+- [PriorityQueue 源码分析](Collections/PriorityQueue/priority_queue.md)
 
 #### Map 系列
 
-- [Java HashMap 源码分析](./Collections/HashMap/hashmap.md)
+- [HashMap 源码分析](Collections/HashMap/hashmap.md)
 
-- [Java LinkedHashMap 源码分析](./Collections/LinkedHashMap/linkedhashmap.md)
+- [TreeMap 源码分析](Collections/TreeMap/treemap.md)
+
+- [LinkedHashMap 源码分析](Collections/LinkedHashMap/linkedhashmap.md)
 
 #### Set 系列
 
-- [Java HashSet 源码分析](./Collections/HashSet/hashset.md)
+- [HashSet 源码分析](Collections/HashSet/hashset.md)
 
-- [Java LinkedHashSet 源码分析](./Collections/LinkedHashSet/linkedhashset.md)
+- [LinkedHashSet 源码分析](Collections/LinkedHashSet/linkedhashset.md)
 
-## Java 框架 
+## Java 框架
 
 ### Servlet
 
