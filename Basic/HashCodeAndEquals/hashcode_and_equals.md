@@ -29,7 +29,7 @@ public boolean equals(Object obj) {
 
 - **传递性**：对于任何非空引用值`x`、`y`、`z`，如果`x.equals(y)`返回`true`，并且`y.equals(z)`返回 `true`，那么`x.equals(z)`应返回`true`。
 
-- **一致性**：对于任何非空引用值`x`和`y`，多次调用`x.equals(y)`始终返回`true`或始终返回`false`，前提是对象`equals`比较所使用的信息未被修改。
+- **一致性**：对于任何非空引用值`x`和`y`，多次调用`x.equals(y)`始终返回`true`或始终返回`false`，前提是对象`equals()`比较所使用的信息未被修改。
 
 - **非空性**：对于任何非空引用值`x`，`x.equals(null)`都应返回`false`。
 
