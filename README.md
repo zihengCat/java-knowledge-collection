@@ -25,11 +25,11 @@ Java 核心知识点梳理。
 
 ### Java 基础
 
-- [Java 字符串](./Basic/String/string.md)
+- [Java 字符串](Basic/String/string.md)
 
-- [Java 比较器](./Basic/ComparableAndComparatorInterfaces/comparable_and_comparator_interfaces.md)
+- [Java 比较器](Basic/ComparableAndComparatorInterfaces/comparable_and_comparator_interfaces.md)
 
-- [Java `==`操作符、`equals()` 方法、`hashCode()`方法](Basic/HashCodeAndEquals/hashcode_and_equals.md)
+- [Java `==`操作符、`equals()`方法、`hashCode()`方法](Basic/HashCodeAndEquals/hashcode_and_equals.md)
 
 ### Java 进阶
 
