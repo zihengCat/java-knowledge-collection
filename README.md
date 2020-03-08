@@ -6,12 +6,12 @@ Java 核心知识点梳理。
 
 <!-- TOC -->
   * [Java Core](#Java-Core)
-    * [Java 基础](#基础)
-    * [Java 进阶](#进阶)
-    * [JVM 虚拟机](#JVM)
-    * [Java 并发](#并发)
-    * [Java 集合](#集合)
-  * [Java 框架](#框架)
+    * [Java 基础](#Java-基础)
+    * [Java 进阶](#Java-进阶)
+    * [JVM 虚拟机](#JVM-虚拟机)
+    * [Java 并发](#Java-并发)
+    * [Java 集合](#Java-集合)
+  * [Java 框架](#Java-框架)
   * [设计模式](#设计模式)
   * [数据库](#数据库)
   * [操作系统](#操作系统)
@@ -23,17 +23,19 @@ Java 核心知识点梳理。
 
 ## Java Core
 
-### 基础
+### Java 基础
 
 - [Java 字符串](./Basic/String/string.md)
 
 - [Java 比较器](./Basic/ComparableAndComparatorInterfaces/comparable_and_comparator_interfaces.md)
 
-### 进阶
+- [Java `==`操作符、`equals()` 方法、`hashCode()`方法](Basic/HashCodeAndEquals/hashcode_and_equals.md)
+
+### Java 进阶
 
 - [Java 动态代理](./Advanced/DynamicProxy/dynamic_proxy.md)
 
-### JVM
+### JVM 虚拟机
 
 - [Java 虚拟机 JVM 概览](./JVM/01.Overview/overview.md)
 
@@ -43,7 +45,7 @@ Java 核心知识点梳理。
 
 - [JVM 类加载机制](./JVM/JVMClassloadingMechanism/jvm_classloading_mechanism.md)
 
-### 并发
+### Java 并发
 
 - [Java 内存模型（JMM）](./JVM/JavaMemoryModel/java_memory_model.md)
 
@@ -53,7 +55,7 @@ Java 核心知识点梳理。
 
 - [Java 线程池](./Concurrency/ThreadPool/thread_pool.md)
 
-### 集合
+### Java 集合
 
 #### List 系列
 
@@ -77,7 +79,7 @@ Java 核心知识点梳理。
 
 - [Java LinkedHashSet 源码分析](./Collections/LinkedHashSet/linkedhashset.md)
 
-## 框架
+## Java 框架 
 
 ### Servlet
 
