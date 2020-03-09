@@ -5,6 +5,7 @@ Java 核心知识点梳理。
 # 目录（TOC）
 
 <!-- TOC -->
+
   * [Java Core](#Java-Core)
     * [Java 基础](#Java-基础)
     * [Java 进阶](#Java-进阶)
@@ -21,6 +22,9 @@ Java 核心知识点梳理。
   * [LeetCode 题解](#LeetCode-题解)
     * [Array](#Array)
     * [Linked List](#Linked-List)
+    * [Stack](#Stack)
+    * [Hash Table](#Hash-Table)
+
 <!-- TOC -->
 
 ## Java Core
