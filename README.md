@@ -19,6 +19,8 @@ Java 核心知识点梳理。
   * [计算机组成原理](#计算机组成原理)
   * [数据结构与算法](#数据结构与算法)
   * [LeetCode 题解](#LeetCode-题解)
+    * [Array](#Array)
+    * [Linked List](#Linked-List)
 <!-- TOC -->
 
 ## Java Core
@@ -320,6 +322,12 @@ Java 核心知识点梳理。
 - [LeetCode 155. Min Stack](src/io/ziheng/stack/leetcode/MinStack.java)
 
 - [LeetCode 1047. Remove All Adjacent Duplicates In String](src/io/ziheng/stack/leetcode/RemoveAllAdjacentDuplicatesInString.java)
+
+### Hash Table
+
+- [LeetCode 242. Valid Anagram](src/io/ziheng/hashtable/leetcode/ValidAnagram.java)
+
+- [LeetCode 49. Group Anagrams](src/io/ziheng/hashtable/leetcode/GroupAnagrams.java)
 
 ### Tree
 
