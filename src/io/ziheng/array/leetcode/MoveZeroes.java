@@ -7,10 +7,27 @@ import java.util.Arrays;
  * https://leetcode.com/problems/move-zeroes/
  */
 public class MoveZeroes {
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2, 3, 0, 4, 5, 0, };
+        new MoveZeroes().moveZeroes(arr);
+        assert Arrays.toString(arr).equals(
+            "[1, 2, 3, 4, 5, 0, 0]"
+        );
+        System.out.println("Test result: OK");
+    }
+    /**
+     * moveZeroes()
+     *
+     * @param nums
+     * @return void
+     */
     public void moveZeroes(int[] nums) {
-        //moveZeroesV1(nums);
-        //moveZeroesV2(nums);
-        moveZeroesV3(nums);
+        if (nums == null || nums.length == 0) {
+            return;
+        }
+        // moveZeroesArrayMerge(nums);
+        // moveZeroesTwoPointer(nums);
+        moveZeroesTwoPointerOptimized(nums);
     }
     /**
      * 双指针（优化版）
@@ -20,7 +37,7 @@ public class MoveZeroes {
      * @param nums
      * @return void
      */
-    public void moveZeroesV3(int[] nums) {
+    public void moveZeroesTwoPointerOptimized(int[] nums) {
         for (int i = 0, k = 0; i < nums.length; i++) {
             if (nums[i] != 0) {
                 swap(nums, i, k);
@@ -38,7 +55,7 @@ public class MoveZeroes {
      * @param nums
      * @return void
      */
-    public void moveZeroesV2(int[] nums) {
+    public void moveZeroesTwoPointer(int[] nums) {
         int k = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != 0) {
@@ -46,8 +63,8 @@ public class MoveZeroes {
                 k++;
             }
         }
-        for (int i = k; i < nums.length; i++) {
-            nums[i] = 0;
+        for (; k < nums.length; k++) {
+            nums[k] = 0;
         }
     }
     /**
@@ -58,7 +75,7 @@ public class MoveZeroes {
      * @param nums
      * @return void
      */
-    public void moveZeroesV1(int[] nums) {
+    public void moveZeroesArrayMerge(int[] nums) {
         int numsLength = nums.length;
         int[] nonZeroNums = new int[numsLength];
         int nonZeroIndex = 0;
@@ -87,14 +104,6 @@ public class MoveZeroes {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
-    }
-    public static void main(String[] args) {
-        int[] arr = new int[]{1, 2, 3, 0, 4, 5, 0, };
-        new MoveZeroes().moveZeroes(arr);
-        assert Arrays.toString(arr).equals(
-            "[1, 2, 3, 4, 5, 0, 0]"
-        );
-        System.out.println("Test result: OK");
     }
 }
 /* EOF */

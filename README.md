@@ -301,9 +301,11 @@ Java 核心知识点梳理。
 
 ### Array
 
-- [LeetCode 905. Sort Array By Parity](./src/io/ziheng/array/leetcode/SortArrayByParity.java)
+- [LeetCode 283. Move Zeroes](src/io/ziheng/array/leetcode/MoveZeroes.java)
 
-- [LeetCode 922. Sort Array By Parity II](./src/io/ziheng/array/leetcode/SortArrayByParityII.java)
+- [LeetCode 905. Sort Array By Parity](src/io/ziheng/array/leetcode/SortArrayByParity.java)
+
+- [LeetCode 922. Sort Array By Parity II](src/io/ziheng/array/leetcode/SortArrayByParityII.java)
 
 ### Stack
 
