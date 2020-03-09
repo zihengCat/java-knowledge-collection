@@ -24,6 +24,7 @@ Java 核心知识点梳理。
     * [Linked List](#Linked-List)
     * [Stack](#Stack)
     * [Hash Table](#Hash-Table)
+    * [Tree](#Tree)
 
 <!-- TOC -->
 
@@ -317,7 +318,7 @@ Java 核心知识点梳理。
 
 ### Linked List
 
-...
+- [LeetCode 1290. Convert Binary Number in a Linked List to Integer](src/io/ziheng/list/leetcode/ConvertBinaryNumberInALinkedListToInteger.java)
 
 ### Stack
 
