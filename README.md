@@ -25,6 +25,9 @@ Java 核心知识点梳理。
     * [Stack](#Stack)
     * [Hash Table](#Hash-Table)
     * [Tree](#Tree)
+    * [Divide and Conquer](#Divide-and-Conquer)
+    * [Backtracking](#Backtracking)
+    * [Dynamic Programming](#Dynamic-Programming)
 
 <!-- TOC -->
 
@@ -336,15 +339,25 @@ Java 核心知识点梳理。
 
 ### Tree
 
-- [LeetCode 112. Path Sum](./src/io/ziheng/tree/leetcode/PathSum.java)
+- [LeetCode 112. Path Sum](src/io/ziheng/tree/leetcode/PathSum.java)
 
-- [LeetCode 113. Path Sum II](./src/io/ziheng/tree/leetcode/PathSumII.java)
+- [LeetCode 113. Path Sum II](src/io/ziheng/tree/leetcode/PathSumII.java)
 
-- [LeetCode 437. Path Sum III](./src/io/ziheng/tree/leetcode/PathSumIII.java)
+- [LeetCode 437. Path Sum III](src/io/ziheng/tree/leetcode/PathSumIII.java)
+
+### Divide and Conquer
+
+- [LeetCode 50. Pow(x, n)](src/io/ziheng/recursion/divideandconquer/leetcode/Pow.java)
+
+## Backtracking
+
+- [LeetCode 78. Subsets](src/io/ziheng/recursion/backtracking/leetcode/Subsets.java)
 
 ### Dynamic Programming
 
 - [LeetCode 70. Climbing Stairs](src/io/ziheng/recursion/dynamicprogramming/leetcode/ClimbingStairs.java)
+
+- [LeetCode 494. Target Sum](src/io/ziheng/recursion/dynamicprogramming/leetcode/TargetSum.java)
 
 # 许可协议（License）
 
