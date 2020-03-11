@@ -349,7 +349,7 @@ Java 核心知识点梳理。
 
 - [LeetCode 50. Pow(x, n)](src/io/ziheng/recursion/divideandconquer/leetcode/Pow.java)
 
-## Backtracking
+### Backtracking
 
 - [LeetCode 78. Subsets](src/io/ziheng/recursion/backtracking/leetcode/Subsets.java)
 
@@ -358,6 +358,10 @@ Java 核心知识点梳理。
 - [LeetCode 70. Climbing Stairs](src/io/ziheng/recursion/dynamicprogramming/leetcode/ClimbingStairs.java)
 
 - [LeetCode 494. Target Sum](src/io/ziheng/recursion/dynamicprogramming/leetcode/TargetSum.java)
+
+- [LeetCode 1143. Longest Common Subsequence](src/io/ziheng/recursion/dynamicprogramming/leetcode/LongestCommonSubsequence.java)
+
+- [LeetCode 53. Maximum Subarray](src/io/ziheng/recursion/dynamicprogramming/leetcode/MaximumSubarray.java)
 
 # 许可协议（License）
 
