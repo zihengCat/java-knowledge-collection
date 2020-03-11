@@ -23,6 +23,7 @@ Java 核心知识点梳理。
     * [Array](#Array)
     * [Linked List](#Linked-List)
     * [Stack](#Stack)
+    * [Queue](#Queue)
     * [Hash Table](#Hash-Table)
     * [Tree](#Tree)
     * [Divide and Conquer](#Divide-and-Conquer)
@@ -321,6 +322,10 @@ Java 核心知识点梳理。
 
 ### Linked List
 
+- [LeetCode 206. Reverse Linked List](src/io/ziheng/list/leetcode/ReverseLinkedList.java)
+
+- [LeetCode 141. Linked List Cycle](src/io/ziheng/list/leetcode/ReverseLinkedList.java)
+
 - [LeetCode 1290. Convert Binary Number in a Linked List to Integer](src/io/ziheng/list/leetcode/ConvertBinaryNumberInALinkedListToInteger.java)
 
 ### Stack
@@ -330,6 +335,12 @@ Java 核心知识点梳理。
 - [LeetCode 155. Min Stack](src/io/ziheng/stack/leetcode/MinStack.java)
 
 - [LeetCode 1047. Remove All Adjacent Duplicates In String](src/io/ziheng/stack/leetcode/RemoveAllAdjacentDuplicatesInString.java)
+
+- [LeetCode 232. Implement Queue using Stacks](src/io/ziheng/stack/leetcode/ImplementQueueUsingStacks.java)
+
+### Queue
+
+- [LeetCode 225. Implement Stack using Queues](src/io/ziheng/queue/leetcode/ImplementStackUsingQueues.java)
 
 ### Hash Table
 
@@ -352,6 +363,10 @@ Java 核心知识点梳理。
 ### Backtracking
 
 - [LeetCode 78. Subsets](src/io/ziheng/recursion/backtracking/leetcode/Subsets.java)
+
+- [LeetCode 79. Word Search](src/io/ziheng/recursion/backtracking/leetcode/WordSearch.java)
+
+- [LeetCode 17. Letter Combinations of a Phone Number](src/io/ziheng/recursion/backtracking/leetcode/LetterCombinationsOfAPhoneNumber.java)
 
 ### Dynamic Programming
 

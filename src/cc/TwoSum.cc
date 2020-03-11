@@ -1,5 +1,6 @@
 #include <vector>
 #include <map>
+#include <iostream>
 
 using namespace std;
 
@@ -22,7 +23,9 @@ public:
 };
 
 int main(int argc, char const *argv[]) {
-    /* code */
+    TwoSum twoSum = TwoSum();
+    vector<int> arr = {1, 2, 3,};
+    cout << twoSum.twoSum(arr, 3).size();
     return 0;
 }
 /* EOF */

@@ -1,18 +1,24 @@
 package io.ziheng.list.leetcode;
 
 import io.ziheng.list.leetcode.ListNode;
+import jdk.nashorn.internal.ir.WhileNode;
 
+/**
+ * LeetCode 206. Reverse Linked List
+ * https://leetcode.com/problems/reverse-linked-list/
+ */
 public class ReverseLinkedList {
-    /**
-     * 反转单链表。
-     *
-     * 时间复杂度：O(n)
-     * 空间复杂度：O(1)
-     */
-    public ListNode reverseList(ListNode head) {
+
+    public ListNode reverseListRecursively(ListNode head, ListNode node) {
         if (head == null) {
-            return null;
+            return node;
         }
+        ListNode next = head.next;
+        head.next = node;
+        return reverseListRecursively(next, head);
+    }
+
+    public ListNode reverseListIteratively(ListNode head) {
         ListNode previousNode = null;
         ListNode currentNode = head;
         ListNode nextNode = head.next;
@@ -24,6 +30,16 @@ public class ReverseLinkedList {
         }
         return previousNode;
     }
+    /**
+     * 反转单链表。
+     *
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     */
+    public ListNode reverseList(ListNode head) {
+        return reverseListRecursively(head, null);
+    }
+
     public ListNode buildLinkedList() {
         ListNode head = new ListNode(-1);
         ListNode currentNode = head;
