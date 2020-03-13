@@ -25,6 +25,7 @@ Java 核心知识点梳理。
     * [Linked List](#Linked-List)
     * [Stack](#Stack)
     * [Queue](#Queue)
+    * [Heap](#Heap)
     * [Hash Table](#Hash-Table)
     * [Tree](#Tree)
     * [Divide and Conquer](#Divide-and-Conquer)
@@ -347,6 +348,12 @@ Java 核心知识点梳理。
 
 - [LeetCode 225. Implement Stack using Queues](src/io/ziheng/queue/leetcode/ImplementStackUsingQueues.java)
 
+### Heap
+
+- [LeetCode 704. Kth Largest Element in a Stream](src/io/ziheng/heap/leetcode/KthLargestElementInAStream.java)
+
+- [LeetCode 215. Kth Largest Element in an Array](src/io/ziheng/heap/leetcode/KthLargestElementInAnArray.java)
+
 ### Hash Table
 
 - [LeetCode 242. Valid Anagram](src/io/ziheng/hashtable/leetcode/ValidAnagram.java)
@@ -361,11 +368,17 @@ Java 核心知识点梳理。
 
 - [LeetCode 437. Path Sum III](src/io/ziheng/tree/leetcode/PathSumIII.java)
 
+- [LeetCode 111. Minimum Depth of Binary Tree](src/io/ziheng/tree/leetcode/MinimumDepthOfBinaryTree.java)
+
+- [LeetCode 208. Implement Trie (Prefix Tree)](src/io/ziheng/tree/leetcode/ImplementTriePrefixTree.java)
+
 ### Divide and Conquer
 
 - [LeetCode 50. Pow(x, n)](src/io/ziheng/recursion/divideandconquer/leetcode/Pow.java)
 
 ### Backtracking
+
+- [LeetCode 51. N-Queens](src/io/ziheng/recursion/backtracking/leetcode/NQueens.java)
 
 - [LeetCode 78. Subsets](src/io/ziheng/recursion/backtracking/leetcode/Subsets.java)
 
