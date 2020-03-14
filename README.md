@@ -396,6 +396,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 53. Maximum Subarray](src/io/ziheng/recursion/dynamicprogramming/leetcode/MaximumSubarray.java)
 
+- [LeetCode 198. House Robber](src/io/ziheng/recursion/dynamicprogramming/leetcode/HouseRobber.java)
+
 # 许可协议（License）
 
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
