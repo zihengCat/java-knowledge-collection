@@ -1,88 +1,87 @@
 package io.ziheng.recursion.dynamicprogramming.leetcode;
+
+import java.util.Arrays;
+
 /**
  * 343. Integer Break
  * https://leetcode.com/problems/integer-break/
  */
 public class IntegerBreak {
+    public int integerBreak(int n) {
+        if (n < 0) {
+            return 0;
+        }
+
+        // return integerBreakRecursively(n);
+
+        memo = new int[n + 1];
+        Arrays.fill(memo, -1);
+        return integerBreakTopToBottom(n);
+    }
     /**
-     * 动态规划（自底向上）。
+     * 动态递推。
      *
      * @param n
      * @return int
      */
     public int integerBreakV3(int n) {
-        assert n > 1;
-        int[] memory = new int[n + 1];
-        for (int i = 0; i < memory.length; i++) {
-            memory[i] = -1;
+        int[] dp = new int[n + 1];
+        for (int i = 0; i < dp.length; i++) {
+            dp[i] = -1;
         }
-        memory[1] = 1;
+        dp[0] = 0;
+        dp[1] = 1;
         for (int i = 2; i <= n; i++) {
-            /**
-             * 分割部分：j + (i - j)
-             * 最优子结构：j * (i - j)
-             * 已被计算出：
-             * integerBreak(i - j) => memory[i - j]
-             */
+            // 分割部分：j + (i - j)
+            // 最优子结构：j * (i - j)
+            // 已被计算出：
+            // integerBreak(i - j) => memory[i - j]
             for (int j = 1; j < i; j++) {
-                int oldResult = memory[i];
-                memory[i] = Math.max(
+                int oldResult = dp[i];
+                dp[i] = Math.max(
                     oldResult,
-                    Math.max(j * (i - j), memory[i - j])
+                    Math.max(j * (i - j), dp[i - j])
                 );
             }
         }
-        return memory[n];
+        return dp[n];
     }
-    private int[] memory;
     /**
-     * 动态规划（自顶向下）。
+     * 记忆化搜索
      *
      * @param n
      * @return int
      */
-    public int integerBreakV2(int n) {
-        memory = new int[n + 1];
-        for (int i = 0; i < memory.length; i++) {
-            memory[i] = -1;
-        }
-        return integerBreak0(n);
-    }
-    /**
-     * 将 n 分割（至少2部分），获取分割最大乘积。
-     */
-    private int integerBreak0(int n) {
+    private int[] memo;
+    private int integerBreakTopToBottom(int n) {
         if (n == 1) {
             return 1;
         }
-        if (memory[n] != -1) {
-            return memory[n];
+        if (memo[n] == -1) {
+            int maxResult = Integer.MIN_VALUE;
+            for (int i = 1; i < n; i++) {
+                maxResult = Math.max(
+                    i * (n - i),
+                    Math.max(maxResult, i * integerBreakTopToBottom(n - i))
+                );
+            }
+            memo[n] = maxResult;
         }
-        /**
-         * i + (n - i)
-         */
-        int maxResult = -1;
-        for (int i = 1; i <= n - 1; i++) {
-            maxResult = Math.max(maxResult, i * integerBreak0(n - i));
-            maxResult = Math.max(maxResult, i * (n - i));
-        }
-        memory[n] = maxResult;
-        return maxResult;
+        return memo[n];
     }
     /**
-     * 暴力递归 -> Time Limit Exceeded
+     * 暴力递归
      *
      * @param n
      * @return int
      */
-    public int integerBreakV1(int n) {
-        // i * (n - i)
+    public int integerBreakRecursively(int n) {
         if (n == 1) {
             return 1;
         }
         int maxResult = -1;
         for (int i = 1; i < n; i++) {
-            maxResult = Math.max(maxResult, i * integerBreakV1(n - i));
+            maxResult = Math.max(maxResult, i * integerBreakRecursively(n - i));
             maxResult = Math.max(maxResult, i * (n - i));
         }
         return maxResult;

@@ -10,8 +10,14 @@ public class FibonacciSequence {
         long endTime = System.currentTimeMillis();
         assert result1 == result2 && result1 == result3;
         System.out.printf(
-            "fib(%d): %s, cost %f\n",
-            n, String.valueOf(result3), (endTime - startTime) / 1000.0
+            "fib(%d): %d\n"
+          + "fibTopToBottom(%d): %d\n"
+          + "fibBottomToTop(%d): %d\n"
+          + "cost: %f\n",
+            n, result1,
+            n, result2,
+            n, result3,
+            (endTime - startTime) / 1000.0
         );
     }
     /**
@@ -21,22 +27,19 @@ public class FibonacciSequence {
      * @return int
      */
     public static int fibWithBottomToTop(int n) {
-        int[] memory = new int[n + 1];
-        for (int i = 0; i < memory.length; i++) {
-            memory[i] = -1;
-        }
-        memory[0] = 0;
-        memory[1] = 0;
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
         for (int i = 2; i <= n; i++) {
-            memory[i] = memory[i - 1] + memory[i - 2];
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
-        return memory[n];
+        return dp[n];
     }
     private static final int CAPACITY = 128;
-    private static final int[] memory = new int[CAPACITY];
+    private static final int[] memo = new int[CAPACITY];
     static {
         for (int i = 0; i < CAPACITY; i++) {
-            memory[i] = -1;
+            memo[i] = -1;
         }
     }
     /**
@@ -52,11 +55,11 @@ public class FibonacciSequence {
         if (n == 1) {
             return 1;
         }
-        if (memory[n] == -1) {
-            memory[n] = fibWithTopToBottom(n - 1) + fibWithTopToBottom(n - 2);
-            return memory[n];
+        if (memo[n] != -1) {
+            return memo[n];
         }
-        return memory[n];
+        memo[n] = fibWithTopToBottom(n - 1) + fibWithTopToBottom(n - 2);
+        return memo[n];
     }
     /**
      * 斐波那契数列 - 标准递归版本。
