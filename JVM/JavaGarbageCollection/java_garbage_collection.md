@@ -144,19 +144,42 @@ GC Roots 对象
 
 # Java 引用类型
 
-JDK 1.2 之前，Java 中引用的定义很传统：如果 reference 类型的数据存储的数值代表的是另一块内存的起始地址，就称这块内存代表一个引用。
+JDK 1.2 之前，Java 中引用的定义很传统：如果`reference`类型存储的数值代表的是另一块内存的起始地址，就称这块内存代表一个引用。
 
-JDK 1.2 以后，Java 对引用的概念进行了扩充，将引用分为强引用、软引用、弱引用、虚引用四种（引用强度逐渐减弱）。
+JDK 1.2 以后，Java 对引用的概念进行了扩充，将引用分为**强引用、软引用、弱引用、虚引用**四种（引用强度逐渐减弱）。
 
 ## 1．强引用（Strong Reference）
 
+- 最普遍的引用：`Object obj = new Object()`
+
+- JVM 虚拟机抛出`OutOfMemoryError`终止进程也不回收强引用对象
+
+- 显式将对象引用设为`null`帮助 JVM GC
+
 ## 2．软引用（Soft Reference）
+
+- 对象处于有用但非必须的状态
+
+- 内存空间不足时，回收软引用对象
+
+- 主要应用于内存敏感的高速缓存
 
 ## 3．弱引用（Weak Reference）
 
+- 非必须对象
+
+- GC 时发现即被回收
+
 ## 4．虚引用（Phantom Reference）
 
+- 不决定对象的生命周期
 
+- 随时可能被回收
+
+- 必须和引用队列配合使用
+
+- 跟踪对象被回收的情况，起标记、哨兵作用
 
 [JVM-JavaGarbageCollection-GarbageCollectors]: ../../images/JVM-JavaGarbageCollection-GarbageCollectors.png
+
 <!-- EOF -->
