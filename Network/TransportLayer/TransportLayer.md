@@ -96,6 +96,10 @@ UDP 报文首部字段只有 8 个字节，包括源端口、目的端口、长�
 
 TCP 使用**超时重传**机制来实现可靠传输：如果一个已经发送的报文段在超时时间内没有收到确认，那么就重传这个报文段。
 
+- RTT（Round Trip Time）：一个报文段从发送再到接收到确认 ACK 所经过的时间。
+
+- RTO（Retransmission Time Out）：重传时间间隔。
+
 一个报文段从发送再到接收到确认所经过的时间称为往返时间 RTT，加权平均往返时间 RTTs 计算如下：
 
 <div align="center"><img src="https://latex.codecogs.com/gif.latex?RTTs=(1-a)*(RTTs)+a*RTT" class="mathjax-pic"/></div> <br>

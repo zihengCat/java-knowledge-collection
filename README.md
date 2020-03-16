@@ -50,13 +50,15 @@ Java 核心知识点梳理。
 
 ### JVM 虚拟机
 
-- [Java 虚拟机 JVM 概览](./JVM/01.Overview/overview.md)
+- [Java 虚拟机 JVM 概览](JVM/01.Overview/overview.md)
 
-- [JVM 线程](./JVM/02.JVM-Threads/jvm_threads.md)
+- [JVM 线程](JVM/02.JVM-Threads/jvm_threads.md)
 
-- [JVM 内存区域](./JVM/03.JVM-Memory-Areas/jvm_memory_areas.md)
+- [JVM 内存区域](JVM/03.JVM-Memory-Areas/jvm_memory_areas.md)
 
-- [JVM 类加载机制](./JVM/JVMClassloadingMechanism/jvm_classloading_mechanism.md)
+- [JVM 类加载机制](JVM/JVMClassloadingMechanism/jvm_classloading_mechanism.md)
+
+- [JVM 垃圾回收](JVM/JavaGarbageCollection/java_garbage_collection.md)
 
 ### Java 并发
 
@@ -186,7 +188,14 @@ Java 核心知识点梳理。
 
 ## 操作系统
 
+### 操作系统（OS）概述
+
 ...
+
+### 进程管理
+
+...
+
 
 ## 计算机组成原理
 
@@ -400,6 +409,7 @@ Java 核心知识点梳理。
 
 - [LeetCode 62. Unique Paths](src/io/ziheng/recursion/dynamicprogramming/leetcode/UniquePaths.java)
 
+- [LeetCode 63. Unique Paths II](src/io/ziheng/recursion/dynamicprogramming/leetcode/UniquePathsII.java)
 
 # 许可协议（License）
 
