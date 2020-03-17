@@ -188,14 +188,11 @@ Java 核心知识点梳理。
 
 ## 操作系统
 
-### 操作系统（OS）概述
+- 操作系统（OS）概述
 
-...
+- 进程管理
 
-### 进程管理
-
-...
-
+- 内存管理
 
 ## 计算机组成原理
 
@@ -334,6 +331,8 @@ Java 核心知识点梳理。
 - [LeetCode 905. Sort Array By Parity](src/io/ziheng/array/leetcode/SortArrayByParity.java)
 
 - [LeetCode 922. Sort Array By Parity II](src/io/ziheng/array/leetcode/SortArrayByParityII.java)
+
+- [LeetCode 349. Intersection of Two Arrays](src/io/ziheng/array/leetcode/IntersectionOfTwoArrays.java)
 
 ### Linked List
 

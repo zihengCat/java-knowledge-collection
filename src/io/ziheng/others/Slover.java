@@ -1,4 +1,6 @@
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,5 +22,11 @@ public class Slover {
           + 7 + 9 + 12 + 56 + 70 + 182
           + 305 + 18000
         );
+        try {
+            InetAddress ip4 = Inet4Address.getLocalHost();
+            System.out.println(ip4.getHostAddress());
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
     }
 }
