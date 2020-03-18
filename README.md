@@ -22,6 +22,7 @@ Java 核心知识点梳理。
   * [数据结构与算法](#数据结构与算法)
   * [LeetCode 题解](#LeetCode-题解)
     * [Array](#Array)
+    * [String](#String)
     * [Linked List](#Linked-List)
     * [Stack](#Stack)
     * [Queue](#Queue)
@@ -324,6 +325,8 @@ Java 核心知识点梳理。
 
 ### Array
 
+- [LeetCode 35. Search Insert Position](src/io/ziheng/array/leetcode/SearchInsertPosition.java)
+
 - [LeetCode 283. Move Zeroes](src/io/ziheng/array/leetcode/MoveZeroes.java)
 
 - [LeetCode 11. Container With Most Water](src/io/ziheng/array/leetcode/ContainerWithMostWater.java)
@@ -332,13 +335,23 @@ Java 核心知识点梳理。
 
 - [LeetCode 922. Sort Array By Parity II](src/io/ziheng/array/leetcode/SortArrayByParityII.java)
 
+- [LeetCode 88. Merge Sorted Array](src/io/ziheng/array/leetcode/MergeSortedArray.java)
+
 - [LeetCode 349. Intersection of Two Arrays](src/io/ziheng/array/leetcode/IntersectionOfTwoArrays.java)
+
+### String
+
+- [LeetCode 344. Reverse String](src/io/ziheng/string/leetcode/ReverseString.java)
+
+- [LeetCode 541. Reverse String II](src/io/ziheng/string/leetcode/ReverseStringII.java)
 
 ### Linked List
 
 - [LeetCode 206. Reverse Linked List](src/io/ziheng/list/leetcode/ReverseLinkedList.java)
 
 - [LeetCode 141. Linked List Cycle](src/io/ziheng/list/leetcode/ReverseLinkedList.java)
+
+- [LeetCodde 21. Merge Two Sorted Lists](src/io/ziheng/list/leetcode/MergeTwoSortedLists.java)
 
 - [LeetCode 1290. Convert Binary Number in a Linked List to Integer](src/io/ziheng/list/leetcode/ConvertBinaryNumberInALinkedListToInteger.java)
 
@@ -367,6 +380,12 @@ Java 核心知识点梳理。
 - [LeetCode 242. Valid Anagram](src/io/ziheng/hashtable/leetcode/ValidAnagram.java)
 
 - [LeetCode 49. Group Anagrams](src/io/ziheng/hashtable/leetcode/GroupAnagrams.java)
+
+- [LeetCode 169. Majority Element](src/io/ziheng/hashtable/leetcode/MajorityElement.java)
+
+- [LeetCode 229. Majority Element II](src/io/ziheng/hashtable/leetcode/MajorityElementII.java)
+
+- [LeetCode 1160. Find Words That Can Be Formed by Characters](src/io/ziheng/hashtable/leetcode/FindWordsThatCanBeFormedByCharacters.java)
 
 ### Tree
 

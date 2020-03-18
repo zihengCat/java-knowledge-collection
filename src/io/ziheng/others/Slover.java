@@ -1,7 +1,9 @@
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +29,25 @@ public class Slover {
             System.out.println(ip4.getHostAddress());
         } catch (Exception e) {
             //TODO: handle exception
+        }
+        try{
+            Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (allNetInterfaces.hasMoreElements()){
+                NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+                Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
+                while (addresses.hasMoreElements()){
+                    InetAddress ip = (InetAddress) addresses.nextElement();
+                    System.out.println("本机的IP = " + ip.getHostAddress());
+                    if (ip != null 
+                            && ip instanceof Inet4Address
+                            && !ip.isLoopbackAddress() //loopback地址即本机地址，IPv4的loopback范围是127.0.0.0 ~ 127.255.255.255
+                            && ip.getHostAddress().indexOf(":")==-1){
+                        System.out.println("本机的IP = " + ip.getHostAddress());
+                    } 
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 }
