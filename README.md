@@ -398,6 +398,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 1160. Find Words That Can Be Formed by Characters](src/io/ziheng/hashtable/leetcode/FindWordsThatCanBeFormedByCharacters.java)
 
+- [LeetCode 1346. Check If N and Its Double Exist](src/io/ziheng/hashtable/leetcode/CheckIfNAndItsDoubleExist.java)
+
 ### Tree
 
 - [LeetCode 112. Path Sum](src/io/ziheng/tree/leetcode/PathSum.java)
