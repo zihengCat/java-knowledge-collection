@@ -2,7 +2,7 @@
 
 Java 核心知识点梳理。
 
-# 目录（TOC）
+# 目录（Table of Contents）
 
 <!-- TOC -->
 
@@ -32,6 +32,7 @@ Java 核心知识点梳理。
     * [Divide and Conquer](#Divide-and-Conquer)
     * [Backtracking](#Backtracking)
     * [Dynamic Programming](#Dynamic-Programming)
+    * [Bit Manipulation](#Bit-Manipulation)
 
 <!-- TOC -->
 
@@ -339,6 +340,12 @@ Java 核心知识点梳理。
 
 - [LeetCode 349. Intersection of Two Arrays](src/io/ziheng/array/leetcode/IntersectionOfTwoArrays.java)
 
+- [LeetCode 581. Shortest Unsorted Continuous Subarray](src/io/ziheng/array/leetcode/ShortestUnsortedContinuousSubarray.java)
+
+- [LeetCode 1380. Lucky Numbers in a Matrix](src/io/ziheng/array/leetcode/LuckyNumbersInAMatrix.java)
+
+- [LeetCode 1351. Count Negative Numbers in a Sorted Matrix](src/io/ziheng/array/leetcode/CountNegativeNumbersInASortedMatrix.java)
+
 ### String
 
 - [LeetCode 344. Reverse String](src/io/ziheng/string/leetcode/ReverseString.java)
@@ -346,6 +353,8 @@ Java 核心知识点梳理。
 - [LeetCode 541. Reverse String II](src/io/ziheng/string/leetcode/ReverseStringII.java)
 
 ### Linked List
+
+- [LeetCode 2. Add Two Numbers](src/io/ziheng/list/leetcode/AddTwoNumbers.java)
 
 - [LeetCode 206. Reverse Linked List](src/io/ziheng/list/leetcode/ReverseLinkedList.java)
 
@@ -370,6 +379,8 @@ Java 核心知识点梳理。
 - [LeetCode 225. Implement Stack using Queues](src/io/ziheng/queue/leetcode/ImplementStackUsingQueues.java)
 
 ### Heap
+
+- [LeetCode 347. Top K Frequent Elements](src/io/ziheng/heap/leetcode/TopKFrequentElements.java)
 
 - [LeetCode 704. Kth Largest Element in a Stream](src/io/ziheng/heap/leetcode/KthLargestElementInAStream.java)
 
@@ -428,6 +439,10 @@ Java 核心知识点梳理。
 - [LeetCode 62. Unique Paths](src/io/ziheng/recursion/dynamicprogramming/leetcode/UniquePaths.java)
 
 - [LeetCode 63. Unique Paths II](src/io/ziheng/recursion/dynamicprogramming/leetcode/UniquePathsII.java)
+
+### Bit Manipulation
+
+- [LeetCode 338. Counting Bits](src/io/ziheng/bitmanipulation/leetcode/CountingBits.java)
 
 # 许可协议（License）
 
