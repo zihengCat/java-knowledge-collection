@@ -1,4 +1,4 @@
-package io.ziheng.array.leetcode;
+package io.ziheng.hashtable.leetcode;
 
 import java.util.Arrays;
 import java.util.HashSet;

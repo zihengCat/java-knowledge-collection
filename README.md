@@ -326,6 +326,8 @@ Java 核心知识点梳理。
 
 ### Array
 
+- [LeetCode 75. Sort Colors](src/io/ziheng/array/leetcode/SortColors.java)
+
 - [LeetCode 35. Search Insert Position](src/io/ziheng/array/leetcode/SearchInsertPosition.java)
 
 - [LeetCode 283. Move Zeroes](src/io/ziheng/array/leetcode/MoveZeroes.java)
@@ -337,8 +339,6 @@ Java 核心知识点梳理。
 - [LeetCode 922. Sort Array By Parity II](src/io/ziheng/array/leetcode/SortArrayByParityII.java)
 
 - [LeetCode 88. Merge Sorted Array](src/io/ziheng/array/leetcode/MergeSortedArray.java)
-
-- [LeetCode 349. Intersection of Two Arrays](src/io/ziheng/array/leetcode/IntersectionOfTwoArrays.java)
 
 - [LeetCode 581. Shortest Unsorted Continuous Subarray](src/io/ziheng/array/leetcode/ShortestUnsortedContinuousSubarray.java)
 
@@ -374,6 +374,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 232. Implement Queue using Stacks](src/io/ziheng/stack/leetcode/ImplementQueueUsingStacks.java)
 
+- [LeetCode 1190. Reverse Substrings Between Each Pair of Parentheses](src/io/ziheng/stack/leetcode/ReverseSubstringsBetweenEachPairOfParentheses.java)
+
 ### Queue
 
 - [LeetCode 225. Implement Stack using Queues](src/io/ziheng/queue/leetcode/ImplementStackUsingQueues.java)
@@ -396,6 +398,10 @@ Java 核心知识点梳理。
 
 - [LeetCode 229. Majority Element II](src/io/ziheng/hashtable/leetcode/MajorityElementII.java)
 
+- [LeetCode 349. Intersection of Two Arrays](src/io/ziheng/hashtable/leetcode/IntersectionOfTwoArrays.java)
+
+- [LeetCode 350. Intersection of Two Arrays II](src/io/ziheng/hashtable/leetcode/IntersectionOfTwoArraysII.java)
+
 - [LeetCode 1160. Find Words That Can Be Formed by Characters](src/io/ziheng/hashtable/leetcode/FindWordsThatCanBeFormedByCharacters.java)
 
 - [LeetCode 1346. Check If N and Its Double Exist](src/io/ziheng/hashtable/leetcode/CheckIfNAndItsDoubleExist.java)
@@ -411,6 +417,8 @@ Java 核心知识点梳理。
 - [LeetCode 111. Minimum Depth of Binary Tree](src/io/ziheng/tree/leetcode/MinimumDepthOfBinaryTree.java)
 
 - [LeetCode 208. Implement Trie (Prefix Tree)](src/io/ziheng/tree/leetcode/ImplementTriePrefixTree.java)
+
+- [LeetCode 1305. All Elements in Two Binary Search Trees](src/io/ziheng/tree/leetcode/AllElementsInTwoBinarySearchTrees.java)
 
 ### Divide and Conquer
 
