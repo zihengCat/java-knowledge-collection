@@ -22,17 +22,68 @@ public class LongestIncreasingSubsequence {
         if (nums == null) {
             return 0;
         }
+
         // 暴力递归
-        // return lengthOfLISBruteForceRecursion(0, nums.length, Integer.MIN_VALUE, nums);
+        // return lengthOfLISRecursively(0, nums.length, Integer.MIN_VALUE, nums);
 
         // 记忆化搜索
+        // -> with Array
+        // int[] memo = new int[nums.length + 1];
+        // Arrays.fill(memo, -1);
+        // return lengthOfLISTopToBottom(0, nums.length, Integer.MIN_VALUE, nums, memo);
+        // -> with HashMap
         return lengthOfLISTopToBottom(0, nums.length, Integer.MIN_VALUE, nums);
+    }
+    /**
+     * 自顶向下 -> 记忆化搜索
+     *
+     * @param currentIndex
+     * @param n
+     * @param prevNum
+     * @param nums
+     * @param memo
+     * @return int
+     */
+    private int lengthOfLISTopToBottom(int currentIndex, int n, int prevNum, int[] nums, int[] memo) {
+        if (currentIndex >= n) {
+            return 0;
+        }
+        if (memo[currentIndex] == -1) {
+            int taken = 0;
+            int notTaken = 0;
+            if (nums[currentIndex] > prevNum) {
+                taken = 1 + lengthOfLISTopToBottom(currentIndex + 1, n, nums[currentIndex], nums, memo);
+            }
+            notTaken = lengthOfLISTopToBottom(currentIndex + 1, n, prevNum, nums, memo);
+            memo[currentIndex] = Math.max(taken, notTaken);
+        }
+        return memo[currentIndex];
+    }
+    /**
+     * 暴力递归
+     *
+     * @param currentIndex
+     * @param prevNum
+     * @param nums
+     * @return int
+     */
+    private int lengthOfLISRecursively(int currentIndex, int n, int prevNum, int[] nums) {
+        if (currentIndex >= n) {
+            return 0;
+        }
+        int taken = 0;
+        int notTaken = 0;
+        if (nums[currentIndex] > prevNum) {
+            taken = 1 + lengthOfLISRecursively(currentIndex + 1, n, nums[currentIndex], nums);
+        }
+        notTaken = lengthOfLISRecursively(currentIndex + 1, n, prevNum, nums);
+        return Math.max(taken, notTaken);
     }
 
     // private int[][] memo;
     private Map<String, Integer> memo = new HashMap<>();
     /**
-     * 记忆化搜索
+     * 自顶向下 -> 记忆化搜索
      *
      * @param i
      * @param n
@@ -71,12 +122,12 @@ public class LongestIncreasingSubsequence {
             return 0;
         }
         int taken = 0;
-        int nottaken = 0;
+        int notTaken = 0;
         if (nums[i] > prev) {
             taken = 1 + lengthOfLISBruteForceRecursion(i + 1, n, nums[i], nums);
         }
-        nottaken = lengthOfLISBruteForceRecursion(i + 1, n, prev, nums);
-        return Math.max(taken, nottaken);
+        notTaken = lengthOfLISBruteForceRecursion(i + 1, n, prev, nums);
+        return Math.max(taken, notTaken);
     }
 }
 /* EOF */

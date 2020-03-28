@@ -326,6 +326,10 @@ Java 核心知识点梳理。
 
 ### Array
 
+- [LeetCode 26. Remove Duplicates from Sorted Array](src/io/ziheng/array/leetcode/RemoveDuplicatesFromSortedArray.java)
+
+- [LeetCode 34. Find First and Last Position of Element in Sorted Array](src/io/ziheng/array/leetcode/FindFirstAndLastPositionOfElementInSortedArray.java)
+
 - [LeetCode 75. Sort Colors](src/io/ziheng/array/leetcode/SortColors.java)
 
 - [LeetCode 35. Search Insert Position](src/io/ziheng/array/leetcode/SearchInsertPosition.java)
@@ -450,9 +454,13 @@ Java 核心知识点梳理。
 
 - [LeetCode 63. Unique Paths II](src/io/ziheng/recursion/dynamicprogramming/leetcode/UniquePathsII.java)
 
+- [LeetCode 72. Edit Distance](src/io/ziheng/recursion/dynamicprogramming/leetcode/EditDistance.java)
+
 ### Bit Manipulation
 
 - [LeetCode 338. Counting Bits](src/io/ziheng/bitmanipulation/leetcode/CountingBits.java)
+
+- [LeetCode 1356. Sort Integers by The Number of 1 Bits](src/io/ziheng/bitmanipulation/leetcode/SortIntegersByTheNumberOf1Bits.java)
 
 # 许可协议（License）
 
