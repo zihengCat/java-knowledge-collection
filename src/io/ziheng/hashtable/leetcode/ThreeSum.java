@@ -20,6 +20,7 @@ public class ThreeSum {
             return new LinkedList<>();
         }
         threeSum0(nums);
+        threeSum0(nums);
         return resultSet.stream().collect(Collectors.toList());
     }
     private void threeSum0(int[] nums) {

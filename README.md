@@ -394,6 +394,8 @@ Java 核心知识点梳理。
 
 ### Hash Table
 
+- [LeetCode 202. Happy Number](src/io/ziheng/hashtable/leetcode/HappyNumber.java)
+
 - [LeetCode 242. Valid Anagram](src/io/ziheng/hashtable/leetcode/ValidAnagram.java)
 
 - [LeetCode 49. Group Anagrams](src/io/ziheng/hashtable/leetcode/GroupAnagrams.java)
@@ -401,6 +403,8 @@ Java 核心知识点梳理。
 - [LeetCode 169. Majority Element](src/io/ziheng/hashtable/leetcode/MajorityElement.java)
 
 - [LeetCode 229. Majority Element II](src/io/ziheng/hashtable/leetcode/MajorityElementII.java)
+
+- [LeetCode 771. Jewels and Stones](src/io/ziheng/hashtable/leetcode/JewelsAndStones.java)
 
 - [LeetCode 349. Intersection of Two Arrays](src/io/ziheng/hashtable/leetcode/IntersectionOfTwoArrays.java)
 
@@ -457,6 +461,8 @@ Java 核心知识点梳理。
 - [LeetCode 72. Edit Distance](src/io/ziheng/recursion/dynamicprogramming/leetcode/EditDistance.java)
 
 ### Bit Manipulation
+
+- [LeetCode 191. Number of 1 Bits](src/io/ziheng/bitmanipulation/leetcode/NumberOfOneBits.java)
 
 - [LeetCode 338. Counting Bits](src/io/ziheng/bitmanipulation/leetcode/CountingBits.java)
 
