@@ -390,6 +390,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 347. Top K Frequent Elements](src/io/ziheng/heap/leetcode/TopKFrequentElements.java)
 
+- [LeetCode 692. Top K Frequent Words](src/io/ziheng/heap/leetcode/TopKFrequentWords.java)
+
 - [LeetCode 704. Kth Largest Element in a Stream](src/io/ziheng/heap/leetcode/KthLargestElementInAStream.java)
 
 - [LeetCode 215. Kth Largest Element in an Array](src/io/ziheng/heap/leetcode/KthLargestElementInAnArray.java)
