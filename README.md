@@ -344,6 +344,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 88. Merge Sorted Array](src/io/ziheng/array/leetcode/MergeSortedArray.java)
 
+- [LeetCode 56. Merge Intervals](src/io/ziheng/array/leetcode/MergeIntervals.java)
+
 - [LeetCode 581. Shortest Unsorted Continuous Subarray](src/io/ziheng/array/leetcode/ShortestUnsortedContinuousSubarray.java)
 
 - [LeetCode 1380. Lucky Numbers in a Matrix](src/io/ziheng/array/leetcode/LuckyNumbersInAMatrix.java)
