@@ -432,6 +432,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 1305. All Elements in Two Binary Search Trees](src/io/ziheng/tree/leetcode/AllElementsInTwoBinarySearchTrees.java)
 
+- [LeetCode 1302. Deepest Leaves Sum](src/io/ziheng/tree/leetcode/DeepestLeavesSum.java)
+
 ### Divide and Conquer
 
 - [LeetCode 50. Pow(x, n)](src/io/ziheng/recursion/divideandconquer/leetcode/Pow.java)
