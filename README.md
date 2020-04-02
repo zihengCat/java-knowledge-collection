@@ -366,6 +366,8 @@ Java 核心知识点梳理。
 
 - [LeetCodde 21. Merge Two Sorted Lists](src/io/ziheng/list/leetcode/MergeTwoSortedLists.java)
 
+- [LeetCode 138. Copy List with Random Pointer](src/io/ziheng/list/leetcode/CopyListWithRandomPointer.java)
+
 - [LeetCode 1290. Convert Binary Number in a Linked List to Integer](src/io/ziheng/list/leetcode/ConvertBinaryNumberInALinkedListToInteger.java)
 
 ### Stack
