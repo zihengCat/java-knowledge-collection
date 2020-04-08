@@ -20,6 +20,7 @@ Java 核心知识点梳理。
   * [计算机网络](#计算机网络)
   * [计算机组成原理](#计算机组成原理)
   * [数据结构与算法](#数据结构与算法)
+  * [剑指 Offer](#剑指-Offer)
   * [LeetCode 题解](#LeetCode-题解)
     * [Array](#Array)
     * [String](#String)
@@ -325,6 +326,8 @@ Java 核心知识点梳理。
 ## 剑指 Offer
 
 - [剑指 Offer 面试题 03：二维数组中的查找](src/io/ziheng/codinginterviews/LookupInATwoDimensionalArray.java)
+
+- [剑指 Offer 面试题 04：替换空格](src/io/ziheng/codinginterviews/ReplaceSpace.java)
 
 ## LeetCode 题解
 
