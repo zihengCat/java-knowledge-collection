@@ -119,7 +119,7 @@ Java 核心知识点梳理。
 
 ## 设计模式
 
-- 设计模式概述
+- [设计模式概述](DesignPatterns/DesignPatternsOverview/design_patterns_overview.md)
 
 ### 创建型
 
