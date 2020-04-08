@@ -1,4 +1,8 @@
 #include <vector>
+#include <cstdio>
+#include <iostream>
+
+#include "../VectorHelper.h"
 
 using namespace std;
 
@@ -46,10 +50,9 @@ private:
      */
     int maxAreaBruteForce(vector<int>& height) {
         int maxArea = 0;
-        int left = 0;
-        int right = height.size() - 1;
-        for (int i = 0; i <= right; i++) {
-            for (int j = i + 1; i <= right; j++) {
+        int arrayLength = height.size();
+        for (int i = 0; i < arrayLength; i++) {
+            for (int j = i + 1; i < arrayLength; j++) {
                 maxArea = max(
                     maxArea,
                     min(height[i], height[j])
@@ -66,8 +69,27 @@ private:
         return a < b ? a : b;
     }
 };
+/**
+ * 主函数 -> 测试用例
+ */
 int main(int argc, char const *argv[]) {
-    // ...
+    Solution obj = Solution();
+    // C++ 98
+    vector<int> height = vector<int>();
+    int arr[] = {
+        1, 8, 6, 2, 5, 4, 8, 3, 7,
+    };
+    addElements(height, arr, sizeof(arr) / sizeof(arr[0]));
+    // C++ 11
+    // vector<int> height = {
+    //     1, 8, 6, 2, 5, 4, 8, 3, 7,
+    // };
+    printf(
+        "vector.size(): %lu\nresult: %d\n",
+        height.size(),
+        obj.maxArea(height)
+    );
+    cout << vectorToString(height) << endl;
     return 0;
 }
 /* EOF */
