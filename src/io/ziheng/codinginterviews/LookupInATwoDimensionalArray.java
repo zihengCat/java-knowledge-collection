@@ -35,7 +35,17 @@ public class LookupInATwoDimensionalArray {
             obj.find(target, array)
         );
     }
+    /**
+     * 剑指 Offer 面试题 03：二维数组中的查找
+     *
+     * @param target
+     * @param array
+     * @return boolean
+     */
     public boolean find(int target, int[][] array) {
+        if (array == null || array.length == 0) {
+            return false;
+        }
         for (int i = 0, j = array[i].length - 1;
             i >= 0 && i < array.length && j >= 0 && j < array[i].length;
             /* ... */) {
