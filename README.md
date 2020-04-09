@@ -329,6 +329,14 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 04：替换空格](src/io/ziheng/codinginterviews/ReplaceSpace.java)
 
+- [剑指 Offer 面试题 05：从尾到头打印链表](src/io/ziheng/codinginterviews/PrintLinkedListFromTailToHead.java)
+
+- [剑指 Offer 面试题 06：重建二叉树（前序、中序）](src/io/ziheng/codinginterviews/ConstructBinaryTreeFromPreorderAndInorderTraversal.java)
+
+- [剑指 Offer 面试题 07：使用栈实现队列](src/io/ziheng/codinginterviews/QueueUsingStacks.java)
+
+- [剑指 Offer 面试题 15：二进制中 1 的个数](src/io/ziheng/codinginterviews/NumberOfOneInBinary.java)
+
 ## LeetCode 题解
 
 ### Array
