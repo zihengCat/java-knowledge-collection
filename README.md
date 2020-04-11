@@ -341,9 +341,17 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 22：链表倒数第 k 个节点](src/io/ziheng/codinginterviews/KthNodeFromTheEndOfLinkedList.java)
 
+- [剑指 Offer 面试题 23：链表中环的入口节点](src/io/ziheng/codinginterviews/EntryNodeOfRingInLinkedList.java)
+
+- [剑指 Offer 面试题 24：反转链表](src/io/ziheng/codinginterviews/ReverseLinkedList.java)
+
+- [剑指 Offer 面试题 25：合并两个排序的链表](src/io/ziheng/codinginterviews/MergeTwoSortedLinkedLists.java)
+
 - [剑指 Offer 面试题 30：包含 min() 函数的栈](src/io/ziheng/codinginterviews/StackWithMinFunction.java)
 
 - [剑指 Offer 面试题 31：栈的压入、弹出序列](src/io/ziheng/codinginterviews/StackPushPopSequence.java)
+
+- [剑指 Offer 面试题 52：两个链表的第一个公共节点](src/io/ziheng/codinginterviews/IntersectionNodeOfTwoLinkedLists.java)
 
 ## LeetCode 题解
 
@@ -390,6 +398,8 @@ Java 核心知识点梳理。
 - [LeetCode 206. Reverse Linked List](src/io/ziheng/list/leetcode/ReverseLinkedList.java)
 
 - [LeetCode 141. Linked List Cycle](src/io/ziheng/list/leetcode/ReverseLinkedList.java)
+
+- [LeetCode 142. Linked List Cycle II](src/io/ziheng/list/leetcode/LinkedListCycleII.java)
 
 - [LeetCodde 21. Merge Two Sorted Lists](src/io/ziheng/list/leetcode/MergeTwoSortedLists.java)
 
