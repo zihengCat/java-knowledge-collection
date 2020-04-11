@@ -337,6 +337,14 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 15：二进制中 1 的个数](src/io/ziheng/codinginterviews/NumberOfOneInBinary.java)
 
+- [剑指 Offer 面试题 18：删除链表节点](src/io/ziheng/codinginterviews/DeleteNodeInLinkedList.java)
+
+- [剑指 Offer 面试题 22：链表倒数第 k 个节点](src/io/ziheng/codinginterviews/KthNodeFromTheEndOfLinkedList.java)
+
+- [剑指 Offer 面试题 30：包含 min() 函数的栈](src/io/ziheng/codinginterviews/StackWithMinFunction.java)
+
+- [剑指 Offer 面试题 31：栈的压入、弹出序列](src/io/ziheng/codinginterviews/StackPushPopSequence.java)
+
 ## LeetCode 题解
 
 ### Array
