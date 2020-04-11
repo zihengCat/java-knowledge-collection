@@ -419,6 +419,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 1190. Reverse Substrings Between Each Pair of Parentheses](src/io/ziheng/stack/leetcode/ReverseSubstringsBetweenEachPairOfParentheses.java)
 
+- [LeetCode 1381. Design a Stack With Increment Operation](src/io/ziheng/stack/leetcode/DesignAStackWithIncrementOperation.java)
+
 ### Queue
 
 - [LeetCode 225. Implement Stack using Queues](src/io/ziheng/queue/leetcode/ImplementStackUsingQueues.java)
@@ -450,6 +452,8 @@ Java 核心知识点梳理。
 - [LeetCode 349. Intersection of Two Arrays](src/io/ziheng/hashtable/leetcode/IntersectionOfTwoArrays.java)
 
 - [LeetCode 350. Intersection of Two Arrays II](src/io/ziheng/hashtable/leetcode/IntersectionOfTwoArraysII.java)
+
+- [LeetCode 599. Minimum Index Sum of Two Lists](src/io/ziheng/hashtable/leetcode/MinimumIndexSumOfTwoLists.java)
 
 - [LeetCode 1160. Find Words That Can Be Formed by Characters](src/io/ziheng/hashtable/leetcode/FindWordsThatCanBeFormedByCharacters.java)
 
