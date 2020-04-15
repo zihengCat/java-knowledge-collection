@@ -44,12 +44,6 @@ public class ReduceArraySizeToTheHalf {
                 }
             }
         );
-        System.out.println(
-            "Array.length: "
-            + arr.length
-            + " aList :"
-            + aList
-        );
         int arrayLength = arr.length;
         int cnt = 0;
         int sum = 0;

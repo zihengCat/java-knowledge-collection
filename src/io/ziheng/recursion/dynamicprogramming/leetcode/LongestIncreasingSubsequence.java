@@ -12,7 +12,7 @@ public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
         LongestIncreasingSubsequence obj = new LongestIncreasingSubsequence();
         int[] nums = {
-            3,5,6,2,5,4,19,5,6,7,12,
+            3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12,
         };
         System.out.println(
             obj.lengthOfLIS(nums)
@@ -24,60 +24,19 @@ public class LongestIncreasingSubsequence {
         }
 
         // 暴力递归
-        // return lengthOfLISRecursively(0, nums.length, Integer.MIN_VALUE, nums);
+        // return lengthOfLISBruteForceRecursion(i, n, prev, nums);
 
         // 记忆化搜索
-        // -> with Array
+        // -> Using Array
         // int[] memo = new int[nums.length + 1];
         // Arrays.fill(memo, -1);
         // return lengthOfLISTopToBottom(0, nums.length, Integer.MIN_VALUE, nums, memo);
-        // -> with HashMap
+        // -> Using HashMap
         return lengthOfLISTopToBottom(0, nums.length, Integer.MIN_VALUE, nums);
-    }
-    /**
-     * 自顶向下 -> 记忆化搜索
-     *
-     * @param currentIndex
-     * @param n
-     * @param prevNum
-     * @param nums
-     * @param memo
-     * @return int
-     */
-    private int lengthOfLISTopToBottom(int currentIndex, int n, int prevNum, int[] nums, int[] memo) {
-        if (currentIndex >= n) {
-            return 0;
-        }
-        if (memo[currentIndex] == -1) {
-            int taken = 0;
-            int notTaken = 0;
-            if (nums[currentIndex] > prevNum) {
-                taken = 1 + lengthOfLISTopToBottom(currentIndex + 1, n, nums[currentIndex], nums, memo);
-            }
-            notTaken = lengthOfLISTopToBottom(currentIndex + 1, n, prevNum, nums, memo);
-            memo[currentIndex] = Math.max(taken, notTaken);
-        }
-        return memo[currentIndex];
-    }
-    /**
-     * 暴力递归
-     *
-     * @param currentIndex
-     * @param prevNum
-     * @param nums
-     * @return int
-     */
-    private int lengthOfLISRecursively(int currentIndex, int n, int prevNum, int[] nums) {
-        if (currentIndex >= n) {
-            return 0;
-        }
-        int taken = 0;
-        int notTaken = 0;
-        if (nums[currentIndex] > prevNum) {
-            taken = 1 + lengthOfLISRecursively(currentIndex + 1, n, nums[currentIndex], nums);
-        }
-        notTaken = lengthOfLISRecursively(currentIndex + 1, n, prevNum, nums);
-        return Math.max(taken, notTaken);
+
+        // 动态规划
+        // ...
+
     }
 
     // private int[][] memo;
@@ -89,7 +48,7 @@ public class LongestIncreasingSubsequence {
      * @param n
      * @param prevNum
      * @param nums
-     * @return
+     * @return int
      */
     private int lengthOfLISTopToBottom(int i, int n, int prevNum, int[] nums) {
         if (i >= n) {
@@ -100,14 +59,15 @@ public class LongestIncreasingSubsequence {
             return memo.get(key);
         }
         int taken = 0;
-        int nottaken = 0;
+        int notTaken = 0;
         if (nums[i] > prevNum) {
             taken = 1 + lengthOfLISTopToBottom(i + 1, n, nums[i], nums);
         }
-        nottaken = lengthOfLISTopToBottom(i + 1, n, prevNum, nums);
-        memo.put(key, Math.max(taken, nottaken));
+        notTaken = lengthOfLISTopToBottom(i + 1, n, prevNum, nums);
+        memo.put(key, Math.max(taken, notTaken));
         return memo.get(key);
     }
+
     /**
      * 暴力递归
      *
