@@ -1,4 +1,7 @@
 package io.ziheng.array.leetcode;
+/**
+ * ...
+ */
 public class SearchInRotatedSortedArray {
     public int search(int[] nums, int target) {
         if (nums == null || nums.length == 0) {
@@ -14,7 +17,7 @@ public class SearchInRotatedSortedArray {
         int findLeft = binarySearch(nums, 0, breakingPoint, target);
         int findRight = binarySearch(nums, breakingPoint + 1, nums.length - 1, target);
         return findLeft != -1 ? findLeft
-        : findRight != -1 ? findRight : -1;
+            : findRight != -1 ? findRight : -1;
     }
     private int binarySearch(int[] nums, int left, int right, int target) {
         if (left > right) {

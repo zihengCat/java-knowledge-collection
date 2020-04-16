@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 /**
  * LeetCode ???. Perform String Shifts
- * http://...
+ * https://leetcode.com/
  */
 public class PerformStringShifts {
     public static void main(String[] args) {

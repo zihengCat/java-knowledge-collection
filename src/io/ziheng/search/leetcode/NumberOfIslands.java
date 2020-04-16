@@ -1,4 +1,4 @@
-package io.ziheng.graph.leetcode;
+package io.ziheng.search.leetcode;
 
 /**
  * LeetCode 200. Number of Islands
