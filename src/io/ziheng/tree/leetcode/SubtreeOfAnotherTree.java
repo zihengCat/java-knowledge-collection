@@ -1,4 +1,5 @@
 package io.ziheng.tree.leetcode;
+
 import io.ziheng.tree.leetcode.TreeNode;
 
 /**

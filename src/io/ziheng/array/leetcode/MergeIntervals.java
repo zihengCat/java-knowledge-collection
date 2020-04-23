@@ -50,10 +50,10 @@ public class MergeIntervals {
         resultList.add(currentInterval);
         for (int[] interval : intervals) {
             // Overlapping intervals, move the end if needed
+            // Disjoint intervals, add the new interval to the list
             if (interval[0] <= currentInterval[1]) {
                 currentInterval[1] = Math.max(currentInterval[1], interval[1]);
             } else {
-            // Disjoint intervals, add the new interval to the list
                 currentInterval = interval;
                 resultList.add(currentInterval);
             }

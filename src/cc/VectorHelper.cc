@@ -20,6 +20,16 @@ std::string vectorToString(std::vector<int>& vec) {
     return ss.str();
 }
 
+std::string vectorToString(std::vector<std::string>& vec) {
+    std::stringstream ss;
+    ss << '[';
+    for (int i = 0; i < vec.size(); i++) {
+        ss << vec[i] << ", ";
+    }
+    ss << ']';
+    return ss.str();
+}
+
 void print(void) {
     printf("hello");
 }

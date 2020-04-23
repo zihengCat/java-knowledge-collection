@@ -26,6 +26,8 @@ void addElements(std::vector<int>& vec, int arr[], int size);
  */
 std::string vectorToString(std::vector<int>& vec);
 
+std::string vectorToString(std::vector<std::string>& vec);
+
 void print(void);
 
 #endif // __VECTOR_HELPER_H__
