@@ -347,6 +347,8 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 25：合并两个排序的链表](src/io/ziheng/codinginterviews/MergeTwoSortedLinkedLists.java)
 
+- [剑指 Offer 面试题 26：树的子结构](src/io/ziheng/codinginterviews/SubstructureOfTree.java)
+
 - [剑指 Offer 面试题 30：包含 min() 函数的栈](src/io/ziheng/codinginterviews/StackWithMinFunction.java)
 
 - [剑指 Offer 面试题 31：栈的压入、弹出序列](src/io/ziheng/codinginterviews/StackPushPopSequence.java)

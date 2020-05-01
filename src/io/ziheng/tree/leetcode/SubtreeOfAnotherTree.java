@@ -14,8 +14,8 @@ public class SubtreeOfAnotherTree {
         if (isSameTree(s, t)) {
             return true;
         }
-        return isSubtree(s.left, t) ||
-               isSubtree(s.right, t);
+        return isSubtree(s.left, t)
+            || isSubtree(s.right, t);
     }
     private boolean isSameTree(TreeNode s, TreeNode t) {
         if (s == null && t == null) {
@@ -26,7 +26,8 @@ public class SubtreeOfAnotherTree {
         if (s.val != t.val) {
             return false;
         }
-        return isSameTree(s.left, t.left) && isSameTree(s.right, t.right);
+        return isSameTree(s.left, t.left)
+            && isSameTree(s.right, t.right);
     }
 }
 /* EOF */

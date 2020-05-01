@@ -5,7 +5,7 @@
 using namespace std;
 
 int main(int argc, char const *argv[]) {
-    std::map<int, int> aMap = std::map<int, int>();
+    map<int, int> aMap = map<int, int>();
     for (int i = 0; i < 10; i++) {
         aMap.insert(pair<int, int>(i, i * 10));
     }
