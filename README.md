@@ -445,6 +445,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 49. Group Anagrams](src/io/ziheng/hashtable/leetcode/GroupAnagrams.java)
 
+- [LeetCode 383. Ransom Note](src/io/ziheng/hashtable/leetcode/RansomNote.java)
+
 - [LeetCode 169. Majority Element](src/io/ziheng/hashtable/leetcode/MajorityElement.java)
 
 - [LeetCode 229. Majority Element II](src/io/ziheng/hashtable/leetcode/MajorityElementII.java)
