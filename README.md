@@ -399,6 +399,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 92. Reverse Linked List II](src/io/ziheng/list/leetcode/ReverseLinkedListII.java)
 
+- [LeetCode 160. Intersection of Two Linked Lists](src/io/ziheng/list/leetcode/IntersectionOfTwoLinkedLists.java)
+
 ### Stack
 
 - [LeetCode 20. Valid Parentheses](src/io/ziheng/stack/leetcode/ValidParentheses.java)
