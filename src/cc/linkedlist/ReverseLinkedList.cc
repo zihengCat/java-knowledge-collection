@@ -1,53 +1,66 @@
 #include <stdio.h>
-#include "linked_list.h"
 
-class ReverseLinkedList {
+/**
+ * Definition for singly-linked list.
+ */
+class ListNode {
 public:
-    ListNode* reverseList(ListNode* head) {
-        return reverseListIteratively(head);
+    int val;
+    ListNode *next;
+    ListNode(): val(0), next(NULL) {
+        // ...
     }
-private:
-    ListNode* reverseListIteratively(ListNode* headNode);
-    ListNode* reverseListRecursively(ListNode* headNode, ListNode* prevNode);
+    ListNode(int x): val(x), next(NULL) {
+        // ...
+    }
+    ListNode(int x, ListNode *next): val(x), next(next) {
+        // ...
+    }
 };
 
-
 /**
- * 反转单链表 -> 递归
- *
- * @param headNode
- * @param prevNode
- * @return ListNode*
+ * LeetCode 206. Reverse Linked List
+ * https://leetcode.com/problems/reverse-linked-list/
  */
-ListNode* ReverseLinkedList::reverseListRecursively(
-    ListNode* headNode, ListNode* prevNode) {
-    if (headNode == NULL) {
-        return prevNode;
+class Solution {
+public:
+    ListNode* reverseList(ListNode *head) {
+        // return reverseListIteratively(head);
+        return reverseListRecursively(head, NULL);
     }
-    ListNode* nextNode = headNode -> next;
-    headNode -> next = prevNode;
-    return reverseListRecursively(nextNode, headNode);
-}
-
-/**
- * 反转单链表 -> 迭代
- *
- * @param headNode
- * @return ListNode*
- */
-ListNode* ReverseLinkedList::reverseListIteratively(ListNode* headNode) {
-    ListNode* previousNode = NULL;
-    ListNode* currentNode = headNode;
-    ListNode* nextNode;
-    while (currentNode != NULL) {
-        nextNode = currentNode -> next;
-        currentNode -> next = previousNode;
-        previousNode = currentNode;
-        currentNode = nextNode;
+private:
+    /**
+     * 反转单链表 -> 迭代
+     *
+     * @param headNode
+     * @return ListNode*
+     */
+    ListNode* reverseListIteratively(ListNode *head) {
+        ListNode *newHead = NULL;
+        while (head) {
+            ListNode *next = head -> next;
+            head -> next = newHead;
+            newHead = head;
+            head = next;
+        }
+        return newHead;
     }
-    return previousNode;
-}
-
+    /**
+     * 反转单链表 -> 递归
+     *
+     * @param headNode
+     * @param prevNode
+     * @return ListNode*
+     */
+    ListNode* reverseListRecursively(ListNode *headNode, ListNode *prevNode) {
+        if (headNode == NULL) {
+            return prevNode;
+        }
+        ListNode* nextNode = headNode -> next;
+        headNode -> next = prevNode;
+        return reverseListRecursively(nextNode, headNode);
+    }
+};
 
 int main(int argc, char const *argv[]) {
     ListNode listNode = ListNode(1, NULL);

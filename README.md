@@ -395,19 +395,9 @@ Java 核心知识点梳理。
 
 ### Linked List
 
-- [LeetCode 2. Add Two Numbers](src/io/ziheng/list/leetcode/AddTwoNumbers.java)
-
 - [LeetCode 206. Reverse Linked List](src/io/ziheng/list/leetcode/ReverseLinkedList.java)
 
-- [LeetCode 141. Linked List Cycle](src/io/ziheng/list/leetcode/ReverseLinkedList.java)
-
-- [LeetCode 142. Linked List Cycle II](src/io/ziheng/list/leetcode/LinkedListCycleII.java)
-
-- [LeetCodde 21. Merge Two Sorted Lists](src/io/ziheng/list/leetcode/MergeTwoSortedLists.java)
-
-- [LeetCode 138. Copy List with Random Pointer](src/io/ziheng/list/leetcode/CopyListWithRandomPointer.java)
-
-- [LeetCode 1290. Convert Binary Number in a Linked List to Integer](src/io/ziheng/list/leetcode/ConvertBinaryNumberInALinkedListToInteger.java)
+- [LeetCode 92. Reverse Linked List II](src/io/ziheng/list/leetcode/ReverseLinkedListII.java)
 
 ### Stack
 

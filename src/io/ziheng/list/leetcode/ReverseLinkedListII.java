@@ -9,6 +9,32 @@ public class ReverseLinkedListII {
         if (head == null) {
             return head;
         }
+        ListNode dummyHead = new ListNode(0);
+        dummyHead.next = head;
+        ListNode previousNode = dummyHead;
+        for (int i = 0; i < m - 1; i++) {
+            previousNode = previousNode.next;
+        }
+        ListNode newHead = null;
+        ListNode newTail = previousNode.next;
+        ListNode currentNode = previousNode.next;
+        int len = n - m + 1;
+        while (currentNode != null && len > 0) {
+            ListNode nextNode = currentNode.next;
+            currentNode.next = newHead;
+            newHead = currentNode;
+            currentNode = nextNode;
+            len--;
+        }
+        newTail.next = currentNode;
+        previousNode.next = newHead;
+        return dummyHead.next;
+    }
+    // more elegant
+    public ListNode reverseBetween0(ListNode head, int m, int n) {
+        if (head == null) {
+            return head;
+        }
         ListNode dummyHead = new ListNode(-1);
         dummyHead.next = head;
         ListNode prevNode = dummyHead;
