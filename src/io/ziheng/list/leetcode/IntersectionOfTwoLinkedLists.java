@@ -11,6 +11,9 @@ public class IntersectionOfTwoLinkedLists {
     /**
      * Intersection of Two Linked Lists
      *
+     * Time Complexity: O(n)
+     * Space Complexity: O(n)
+     *
      * @param headA
      * @param headB
      * @return ListNode
@@ -34,7 +37,16 @@ public class IntersectionOfTwoLinkedLists {
         }
         return null;
     }
-    // more elegant way
+    /**
+     * more elegant way
+     *
+     * Time Complexity: O(n)
+     * Space Complexity: O(1)
+     *
+     * @param headA
+     * @param headB
+     * @return ListNode
+     */
     public ListNode getIntersectionNode0(ListNode headA, ListNode headB) {
         int lenA = findListLength(headA);
         int lenB = findListLength(headB);

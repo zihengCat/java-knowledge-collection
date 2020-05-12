@@ -14,17 +14,14 @@ public class LinkedListCycleII {
         if (head == null || head.next == null) {
             return null;
         }
-        // 哈希表法
         // return detectCycleHashing(head);
-        // 双指针法
         return detectCycleTwoPointer(head);
     }
-
     /**
-     * 双指针法
+     * Linked List Detect Cycle -> Two Pointer
      *
-     * 时间复杂度：O(n)
-     * 空间复杂度：O(1)
+     * Time Complexity: O(n)
+     * Space Complexity: O(1)
      *
      * @param head
      * @return ListNode
@@ -52,12 +49,11 @@ public class LinkedListCycleII {
         }
         return pA;
     }
-
     /**
-     * 哈希表法
+     * Linked List Detect Cycle -> Hashing
      *
-     * 时间复杂度：O(n)
-     * 空间复杂度：O(n)
+     * Time Complexity: O(n)
+     * Space Complexity: O(n)
      *
      * @param head
      * @return ListNode

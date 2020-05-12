@@ -401,6 +401,14 @@ Java 核心知识点梳理。
 
 - [LeetCode 160. Intersection of Two Linked Lists](src/io/ziheng/list/leetcode/IntersectionOfTwoLinkedLists.java)
 
+- [LeetCode 141. Linked List Cycle](src/io/ziheng/list/leetcode/LinkedListCycle.java)
+
+- [LeetCode 142. Linked List Cycle II](src/io/ziheng/list/leetcode/LinkedListCycleII.java)
+
+- [LeetCode 86. Partition List](src/io/ziheng/list/leetcode/PartitionList.java)
+
+- [LeetCode 138. Copy List with Random Pointer](src/io/ziheng/list/leetcode/CopyListWithRandomPointer.java)
+
 ### Stack
 
 - [LeetCode 20. Valid Parentheses](src/io/ziheng/stack/leetcode/ValidParentheses.java)
