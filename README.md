@@ -409,6 +409,10 @@ Java 核心知识点梳理。
 
 - [LeetCode 138. Copy List with Random Pointer](src/io/ziheng/list/leetcode/CopyListWithRandomPointer.java)
 
+- [LeetCode 21. Merge Two Sorted Lists](src/io/ziheng/list/leetcode/MergeTwoSortedLists.java)
+
+- [LeetCode 23. Merge k Sorted Lists](src/io/ziheng/list/leetcode/MergeKSortedLists.java)
+
 ### Stack
 
 - [LeetCode 20. Valid Parentheses](src/io/ziheng/stack/leetcode/ValidParentheses.java)
