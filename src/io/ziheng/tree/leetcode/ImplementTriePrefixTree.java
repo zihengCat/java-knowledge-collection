@@ -23,7 +23,7 @@ public class ImplementTriePrefixTree {
      */
     private TrieNode root;
     /**
-     * 构造函数
+     * Constructor
      */
     public ImplementTriePrefixTree() {
         root = new TrieNode(' ');
