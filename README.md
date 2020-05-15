@@ -355,6 +355,10 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 52：两个链表的第一个公共节点](src/io/ziheng/codinginterviews/IntersectionNodeOfTwoLinkedLists.java)
 
+- [剑指 Offer 面试题 58-1：翻转字符串单词顺序](src/io/ziheng/codinginterviews/ReverseWordsInSentence.java)
+
+- [剑指 Offer 面试题 58-2：左旋转字符串](src/io/ziheng/codinginterviews/LeftRotateString.java)
+
 ## LeetCode 题解
 
 ### Array
