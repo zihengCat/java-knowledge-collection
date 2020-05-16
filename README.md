@@ -355,6 +355,14 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 52：两个链表的第一个公共节点](src/io/ziheng/codinginterviews/IntersectionNodeOfTwoLinkedLists.java)
 
+- [剑指 Offer 面试题 55-1：二叉树的深度](src/io/ziheng/codinginterviews/BinaryTreeDepth.java)
+
+- [剑指 Offer 面试题 55-2：判断平衡二叉树]()
+
+- [剑指 Offer 面试题 57-1：和为 s 的两数](src/io/ziheng/codinginterviews/FindTwoNumbersWithSum.java)
+
+- [剑指 Offer 面试题 57-2：和为 s 的连续正整数序列]()
+
 - [剑指 Offer 面试题 58-1：翻转字符串单词顺序](src/io/ziheng/codinginterviews/ReverseWordsInSentence.java)
 
 - [剑指 Offer 面试题 58-2：左旋转字符串](src/io/ziheng/codinginterviews/LeftRotateString.java)
