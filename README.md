@@ -369,6 +369,8 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 58-2：左旋转字符串](src/io/ziheng/codinginterviews/LeftRotateString.java)
 
+- [剑指 Offer 面试题 68：二叉树两节点最小公共祖先](src/io/ziheng/codinginterviews/LowestCommonAncestorOfBinaryTree.java)
+
 ## LeetCode 题解
 
 ### Array
