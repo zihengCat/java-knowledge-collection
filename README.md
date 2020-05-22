@@ -353,6 +353,8 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 31：栈的压入、弹出序列](src/io/ziheng/codinginterviews/StackPushPopSequence.java)
 
+- [剑指 Offer 面试题 47：礼物的最大价值](src/io/ziheng/codinginterviews/MaximumValueOfGifts.java)
+
 - [剑指 Offer 面试题 52：两个链表的第一个公共节点](src/io/ziheng/codinginterviews/IntersectionNodeOfTwoLinkedLists.java)
 
 - [剑指 Offer 面试题 54：二叉搜索树第 k 大节点](src/io/ziheng/codinginterviews/KthNodeInBinarySearchTree.java)
@@ -361,6 +363,8 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 55-2：判断平衡二叉树](src/io/ziheng/codinginterviews/IsBalancedBinaryTree.java)
 
+- [剑指 Offer 面试题 56：数组中数字出现次数](src/io/ziheng/codinginterviews/NumberAppearsInArray.java)
+
 - [剑指 Offer 面试题 57-1：和为 s 的两数](src/io/ziheng/codinginterviews/FindTwoNumbersWithSum.java)
 
 - [剑指 Offer 面试题 57-2：和为 s 的连续正整数序列]()
@@ -368,6 +372,8 @@ Java 核心知识点梳理。
 - [剑指 Offer 面试题 58-1：翻转字符串单词顺序](src/io/ziheng/codinginterviews/ReverseWordsInSentence.java)
 
 - [剑指 Offer 面试题 58-2：左旋转字符串](src/io/ziheng/codinginterviews/LeftRotateString.java)
+
+- [剑指 Offer 面试题 59：滑动窗口的最大值](src/io/ziheng/codinginterviews/MaximumValueOfSlidingWindow.java)
 
 - [剑指 Offer 面试题 68：二叉树两节点最小公共祖先](src/io/ziheng/codinginterviews/LowestCommonAncestorOfBinaryTree.java)
 
