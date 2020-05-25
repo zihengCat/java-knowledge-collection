@@ -353,6 +353,8 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 31：栈的压入、弹出序列](src/io/ziheng/codinginterviews/StackPushPopSequence.java)
 
+- [剑指 Offer 面试题 40：最小的 k 个数](src/io/ziheng/codinginterviews/MinimumKNumbers.java)
+
 - [剑指 Offer 面试题 47：礼物的最大价值](src/io/ziheng/codinginterviews/MaximumValueOfGifts.java)
 
 - [剑指 Offer 面试题 52：两个链表的第一个公共节点](src/io/ziheng/codinginterviews/IntersectionNodeOfTwoLinkedLists.java)
