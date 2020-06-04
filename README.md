@@ -351,6 +351,10 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 27：二叉树的镜像](src/io/ziheng/codinginterviews/MirrorOfBinaryTree.java)
 
+- [剑指 Offer 面试题 28：对称的二叉树](src/io/ziheng/codinginterviews/IsSymmetricalBinaryTree.java)
+
+- [剑指 Offer 面试题 29：顺时针打印矩阵](src/io/ziheng/codinginterviews/ClockwisePrintMatrix.java)
+
 - [剑指 Offer 面试题 30：包含 min() 函数的栈](src/io/ziheng/codinginterviews/StackWithMinFunction.java)
 
 - [剑指 Offer 面试题 31：栈的压入、弹出序列](src/io/ziheng/codinginterviews/StackPushPopSequence.java)
