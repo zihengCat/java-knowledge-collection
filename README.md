@@ -363,6 +363,8 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 38：字符串的排列](src/io/ziheng/codinginterviews/StringPermutation.java)
 
+- [剑指 Offer 面试题 39：数组中出现次数超过一半的数字](src/io/ziheng/codinginterviews/MoreThanHalfNumInArray.java)
+
 - [剑指 Offer 面试题 40：最小的 k 个数](src/io/ziheng/codinginterviews/MinimumKNumbers.java)
 
 - [剑指 Offer 面试题 47：礼物的最大价值](src/io/ziheng/codinginterviews/MaximumValueOfGifts.java)
