@@ -337,6 +337,8 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 10-1：斐波那契数列](src/io/ziheng/codinginterviews/FibonacciSequence.java)
 
+- [剑指 Offer 面试题 10-2：青蛙跳台阶](src/io/ziheng/codinginterviews/JumpingStairs.java)
+
 - [剑指 Offer 面试题 15：二进制中 1 的个数](src/io/ziheng/codinginterviews/NumberOfOneInBinary.java)
 
 - [剑指 Offer 面试题 18：删除链表节点](src/io/ziheng/codinginterviews/DeleteNodeInLinkedList.java)
