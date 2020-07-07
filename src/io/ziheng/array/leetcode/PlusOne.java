@@ -8,32 +8,37 @@ import java.util.LinkedList;
  * https://leetcode.com/problems/plus-one/
  */
 public class PlusOne {
-    public int[] plusOne(int[] digits) {
-        Deque<Integer> deque = new LinkedList<>();
-        int carry = 0;
+    public int[] plusOneT(int[] digits) {
+        if (digits == null || digits.length == 0) {
+            return null;
+        }
+        Deque<Integer> aDeque = new LinkedList<>();
+        int carryNum = 0;
+        int oneNum = 1;
         for (int i = digits.length - 1; i >= 0; i--) {
-            int num = 0;
+            int num = digits[i];
             if (i == digits.length - 1) {
-                num = digits[i] + 1 + carry;
+                num = digits[i] + carryNum + oneNum;
             } else {
-                num = digits[i] + carry;
+                num = digits[i] + carryNum;
             }
             if (num >= 10) {
-                carry = num / 10;
+                carryNum = num / 10;
                 num = num % 10;
             } else {
-                carry = 0;
+                carryNum = 0;
             }
-            deque.offerFirst(num);
+            aDeque.offerFirst(num);
         }
-        if (carry > 0) {
-            deque.offerFirst(carry);
+        if (carryNum > 0) {
+            aDeque.offerFirst(carryNum);
         }
-        int[] resultArray = new int[deque.size()];
-        for (int i = 0; i < resultArray.length; i++) {
-            resultArray[i] = deque.pollFirst();
+        int size = aDeque.size();
+        int[] rArray = new int[size];
+        for (int i = 0; i < size; i++) {
+            rArray[i] = aDeque.pollFirst();
         }
-        return resultArray;
+        return rArray;
     }
 }
 /* EOF */

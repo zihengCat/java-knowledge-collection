@@ -335,13 +335,15 @@ Java 核心知识点梳理。
 
 - [剑指 Offer 面试题 05：从尾到头打印链表](src/io/ziheng/codinginterviews/PrintLinkedListFromTailToHead.java)
 
-- [剑指 Offer 面试题 06：重建二叉树（前序、中序）](src/io/ziheng/codinginterviews/ConstructBinaryTreeFromPreorderAndInorderTraversal.java)
+- [剑指 Offer 面试题 07：重建二叉树（前序、中序）](src/io/ziheng/codinginterviews/ConstructBinaryTreeFromPreorderAndInorderTraversal.java)
 
-- [剑指 Offer 面试题 07：使用栈实现队列](src/io/ziheng/codinginterviews/QueueUsingStacks.java)
+- [剑指 Offer 面试题 09：使用栈实现队列](src/io/ziheng/codinginterviews/QueueUsingStacks.java)
 
 - [剑指 Offer 面试题 10-1：斐波那契数列](src/io/ziheng/codinginterviews/FibonacciSequence.java)
 
 - [剑指 Offer 面试题 10-2：青蛙跳台阶](src/io/ziheng/codinginterviews/JumpingStairs.java)
+
+- [剑指 Offer 面试题 11：旋转数组的最小数字](src/io/ziheng/codinginterviews/MinimalNumberInRotateArray.java)
 
 - [剑指 Offer 面试题 15：二进制中 1 的个数](src/io/ziheng/codinginterviews/NumberOfOneInBinary.java)
 
