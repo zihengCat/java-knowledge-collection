@@ -2,6 +2,8 @@ package io.ziheng.bitmanipulation.leetcode;
 
 import java.math.BigInteger;
 
+import sun.net.www.content.audio.aiff;
+
 /**
  * LeetCode 67. Add Binary
  * https://leetcode.com/problems/add-binary/
@@ -14,37 +16,46 @@ public class AddBinary {
             addBinary.addBinary("11", "11")
         );
     }
+    public String addBinarySimple(String a, String b) {
+        if (a == null || b == null) {
+            return a == null ? b : a;
+        }
+        int aInt = Integer.parseInt(a, 2);
+        int bInt = Integer.parseInt(b, 2);
+        return Integer.toBinaryString(aInt + bInt);
+    }
     public String addBinary(String a, String b) {
         if (a == null || b == null) {
             return a == null ? b : a;
         }
-        int aLength = a.length() - 1;
-        int bLength = b.length() - 1;
-        int carry = 0;
-        StringBuilder sb = new StringBuilder();
-        while (aLength >= 0 || bLength >= 0) {
-            int aInt = aLength >= 0 ? charToInt(a.charAt(aLength)) : 0;
-            int bInt = bLength >= 0 ? charToInt(b.charAt(bLength)) : 0;
-            if (aInt + bInt + carry == 0) {
-                sb.append('0');
-                carry = 0;
-            } else if (aInt + bInt + carry == 1) {
-                sb.append('1');
-                carry = 0;
-            } else if (aInt + bInt + carry == 2) {
-                sb.append('0');
-                carry = 1;
-            } else if (aInt + bInt + carry == 3) {
-                sb.append('1');
-                carry = 1;
+        int aIndex = a.length() - 1;
+        int bIndex = b.length() - 1;
+        int carryBit = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+        while (aIndex >= 0 || bIndex >= 0) {
+            int aInt = aIndex >= 0 ? charToInt(a.charAt(aIndex)) : 0;
+            int bInt = bIndex >= 0 ? charToInt(b.charAt(bIndex)) : 0;
+            int sumNum = aInt + bInt + carryBit;
+            if (sumNum == 0) {
+                stringBuilder.insert(0, '0');
+                carryBit = 0;
+            } else if (sumNum == 1) {
+                stringBuilder.insert(0, '1');
+                carryBit = 0;
+            } else if (sumNum == 2) {
+                stringBuilder.insert(0, '0');
+                carryBit = 1;
+            } else if (sumNum == 3) {
+                stringBuilder.insert(0, '1');
+                carryBit = 1;
             }
-            aLength--;
-            bLength--;
+            aIndex--;
+            bIndex--;
         }
-        if (carry > 0) {
-            sb.append('1');
+        if (carryBit > 0) {
+            stringBuilder.insert(0, '1');
         }
-        return sb.reverse().toString();
+        return stringBuilder.toString();
     }
     private int charToInt(char c) {
         return c - '0';
