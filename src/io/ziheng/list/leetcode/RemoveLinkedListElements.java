@@ -1,39 +1,80 @@
 package io.ziheng.list.leetcode;
-
-import io.ziheng.list.leetcode.ListNode;
-
+/**
+ * Definition for singly-linked list.
+ */
+class ListNode {
+    public int val;
+    public ListNode next;
+    public ListNode() {
+    }
+    public ListNode(int val) {
+        this.val = val;
+    }
+    public ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
 /**
  * LeetCode 203. Remove Linked List Elements
  * https://leetcode.com/problems/remove-linked-list-elements/
  */
 public class RemoveLinkedListElements {
-
-    public ListNode removeElements(ListNode head, int val) {
-        return removeElementsV1(head, val);
-        //return removeElementsV2(head, val);
+    /**
+     * Remove Linked List Elements
+     *
+     * @param args
+     * @return void
+     */
+    public static void main(String[] args) {
+        RemoveLinkedListElements removeLinkedListElements =
+            new RemoveLinkedListElements();
+        System.out.println(
+            removeLinkedListElements.listToString(removeLinkedListElements.buildLinkedList())
+        );
+        System.out.println(
+            removeLinkedListElements.listToString(
+                removeLinkedListElements.removeElements(
+                    removeLinkedListElements.buildLinkedList(),
+                    2
+                )
+            )
+        );
     }
     /**
-     * 移除链表元素。
-     * 时间复杂度：O(n)
-     * 空间复杂度：O(1) 
+     * Remove LinkedList elements
+     *
+     * @param head
+     * @param val
+     * @return
+     */
+    public ListNode removeElements(ListNode head, int val) {
+        return removeElementsIteratively(head, val);
+        // return removeElementsRecursively(head, val);
+    }
+    /**
+     * Remove LinkedList elements iteratively
+     *
+     * Time Complexity: O(n)
+     * Space Complexity: O(1)
      *
      * @param head
      * @param val
      * @return ListNode
      */
-    public ListNode removeElementsV1(ListNode head, int val) {
+    private ListNode removeElementsIteratively(ListNode head, int val) {
         if (head == null) {
             return head;
         }
-        ListNode dummyHead = new ListNode(-1);
+        ListNode dummyHead = new ListNode(0);
         dummyHead.next = head;
         ListNode currentNode = dummyHead;
         while (currentNode.next != null) {
             if (currentNode.next.val == val) {
                 ListNode delNode = currentNode.next;
                 currentNode.next = currentNode.next.next;
-                // Delete Node
-                delNode.val = -1;
+                // Free delNode
+                delNode.val = 0;
                 delNode.next = null;
             } else {
                 currentNode = currentNode.next;
@@ -42,27 +83,29 @@ public class RemoveLinkedListElements {
         return dummyHead.next;
     }
     /**
-     * 移除链表元素（递归）。
-     * 时间复杂度：O(n)
-     * 空间复杂度：O(n) 
+     * Remove LinkedList elements recursively
+     *
+     * Time Complexity: O(n)
+     * Space Complexity: O(1)
      *
      * @param head
      * @param val
      * @return ListNode
      */
-    public ListNode removeElementsV2(ListNode head, int val) {
+    private ListNode removeElementsRecursively(ListNode head, int val) {
         if (head == null) {
-            return null;
-        }
-        ListNode resultList = removeElementsV2(head.next, val);
-        if (head.val == val) {
-            return resultList;
-        } else {
-            head.next = resultList;
             return head;
         }
+        ListNode rList = removeElementsRecursively(head.next, val);
+        if (head.val == val) {
+            // Free delNode -> Head
+            head.val = 0;
+            head.next = null;
+            return rList;
+        }
+        head.next = rList;
+        return head;
     }
-
     public ListNode buildLinkedList() {
         ListNode head = new ListNode(-1);
         ListNode currentNode = head;
@@ -73,7 +116,6 @@ public class RemoveLinkedListElements {
         }
         return head;
     }
-
     public String listToString(ListNode head) {
         if (head == null) {
             return "null";
@@ -87,22 +129,6 @@ public class RemoveLinkedListElements {
         }
         stringBuilder.append(']');
         return stringBuilder.toString();
-    }
-
-    public static void main(String[] args) {
-        RemoveLinkedListElements removeLinkedListElements =
-            new RemoveLinkedListElements();
-        System.out.println(
-            removeLinkedListElements.listToString(removeLinkedListElements.buildLinkedList())
-        );
-        System.out.println(
-            removeLinkedListElements.listToString(
-                removeLinkedListElements.removeElementsV1(
-                    removeLinkedListElements.buildLinkedList(),
-                    2
-                )
-            )
-        );
     }
 }
 /* EOF */
