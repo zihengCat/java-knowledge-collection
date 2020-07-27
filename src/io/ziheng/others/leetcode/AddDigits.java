@@ -1,36 +1,72 @@
 package io.ziheng.others.leetcode;
-
-import java.util.List;
-import java.util.LinkedList;
-
 /**
  * LeetCode 258. Add Digits
  * https://leetcode.com/problems/add-digits/
  */
 public class AddDigits {
     public int addDigits(int num) {
-        if (num == 0) {
-            return 0;
+        if (num <= 0) {
+            return num;
         }
-        int val = num;
-        List<Integer> digits = findDigits(val);
-        while (digits.size() > 1) {
-            int nextVal = 0;
-            for (int n : digits) {
-                nextVal += n;
-            }
-            val = nextVal;
-            digits = findDigits(val);
-        }
-        return digits.get(0);
+        // return addDigitsIteratively(num);
+        return addDigitsRecursively(num);
     }
-    private List<Integer> findDigits(int n) {
-        List<Integer> list = new LinkedList<>();
-        while (n > 0) {
-            list.add(n % 10);
-            n /= 10;
+    /**
+     * Add digits recursively.
+     *
+     * Time Complexity: O(n)
+     * Space Complexity: O(n)
+     *
+     * @param num
+     * @return int
+     */
+    private int addDigitsRecursively(int num) {
+        int currentNum = num;
+        int digitsCount = 0;
+        int nextNum = 0;
+        while (currentNum > 0) {
+            nextNum += currentNum % 10;
+            currentNum /= 10;
+            digitsCount++;
         }
-        return list;
+        // Recursion ends condition
+        if (digitsCount == 1) {
+            return num;
+        }
+        return addDigitsRecursively(nextNum);
+    }
+    /**
+     * Add digits iteratively.
+     *
+     * Time Complexity: O(n)
+     * Space Complexity: O(1)
+     *
+     * @param num
+     * @return int
+     */
+    private int addDigitsIteratively(int num) {
+        int digitsCount = 0;
+        int nextNum = num;
+        do {
+            int[] arr = findNextNum(nextNum);
+            digitsCount = arr[0];
+            nextNum = arr[1];
+        } while (digitsCount != 1);
+        return nextNum;
+    }
+    private int[] findNextNum(int num) {
+        // Time waste here...
+        int[] rArray = new int[2];
+        int digitsCount = 0;
+        int nextNum = 0;
+        while (num > 0) {
+            nextNum += num % 10;
+            num /= 10;
+            digitsCount++;
+        }
+        rArray[0] = digitsCount;
+        rArray[1] = nextNum;
+        return rArray;
     }
 }
 /* EOF */
