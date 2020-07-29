@@ -30,6 +30,7 @@ Java 核心知识点梳理。
   * [Heap](#Heap)
   * [Hash Table](#Hash-Table)
   * [Tree](#Tree)
+  * [Greedy](#Greedy)
   * [Divide and Conquer](#Divide-and-Conquer)
   * [Backtracking](#Backtracking)
   * [Dynamic Programming](#Dynamic-Programming)
@@ -530,6 +531,10 @@ Java 核心知识点梳理。
 - [LeetCode 1305. All Elements in Two Binary Search Trees](src/io/ziheng/tree/leetcode/AllElementsInTwoBinarySearchTrees.java)
 
 - [LeetCode 1302. Deepest Leaves Sum](src/io/ziheng/tree/leetcode/DeepestLeavesSum.java)
+
+### Greedy
+
+- [LeetCode 621. Task Scheduler](src/io/ziheng/greedy/leetcode/TaskScheduler.java)
 
 ### Divide and Conquer
 
