@@ -20,8 +20,8 @@ public class PathSumIII {
             return 0;
         }
         return (root.val == sum ? 1 : 0)
-        + pathSum0(root.left, sum - root.val)
-        + pathSum0(root.right, sum - root.val);
+            + pathSum0(root.left, sum - root.val)
+            + pathSum0(root.right, sum - root.val);
     }
 }
 /* EOF */
