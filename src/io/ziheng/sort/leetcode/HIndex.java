@@ -17,7 +17,7 @@ public class HIndex {
         int hIndex = 0;
         // Decreasing order
         quickSort(citations, 0, citations.length - 1);
-        // Count
+        // Count H-Index
         for (int i = 0; i < citations.length; i++) {
             if (citations[i] > i) {
                 hIndex++;
