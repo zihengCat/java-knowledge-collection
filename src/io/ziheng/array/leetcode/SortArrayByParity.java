@@ -17,9 +17,7 @@ public class SortArrayByParity {
             while (isEven(A[pLeft]) && pLeft < pRight) {
                 pLeft++;
             }
-            if (pLeft < pRight) {
-                swap(A, pLeft, pRight);
-            }
+            swap(A, pLeft, pRight);
         }
         return A;
     }
