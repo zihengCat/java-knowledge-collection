@@ -1,9 +1,23 @@
 package io.ziheng.tree.leetcode;
 
-import io.ziheng.tree.leetcode.TreeNode;
-
 import java.util.LinkedList;
 import java.util.Queue;
+
+/**
+ * Definition for a binary tree node.
+ */
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
 
 /**
  * LeetCode 404. Sum of Left Leaves
@@ -14,14 +28,15 @@ public class SumOfLeftLeaves {
         if (root == null) {
             return 0;
         }
-        //return sumOfLeftLeavesRecursively(root, false);
+        // return sumOfLeftLeavesRecursively(root, false);
         return sumOfLeftLeavesIteratively(root);
     }
     private int sumOfLeftLeavesRecursively(TreeNode root, boolean isLeft) {
         if (root == null) {
             return 0;
         }
-        if (root.left == null && root.right == null && isLeft) {
+        if (root.left == null && root.right == null
+            && isLeft) {
             return root.val;
         }
         return sumOfLeftLeavesRecursively(root.left, true)
@@ -29,27 +44,27 @@ public class SumOfLeftLeaves {
     }
     private int sumOfLeftLeavesIteratively(TreeNode root) {
         int result = 0;
-        Queue<Pair<TreeNode, Boolean>> queue = new LinkedList<>();
-        queue.offer(new Pair<TreeNode, Boolean>(root, false));
-        while (!queue.isEmpty()) {
-            Pair<TreeNode, Boolean> pair = queue.poll();
+        Queue<Pair<TreeNode, Boolean>> aQueue = new LinkedList<>();
+        aQueue.offer(new Pair<TreeNode, Boolean>(root, false));
+        while (!aQueue.isEmpty()) {
+            Pair<TreeNode, Boolean> pair = aQueue.poll();
             TreeNode node = pair.getLeft();
-            if (isLeaveNode(node) && pair.getRight()) {
+            if (isLeave(node) && pair.getRight()) {
                 result += node.val;
             }
             if (node.left != null) {
-                queue.offer(new Pair<TreeNode, Boolean>(node.left, true));
+                aQueue.offer(new Pair<TreeNode, Boolean>(node.left, true));
             }
             if (node.right != null) {
-                queue.offer(new Pair<TreeNode, Boolean>(node.right, false));
+                aQueue.offer(new Pair<TreeNode, Boolean>(node.right, false));
             }
         }
         return result;
     }
-    private boolean isLeaveNode(TreeNode node) {
+    private boolean isLeave(TreeNode node) {
         return node != null
-        ? node.left == null && node.right == null
-        : false;
+            ? node.left == null && node.right == null
+            : false;
     }
     private class Pair<L, R> {
         private L left;
