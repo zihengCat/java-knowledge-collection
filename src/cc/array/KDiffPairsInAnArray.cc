@@ -57,7 +57,7 @@ private:
             }
         }
         int r = 0;
-        for(map<int, int>::iterator iter = cnt.begin();
+        for (map<int, int>::iterator iter = cnt.begin();
             iter != cnt.end();
             iter++) {
             int x = iter -> first;
