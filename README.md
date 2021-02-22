@@ -578,6 +578,8 @@ Java 核心知识点梳理。
 
 - [LeetCode 1356. Sort Integers by The Number of 1 Bits](src/io/ziheng/bitmanipulation/leetcode/SortIntegersByTheNumberOf1Bits.java)
 
+- [LeetCode 1758. Minimum Changes To Make Alternating Binary String](src/io/ziheng/bitmanipulation/leetcode/MinimumChangesToMakeAlternatingBinaryString.java)
+
 # 许可协议（License）
 
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
@@ -586,6 +588,8 @@ Java 核心知识点梳理。
 - 时刻学习
 - 积极主动
 - 事事有回复
-- 慎重承诺，使命必达
+- 慎重承诺
+- 使命必达
 -->
+
 <!-- EOF -->
