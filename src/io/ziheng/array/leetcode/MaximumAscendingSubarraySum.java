@@ -1,10 +1,11 @@
+package io.ziheng.array.leetcode;
 
 /**
  * LeetCode 1800. Maximum Ascending Subarray Sum
  * https://leetcode.com/problems/maximum-ascending-subarray-sum/
  */
 class MaximumAscendingSubarraySum {
-	public static void main(String[] args) {}
+    public static void main(String[] args) {
         // ...
     }
     public int maxAscendingSum(int[] nums) {
